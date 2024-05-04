@@ -49,8 +49,8 @@ set param_card decay 102 auto
 set param_card decay 103 auto
 
 set run_card nevents 100000
-set run_card ebeam1 7000.0
-set run_card ebeam2 7000.0
+set run_card ebeam1 6500.0
+set run_card ebeam2 6500.0
 
 set run_card ptb 24
 set run_card etab 2.6
