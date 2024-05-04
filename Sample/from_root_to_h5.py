@@ -8,78 +8,19 @@
 import os
 import sys
 import h5py
-import math
-import uproot
+import ROOT
 
 import numpy as np
 
 from tqdm import tqdm
 
-
-class BranchGenParticles:
-    def __init__(self, file, start, end):
-        print('Initialize GenParticles')
-        self.file = file
-        self.length = len(file['Particle.Status'].array(entry_start=start, entry_stop=end))
-        print('Initialize GenParticles: Status')
-        self.Status = file['Particle.Status'].array(entry_start=start, entry_stop=end)
-        print('Initialize GenParticles: PID')
-        self.PID = file['Particle.PID'].array(entry_start=start, entry_stop=end)
-        print('Initialize GenParticles: M1')
-        self.M1 = file['Particle.M1'].array(entry_start=start, entry_stop=end)
-        print('Initialize GenParticles: M2')
-        self.M2 = file['Particle.M2'].array(entry_start=start, entry_stop=end)
-        print('Initialize GenParticles: D1')
-        self.D1 = file['Particle.D1'].array(entry_start=start, entry_stop=end)
-        print('Initialize GenParticles: D2')
-        self.D2  = file['Particle.D2'].array(entry_start=start, entry_stop=end)
-        print('Initialize GenParticles: PT')
-        self.PT = file['Particle.PT'].array(entry_start=start, entry_stop=end)
-        print('Initialize GenParticles: Eta')
-        self.Eta =  file['Particle.Eta'].array(entry_start=start, entry_stop=end)
-        print('Initialize GenParticles: Phi')
-        self.Phi = file['Particle.Phi'].array(entry_start=start, entry_stop=end)
-        print('Initialize GenParticles: Mass')
-        self.Mass = file['Particle.Mass'].array(entry_start=start, entry_stop=end)
-        print('Initialize GenParticles: Charge')
-        self.Charge = file['Particle.Charge'].array(entry_start=start, entry_stop=end)
-        self.Labels = ['Status', 'PID', 'M1', 'M2', 'D1', 'D2', 'PT', 'Eta', 'Phi', 'Mass', 'Charge']
-
-    def length_At(self, i):
-        return len(self.Status[i])
-
-    def Status_At(self, i):
-        return self.Status[i]
-
-    def PID_At(self, i):
-        return self.PID[i]
-
-    def M1_At(self, i):
-        return self.M1[i]
-
-    def M2_At(self, i):
-        return self.M2[i]
-
-    def D1_At(self, i):
-        return self.D1[i]
-
-    def D2_At(self, i):
-        return self.D2[i]
-
-    def PT_At(self, i):
-        return self.PT[i]
-
-    def Eta_At(self, i):
-        return self.Eta[i]
-
-    def Phi_At(self, i):
-        return self.Phi[i]
-
-    def Mass_At(self, i):
-        return self.Mass[i]
-
-    def Charge_At(self, i):
-        return self.Charge[i]
+ROOT.gROOT.ProcessLine('.include /usr/local/Delphes-3.4.2/')
+ROOT.gROOT.ProcessLine('.include /usr/local/Delphes-3.4.2/external/')
+ROOT.gInterpreter.Declare('#include "/usr/local/Delphes-3.4.2/classes/DelphesClasses.h"')
+ROOT.gInterpreter.Declare('#include "/usr/local/Delphes-3.4.2/external/ExRootAnalysis/ExRootTreeReader.h"')
+ROOT.gInterpreter.Declare('#include "/usr/local/Delphes-3.4.2/external/ExRootAnalysis/ExRootConfReader.h"')
+ROOT.gInterpreter.Declare('#include "/usr/local/Delphes-3.4.2/external/ExRootAnalysis/ExRootTask.h"')
+ROOT.gSystem.Load("/usr/local/Delphes-3.4.2/install/lib/libDelphes")
 
 
 def DeltaR(eta1, phi1, eta2, phi2):
@@ -151,147 +92,142 @@ def resize_h5(file_path, nevent):
     print(f'{file_path} resize to {nevent}')
 
 
-def main(root_path, output_path, nbj_min=0, nevent_max=100000):
+def main(root_path, output_path, nbj_min=0):
     # root_path: input root file path
     # output_path: output h5 file path
     # nbj_min: 最少要有幾個 b-jet
-    # nevent_max: 每個 h5 file 最多有幾個 event，記憶體不夠時可以調小
 
     MAX_JETS = 15
 
-    root_file = uproot.open(root_path)["Delphes;1"]
-    num_entries = root_file.num_entries
+    f = ROOT.TFile(root_path)
+    tree = f.Get("Delphes")
+    nevent = tree.GetEntries()
 
-    for i in range(math.ceil(num_entries/nevent_max)):
+    start = 0
+    end = nevent
 
-        start = i * nevent_max
-        end = min(start + nevent_max, num_entries)
+    event_index = 0
 
-        GenParticle = BranchGenParticles(root_file, start, end)
+    root, _ = os.path.splitext(output_path)
+    event_file_path = f'{root}.h5'
 
-        jet_PT = root_file['Jet.PT'].array(entry_start=start, entry_stop=end)
-        jet_Eta = root_file['Jet.Eta'].array(entry_start=start, entry_stop=end)
-        jet_Phi = root_file['Jet.Phi'].array(entry_start=start, entry_stop=end)
-        jet_Mass = root_file['Jet.Mass'].array(entry_start=start, entry_stop=end)
-        jet_BTag = root_file['Jet.BTag'].array(entry_start=start, entry_stop=end)
+    with h5py.File(event_file_path, 'w') as f_out:
 
-        nevent = len(jet_PT)
-        event_index = 0
+        create_triHiggs_dataset(f_out, nevent, MAX_JETS)
 
-        root, _ = os.path.splitext(output_path)
-        event_file_path = f'{root}-{i:02}.h5'
+        for i in tqdm(range(start, end)):
+            tree.GetEntry(i)
 
-        with h5py.File(event_file_path, 'w') as f_out:
+            # 夸克資料
+            # b夸克 衰變前的編號
+            quarks_id = []
+            quarks_Eta = []
+            quarks_Phi = []
+            quarks_Jet = [-1, -1, -1, -1, -1, -1]
 
-            create_triHiggs_dataset(f_out, nevent, MAX_JETS)
-
-            for event in tqdm(range(nevent)):
-
-                # 夸克資料
-                # b夸克 衰變前的編號
-                quarks_id = []
-                quarks_Eta = []
-                quarks_Phi = []
-                quarks_Jet = [-1, -1, -1, -1, -1, -1]
-
-                PID = GenParticle.PID_At(event)
-                D1 = GenParticle.D1_At(event)
-                D2 = GenParticle.D2_At(event)
-
-                # 找出 3 個 final Higgs
-                final_h_index = []
-                for j in np.where(PID == 25)[0]:
-                    h = j
-                    d1 = D1[h]
-                    while abs(PID[d1]) == 25:
+            # 找出 3 個 final Higgs
+            final_h_index = []
+            for index, particle in enumerate(tree.Particle):
+                if particle.PID == 25:
+                    h = index
+                    d1 = tree.Particle[h].D1
+                    while tree.Particle[d1].PID == 25:
                         h = d1
-                        d1 = D1[h]
+                        d1 = tree.Particle[h].D1
                     final_h_index.append(h)
 
-                final_h_index = list(set(final_h_index))
+            final_h_index = list(set(final_h_index))
 
-                # 找出 6個 final b quark
-                for h in final_h_index:
-                    # h > b b~
-                    b1 = D1[h]
-                    b2 = D2[h]
+            # 找出 6個 final b quark
+            for h in final_h_index:
+                # h > b b~
+                b1 = tree.Particle[h].D1
+                b2 = tree.Particle[h].D2
 
-                    # 找出 b 衰變前的編號
-                    d1 = D1[b1]
-                    while abs(PID[d1]) == 5:
-                        b1 = d1
-                        d1 = D1[b1]
+                # 找出 b 衰變前的編號
+                d1 = tree.Particle[b1].D1
+                while abs(tree.Particle[d1].PID) == 5:
+                    b1 = d1
+                    d1 = tree.Particle[b1].D1
 
-                    # 找出 b~ 衰變前的編號
-                    d2 = D1[b2]
-                    while abs(PID[d2]) == 5:
-                        b2 = d2
-                        d2 = D1[b2]
+                # 找出 b~ 衰變前的編號
+                d2 = tree.Particle[b2].D1
+                while abs(tree.Particle[d2].PID) == 5:
+                    b2 = d2
+                    d2 = tree.Particle[b2].D1
 
-                    quarks_id.extend([b1, b2])
+                quarks_id.extend([b1, b2])
 
-                quarks_Eta.extend(GenParticle.Eta_At(event)[quarks_id])
-                quarks_Phi.extend(GenParticle.Phi_At(event)[quarks_id])
+            quarks_Eta.extend(tree.Particle[quark].Eta for quark in quarks_id)
+            quarks_Phi.extend(tree.Particle[quark].Phi for quark in quarks_id)
 
-                # Jet 資料
-                # |eta| < 2.5 & PT > 25 GeV
-                eta_pt_cut = np.array((np.abs(jet_Eta[event]) < 2.5) & (jet_PT[event] > 25))
+            # 事件中的 jet 資料
+            jet_PT = np.array([jet.PT for jet in tree.Jet])
+            jet_Eta = np.array([jet.Eta for jet in tree.Jet])
+            jet_Phi = np.array([jet.Phi for jet in tree.Jet])
+            jet_Mass = np.array([jet.Mass for jet in tree.Jet])
+            jet_BTag = np.array([jet.BTag for jet in tree.Jet])
 
-                nj = eta_pt_cut.sum()
+            # Jet 資料
+            # |eta| < 2.5 & PT > 25 GeV
+            eta_pt_cut = np.array((np.abs(jet_Eta) < 2.5) & (jet_PT > 25))
 
-                # 至少要 6 jet
-                if nj < 6:
-                    continue
+            nj = eta_pt_cut.sum()
 
-                nbj = np.array(jet_BTag[event][eta_pt_cut][:MAX_JETS]).sum()
-                # 在前 MAX_JETS jets 中，至少要 nbj_min 個 b-jet
-                if nbj < nbj_min:
-                    continue
+            # 至少要 6 jet
+            if nj < 6:
+                continue
 
-                PT = np.array(jet_PT[event][eta_pt_cut])
-                Eta = np.array(jet_Eta[event][eta_pt_cut])
-                Phi = np.array(jet_Phi[event][eta_pt_cut])
-                Mass = np.array(jet_Mass[event][eta_pt_cut])
-                BTag = np.array(jet_BTag[event][eta_pt_cut])
+            nbj = np.array(jet_BTag[eta_pt_cut][:MAX_JETS]).sum()
+            # 在前 MAX_JETS jets 中，至少要 nbj_min 個 b-jet
+            if nbj < nbj_min:
+                continue
 
-                # 找出每個夸克配對的 jet
-                more_than_1_jet = False
-                for quark in range(len(quarks_Jet)):
-                    for i in range(min(nj, MAX_JETS)):
-                        dR = DeltaR(Eta[i], Phi[i], quarks_Eta[quark], quarks_Phi[quark])
-                        if dR < 0.4 and quarks_Jet[quark] == -1:
-                            quarks_Jet[quark] = i
-                        elif dR < 0.4:
-                            more_than_1_jet = True
+            PT = np.array(jet_PT[eta_pt_cut])
+            Eta = np.array(jet_Eta[eta_pt_cut])
+            Phi = np.array(jet_Phi[eta_pt_cut])
+            Mass = np.array(jet_Mass[eta_pt_cut])
+            BTag = np.array(jet_BTag[eta_pt_cut])
 
-                if more_than_1_jet: continue
+            # 找出每個夸克配對的 jet
+            more_than_1_jet = False
+            for quark in range(len(quarks_Jet)):
+                for i in range(min(nj, MAX_JETS)):
+                    dR = DeltaR(Eta[i], Phi[i], quarks_Eta[quark], quarks_Phi[quark])
+                    if dR < 0.4 and quarks_Jet[quark] == -1:
+                        quarks_Jet[quark] = i
+                    elif dR < 0.4:
+                        more_than_1_jet = True
 
-                h1_mask = get_particle_mask(quarks_Jet, quarks_index=(0, 1))
-                h2_mask = get_particle_mask(quarks_Jet, quarks_index=(2, 3))
-                h3_mask = get_particle_mask(quarks_Jet, quarks_index=(4, 5))
+            if more_than_1_jet:
+                continue
 
-                # 準備寫入資料
-                data_dict = {
-                    'INPUTS/Source/MASK': np.arange(MAX_JETS) < nj,
-                    'INPUTS/Source/pt': PT[:MAX_JETS] if nj > MAX_JETS else np.pad(PT, (0, MAX_JETS-nj)),
-                    'INPUTS/Source/eta': Eta[:MAX_JETS] if nj > MAX_JETS else np.pad(Eta, (0, MAX_JETS-nj)),
-                    'INPUTS/Source/phi': Phi[:MAX_JETS] if nj > MAX_JETS else np.pad(Phi, (0, MAX_JETS-nj)),
-                    'INPUTS/Source/mass': Mass[:MAX_JETS] if nj > MAX_JETS else np.pad(Mass, (0, MAX_JETS-nj)),
-                    'INPUTS/Source/btag': BTag[:MAX_JETS] if nj > MAX_JETS else np.pad(BTag, (0, MAX_JETS-nj)),
+            h1_mask = get_particle_mask(quarks_Jet, quarks_index=(0, 1))
+            h2_mask = get_particle_mask(quarks_Jet, quarks_index=(2, 3))
+            h3_mask = get_particle_mask(quarks_Jet, quarks_index=(4, 5))
 
-                    'TARGETS/h1/b1': quarks_Jet[0] if h1_mask else -1,
-                    'TARGETS/h1/b2': quarks_Jet[1] if h1_mask else -1,
-                    'TARGETS/h2/b1': quarks_Jet[2] if h2_mask else -1,
-                    'TARGETS/h2/b2': quarks_Jet[3] if h2_mask else -1,
-                    'TARGETS/h3/b1': quarks_Jet[4] if h3_mask else -1,
-                    'TARGETS/h3/b2': quarks_Jet[5] if h3_mask else -1,
+            # 準備寫入資料
+            data_dict = {
+                'INPUTS/Source/MASK': np.arange(MAX_JETS) < nj,
+                'INPUTS/Source/pt': PT[:MAX_JETS] if nj > MAX_JETS else np.pad(PT, (0, MAX_JETS-nj)),
+                'INPUTS/Source/eta': Eta[:MAX_JETS] if nj > MAX_JETS else np.pad(Eta, (0, MAX_JETS-nj)),
+                'INPUTS/Source/phi': Phi[:MAX_JETS] if nj > MAX_JETS else np.pad(Phi, (0, MAX_JETS-nj)),
+                'INPUTS/Source/mass': Mass[:MAX_JETS] if nj > MAX_JETS else np.pad(Mass, (0, MAX_JETS-nj)),
+                'INPUTS/Source/btag': BTag[:MAX_JETS] if nj > MAX_JETS else np.pad(BTag, (0, MAX_JETS-nj)),
 
-                    'CLASSIFICATIONS/EVENT/signal': 1,
+                'TARGETS/h1/b1': quarks_Jet[0] if h1_mask else -1,
+                'TARGETS/h1/b2': quarks_Jet[1] if h1_mask else -1,
+                'TARGETS/h2/b1': quarks_Jet[2] if h2_mask else -1,
+                'TARGETS/h2/b2': quarks_Jet[3] if h2_mask else -1,
+                'TARGETS/h3/b1': quarks_Jet[4] if h3_mask else -1,
+                'TARGETS/h3/b2': quarks_Jet[5] if h3_mask else -1,
 
-                }
+                'CLASSIFICATIONS/EVENT/signal': 1,
 
-                write_dataset(f_out, event_index, data_dict)
-                event_index += 1
+            }
+
+            write_dataset(f_out, event_index, data_dict)
+            event_index += 1
 
         resize_h5(event_file_path, event_index)
 
