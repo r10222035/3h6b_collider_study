@@ -12,7 +12,7 @@ import ROOT
 import numpy as np
 import multiprocessing as mp
 
-from tqdm import tqdm
+from atpbar import atpbar, register_reporter, find_reporter, flush
 from itertools import repeat
 
 ROOT.gROOT.ProcessLine('.include /usr/local/Delphes-3.4.2/')
@@ -24,7 +24,7 @@ ROOT.gInterpreter.Declare('#include "/usr/local/Delphes-3.4.2/external/ExRootAna
 ROOT.gSystem.Load("/usr/local/Delphes-3.4.2/install/lib/libDelphes")
 
 MAX_JETS = 15
-N_CORES = 16
+N_CORES = 64
 
 
 def DeltaR(eta1, phi1, eta2, phi2):
@@ -99,7 +99,7 @@ def select_event(root_path, nbj_min, start, end):
     tree = f.Get("Delphes")
 
     data_list = []
-    for i in tqdm(range(start, end)):
+    for i in atpbar(range(start, end)):
         tree.GetEntry(i)
 
         # 夸克資料
@@ -229,8 +229,12 @@ def from_root_to_h5(root_path, output_path, nbj_min=0):
     end = [nevent // N_CORES * (i+1) for i in range(N_CORES)]
     end[-1] = nevent
 
-    with mp.Pool(processes=N_CORES) as pool:
+    # progress bar
+    reporter = find_reporter()
+
+    with mp.Pool(processes=N_CORES, initializer=register_reporter, initargs=[reporter]) as pool:
         results = pool.starmap(select_event, zip(repeat(root_path), repeat(nbj_min), start, end))
+        flush()
     data_list = [data_dict for result_list in results for data_dict in result_list]
 
     # write to h5 file
