@@ -1,0 +1,246 @@
+%!TEX program = xelatex
+%!TEX options=--shell-escape
+\documentclass[12pt]{article}
+
+%
+\usepackage[scheme=plain]{ctex}
+%
+
+\usepackage{fontspec}
+%
+\usepackage[margin = 1in]{geometry}
+
+%
+\usepackage[dvipsnames]{xcolor}
+
+%
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+%
+\usepackage{tensor}
+%
+\usepackage{slashed}
+\usepackage{physics}
+
+%
+\usepackage{mathtools}
+
+%
+\usepackage{bm}
+\newcommand{\dbar}{\dif\hspace*{-0.18em}\bar{}\hspace*{0.2em}}
+\DeclareMathAlphabet\mathbfcal{OMS}{cmsy}{b}{n}
+%\usepackage{bbold}
+\newcommand*{\dif}{\mathop{}\!\mathrm{d}}
+\newcommand*{\euler}{\mathrm{e}}
+\newcommand*{\imagi}{\mathrm{i}}
+
+\renewcommand{\vec}[1]{\boldsymbol{\mathbf{#1}}}
+
+\usepackage{caption}
+\usepackage{multirow}
+\usepackage{enumitem}
+
+%
+\usepackage{mathrsfs}
+\usepackage{dsfont}
+
+%
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=violet,
+    filecolor=blue,      
+    urlcolor=blue,
+    citecolor=cyan,
+}
+
+%
+\usepackage{graphicx}
+\usepackage{subfig}
+%
+\graphicspath{{figures/}{../figures/}}
+
+%
+\usepackage{indentfirst}
+%
+\setlength{\parindent}{2em}
+\linespread{1.25}
+
+% 
+% \setmainfont{Times New Roman}
+\usepackage[T1]{fontenc}
+\title{Note}
+\author{Feng-Yang Hsieh}
+\date{}
+
+\begin{document}
+\maketitle
+
+
+\section{Signal}% (fold)
+\label{sec:signal}
+	We consider a simple extension of the standard model (SM)~\cite{Chen:2022vac}, which includes a vector-like dark fermion $(\overline{\chi}, \chi)$ and a complex singlet scalar $S$. A signature of CP violation could come from the Higgs-to-Higgs decays, $h_3 \to h_2h_1$, where $h_3 / h_2 / h_1$ are the heaviest scalar, second heaviest scalar, and the SM-like 125 GeV Higgs, respectively.
+
+	The signal process is the triple production of 125 GeV Higgs bosons via the gluon fusion: 
+	\[
+		g g \to h_3 \to h_2 h_1 \to h_1h_1h_1
+	\] 
+	The Higgs boson $h_1$ would further decay to the $b \overline{b}$ pair. We consider the banchmark point 1 (BP1), where $m_{h_3} = \text{450 GeV}, m_{h_2} = \text{280 GeV}, m_{h_1} = \text{125 GeV}$. This process is generated at $\sqrt{s} = \text{13 TeV}$. Following are the MadGraph scripts for generating signal samples:
+	\begin{verbatim}
+		import model cxSM_VLF_EFT
+		generate g g > h h h
+		output MG5/gghhh_bsm
+		launch MG5/gghhh_bsm
+
+		shower=Pythia8
+		detector=Delphes
+		analysis=OFF
+		madspin=ON
+		done
+
+		set param_card mh1 125
+		set param_card mh2 280
+		set param_card mh3 420
+		set param_card theta12 0.73
+		set param_card theta13 1.67079632679
+		set param_card theta23 -0.73
+		set param_card vs 200
+		set param_card delta2 0
+		set param_card Rdelta3 0
+		set param_card Idelta3 -3.5
+		set param_card b2 0
+		set param_card Rc1 0
+		set param_card Ic1 0
+		set param_card Rc2 0
+		set param_card Ic2 0
+		set param_card Rd3 0
+		set param_card Id3 0
+		set param_card msq -5033.406281907266
+		set param_card lam 0.13850082540690806
+		set param_card Rdelta1 -47.561525227572744
+		set param_card Idelta1 853.05384671134
+		set param_card Rb1 -70476.6380004269
+		set param_card Ib1 -30486.140015405872
+		set param_card Rd1 -2.562109886826132
+		set param_card Id1 2.257859679994403
+		set param_card d2 6.340799300844676
+		set param_card gh1ggr -0.00005478952893059635
+		set param_card gh1gagar -0.00003270447254456052
+		set param_card gh1Zgar -0.00005871986046374793
+		set param_card gh2ggr -1.4279972541632635e-7
+		set param_card gh2gagar -8.237715486808595e-8
+		set param_card gh2Zgar -1.3984990232267825e-7
+		set param_card gh3ggr -6.031835872118092e-6
+		set param_card gh3gagar -1.1377279177203616e-6
+		set param_card gh3Zgar -2.2999597941282603e-6
+
+		set param_card decay 102 auto
+		set param_card decay 103 auto
+
+		set run_card nevents 100000
+		set run_card ebeam1 6500.0
+		set run_card ebeam2 6500.0
+
+		set run_card ptb 24
+		set run_card etab 2.6
+
+		set spinmode none
+		decay h > b b~
+
+		done
+	\end{verbatim}
+% section signal (end)
+\section{SPANet pairing}% (fold)
+\label{sec:spanet_pairing}
+	We employ the novel neural network structure \textsc{Spa-Net}~\cite{PhysRevD.105.112008, Fenton:2023ikr, 10.21468/SciPostPhys.12.5.178} to identify the correct pairings among the jets in the final states.
+	\subsection{Training dataset preparation}% (fold)
+	\label{sub:training_dataset_preparation}
+		Preselection: $\ge 6$ jets with transverse momentum $p_{\text{T}} \ge \text{25 GeV}$ in range $\abs{\eta} < 2.5$.
+
+		The input features for the \textsc{Spa-Net} are a list of jets, each represented by its 4-component vector $(p_\text{T}, \eta, \phi, m)$ as well as a boolean $b$-tag. We only keep each event's 15 highest $p_\text{T}$ jets. For each event, we define the correct jet assignments by matching the jets to the simulated truth quarks within an angular distance of $\Delta R < 0.4$. If a simulated truth quark is matched to more than one jet, such an event will be dropped. Furthermore, some simulated truth quarks may not be matched to any jet, in which case the event will not be used in training either. 
+
+		After the selection and matching, we could obtain the following results from 1M events:
+		\begin{itemize}
+			\item Total sample size: 522,899
+			\item 1h sample size: 184,769
+			\item 2h sample size: 161,476
+			\item 3h sample size: 94,464
+		\end{itemize}
+		Here, the 1h sample is the event where we could define the correct jet assignments for 1 Higgs boson. 
+	% subsection training_dataset_preparation (end)
+	\subsection{Training results}% (fold)
+	\label{sub:training_results}
+		\begin{itemize}
+			\item Training sample:
+			\begin{itemize}
+				\item Total sample size: 470,609
+				\item 1h sample size: 166,490
+				\item 2h sample size: 145,309
+				\item 3h sample size: 84,913
+				\item 5\% used on validation
+			\end{itemize}
+			\item Testing sample: 
+			\begin{itemize}
+				\item Total sample size: 52,290
+				\item 1h sample size: 18,279
+				\item 2h sample size: 16,167
+				\item 3h sample size: 9,551
+			\end{itemize}
+		\end{itemize}
+
+		Some useful definitions for evaluating jet assignment performance:
+		\begin{itemize}		
+		\item Event Efficiency
+		\begin{equation}
+			\epsilon^{\text{event}} \equiv \frac{\text{number of events with and all Higgs are correctly identified}}{\text{number of events}} 
+		\end{equation}
+
+		\item Higgs Efficiency
+		\begin{equation}
+			\epsilon^{\text{h}} \equiv \frac{\text{number of correctly identified Higgs}}{\text{number of identifiable Higgs}} 
+		\end{equation}
+	\end{itemize}
+		The training results are shown in Table~\ref{tab:SPANet_triHiggs_0b}.
+		\begin{table}[htpb]
+			\centering
+			\caption{\textsc{Spa-Net} pairing efficiencies on 3h events.}
+			\label{tab:SPANet_triHiggs_0b}
+			\begin{tabular}{c|c|cc}
+				$N_\text{Jet}$ & Event Fraction & Event Efficiency & Higgs Efficiency \\
+				\hline
+				$=6$	  &   0.077             &    0.532              &    0.650             \\
+				$=7$	  &   0.057             &    0.345              &    0.536             \\
+				$\ge 8$	  &   0.052             &    0.237              &    0.452             \\
+				Total	  &   0.186             &    0.375              &    0.548   
+			\end{tabular}
+		\end{table}
+	% subsection training_results (end)
+% section spanet_pairing (end)
+\section{\texorpdfstring{$\chi^2$}{chi2} pairing}% (fold)
+\label{sec:chi2_pairing}
+	$\chi^2$ method considers all possible combinations of final jets and selects the configuration that minimizes the mass difference between Higgs candidates and SM Higgs, i.e., minimizes this:
+	\begin{equation}\label{eq:triHiggs_chisq}
+		\chi^2 = [m(j_1j_2) - m_h]^2 + [m(j_3j_4) - m_h]^2 + [m(j_5j_6) - m_h]^2
+	\end{equation}
+	where $m(j_ij_j)$ is the invariant mass of jet $i, j$ and $m_h = \text{125 GeV}$.
+
+	Table~\ref{tab:chi2_pairing_triHiggs_0b} is the performance of the $\chi^2$ method.
+	\begin{table}[htpb]
+		\centering
+		\caption{$\chi^2$ pairing efficiencies on 3h events.}
+		\label{tab:chi2_pairing_triHiggs_0b}
+		\begin{tabular}{c|c|cc}
+			$N_\text{Jet}$ & Event Fraction & Event Efficiency & Higgs Efficiency \\
+			\hline
+			$=6$	  &   0.077             &    0.403              &    0.450             \\
+			$=7$	  &   0.057             &    0.158              &    0.281             \\
+			$\ge 8$	  &   0.052             &    0.000              &    0.077             \\
+			Total	  &   0.186             &    0.215              &    0.294
+		\end{tabular}
+	\end{table}
+% section chi2_pairing (end)
+\bibliographystyle{plain}
+\bibliography{reference}
+		
+\end{document} 
