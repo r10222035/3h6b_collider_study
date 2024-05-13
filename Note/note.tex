@@ -257,7 +257,40 @@
 		\end{tabular}
 	\end{table}
 % section estimate_cross_section_of_background_process (end)
-% section section_name (end)
+\section{Compute pairing efficiency}% (fold)
+\label{sec:compute_pairing_efficiency}
+	To understand the pairing performance with different pairing methods, we compute how many events where 1h/2h/3h bosons are reconstructed correctly.
+
+	The pairing performance of \textsc{Spa-Net} are shown in Table~\ref{tab:SPANet_triHiggs_0b_1h2h3h}. Table~\ref{tab:chi2_pairing_triHiggs_0b_1h2h3h} is the performance of the $\chi^2$ method. For both cases, we found the number of events where only two Higgs are paired correctly is very small, which means if we can pair two Higgs bosons correctly, then we have a high chance to correctly pair the final Higgs.
+
+	Note that Higgs Efficiencies of \textsc{Spa-Net} are inconsistent with Table~\ref{tab:SPANet_triHiggs_0b}. This issue needs more checking.
+	\begin{table}[htpb]
+		\centering
+		\caption{\textsc{Spa-Net} pairing efficiencies on different categories.}
+		\label{tab:SPANet_triHiggs_0b_1h2h3h}
+		\begin{tabular}{c|cccc|c}
+			\multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+			$N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+			$=6$                  & 0.532       & 0.000      & 0.119      & 0.348      & 0.572                \\
+			$=7$                  & 0.345       & 0.021      & 0.166      & 0.469      & 0.414                \\
+			$\ge 8$               & 0.237       & 0.022      & 0.186      & 0.554      & 0.314                \\ \hline
+			Total                 & 0.375       & 0.014      & 0.156      & 0.455      & 0.436               
+		\end{tabular}
+	\end{table}
+	\begin{table}[htpb]
+		\centering
+		\caption{$\chi^2$ pairing efficiencies on different categories.}
+		\label{tab:chi2_pairing_triHiggs_0b_1h2h3h}
+		\begin{tabular}{c|cccc|c}
+			\multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+			$N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+			$=6$                  & 0.403       & 0.000      & 0.143      & 0.455      & 0.450                \\
+			$=7$                  & 0.158       & 0.070      & 0.228      & 0.544      & 0.281                \\
+			$\ge 8$               & 0.000       & 0.000      & 0.231      & 0.769      & 0.077                \\ \hline
+			Total                 & 0.215       & 0.022      & 0.194      & 0.570      & 0.294               
+		\end{tabular}
+	\end{table}
+% section compute_pairing_efficiency (end)
 \bibliographystyle{plain}
 \bibliography{reference}
 		
