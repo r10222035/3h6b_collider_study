@@ -240,6 +240,24 @@
 		\end{tabular}
 	\end{table}
 % section chi2_pairing (end)
+\section{Estimate cross-section of background process}% (fold)
+\label{sec:estimate_cross_section_of_background_process}
+	Besides the 6 $b$ background, we need to consider the backgrounds that come from the mis-tagging of light jets or charm-jets to $b$-jets. We assume that the probability of a charm-jet being misidentified as $b$-jet is $\mathcal{P}_{c\to b} = 0.1$ and that of light jets is $\mathcal{P}_{j\to b} = 0.01$. The $b$-tagging efficiency is assumed to be $\mathcal{P}_{b\to b} = 0.7$.
+
+	Table~\ref{tab:cross_section_of_mis_tagging_background} shows the cross-section computed from \verb|MadGraph| and the cross-section times the mis-tagging probabilities $\mathcal{P}_{c\to b}$ and $\mathcal{P}_{j\to b}$. The $6b$ process contributes much more than the processes containing the charm quark.
+	\begin{table}[htpb]
+		\centering
+		\caption{The cross-sections of mis-tagging background processes. The cross-sections are computed from the MadGraph at $\sqrt{s} = 13 \text{ TeV}$.}
+		\label{tab:cross_section_of_mis_tagging_background}
+		\begin{tabular}{c|cc}
+		process                                         & $\sigma\text{ (pb)}$ & $\sigma\times\mathcal{P}(\text{tagging efficiency})\text{ (pb)}$ \\ \hline
+		$(b\overline{b})(b\overline{b})(b\overline{b})$ & 2531.93              & 297.88                                                           \\
+		$(b\overline{b})(b\overline{b})(c\overline{c})$ & 272.45               & $6.54 \times 10^{-1}$                                            \\
+		$(b\overline{b})(c\overline{c})(c\overline{c})$ & 37.29                & $1.83 \times 10^{-3}$                                           
+		\end{tabular}
+	\end{table}
+% section estimate_cross_section_of_background_process (end)
+% section section_name (end)
 \bibliographystyle{plain}
 \bibliography{reference}
 		
