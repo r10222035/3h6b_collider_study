@@ -244,17 +244,31 @@
 \label{sec:estimate_cross_section_of_background_process}
 	Besides the 6 $b$ background, we need to consider the backgrounds that come from the mis-tagging of light jets or charm-jets to $b$-jets. We assume that the probability of a charm-jet being misidentified as $b$-jet is $\mathcal{P}_{c\to b} = 0.1$ and that of light jets is $\mathcal{P}_{j\to b} = 0.01$. The $b$-tagging efficiency is assumed to be $\mathcal{P}_{b\to b} = 0.7$.
 
-	Table~\ref{tab:cross_section_of_mis_tagging_background} shows the cross-section computed from \verb|MadGraph| and the cross-section times the mis-tagging probabilities $\mathcal{P}_{c\to b}$ and $\mathcal{P}_{j\to b}$. The $6b$ process contributes much more than the processes containing the charm quark.
+	Table~\ref{tab:cross_section_of_mis_tagging_background} shows the cross-section computed from \verb|MadGraph| and the cross-section times the mis-tagging probabilities $\mathcal{P}_{c\to b}$ and $\mathcal{P}_{j\to b}$. Table~\ref{tab:cross_section_of_mis_tagging_background_w_cuts} shows the same results with kinetic cuts. We require the transverse momentum $p_{\text{T}}$ of each jet greater than $\text{24 GeV}$ and in the range $\abs{\eta} < 2.6$ at the \verb|MadGraph| level. The $6b$ process contributes much more than the processes containing charm jets and light jets.
 	\begin{table}[htpb]
 		\centering
 		\caption{The cross-sections of $6b$ and mis-tagging background processes. The cross-sections are computed from the MadGraph at $\sqrt{s} = 13 \text{ TeV}$.}
 		\label{tab:cross_section_of_mis_tagging_background}
 		\begin{tabular}{c|cc}
 		process                                         & $\sigma\text{ (pb)}$ & $\sigma\times\mathcal{P}(\text{tagging efficiency})\text{ (pb)}$ \\ \hline
-		$(b\overline{b})(b\overline{b})(b\overline{b})$ & 2531.93              & 297.88                                                           \\
-		$(b\overline{b})(b\overline{b})(c\overline{c})$ & 272.45               & $6.54 \times 10^{-1}$                                            \\
-		$(b\overline{b})(c\overline{c})(c\overline{c})$ & 37.29                & $1.83 \times 10^{-3}$                                            \\
-		$(b\overline{b})(b\overline{b})(jj)$ &   $7.44 \times 10^{4}$            & 1.79
+		$(b\overline{b})(b\overline{b})(b\overline{b})$ & $2.53 \times 10^{3}$ & $2.97 \times 10^{2}$                                             \\
+		$(b\overline{b})(b\overline{b})(c\overline{c})$ & $2.72 \times 10^{2}$ & $6.54 \times 10^{-1}$                                            \\
+		$(b\overline{b})(c\overline{c})(c\overline{c})$ & $3.73 \times 10^{1}$ & $1.83 \times 10^{-3}$                                            \\
+		$(b\overline{b})(b\overline{b})(jj)$            & $7.44 \times 10^{4}$ & 1.79
+		\end{tabular}
+	\end{table}
+
+	\begin{table}[htpb]
+		\centering
+		\caption{The cross-sections of $6b$ and mis-tagging background processes. The cross-sections are computed from the MadGraph at $\sqrt{s} = 13 \text{ TeV}$. We require the transverse momentum $p_{\text{T}}$ of each jets greater than $\text{24 GeV}$ in range $\abs{\eta} < 2.6$.}
+		\label{tab:cross_section_of_mis_tagging_background_w_cuts}
+		\begin{tabular}{c|cc}
+		process                                         & $\sigma\text{ (fb)}$ & $\sigma\times\mathcal{P}(\text{tagging efficiency})\text{ (fb)}$ \\ \hline
+		$(b\overline{b})(b\overline{b})(b\overline{b})$ & $9.63 \times 10^{2}$ & $113.35$                                                         \\
+		$(b\overline{b})(b\overline{b})(c\overline{c})$ & $1.67 \times 10^{3}$ & $4.02$                                                           \\
+		$(b\overline{b})(c\overline{c})(c\overline{c})$ & $1.06 \times 10^{3}$ & $5.19 \times 10^{-2}$                                            \\
+		$(b\overline{b})(b\overline{b})(jj)$            & $4.16 \times 10^{5}$ & $9.98$                                                           \\
+		$(b\overline{b})(jj)(jj)$                       & $1.50 \times 10^{7}$ & $7.73 \times 10^{-2}$                                           
 		\end{tabular}
 	\end{table}
 % section estimate_cross_section_of_background_process (end)
