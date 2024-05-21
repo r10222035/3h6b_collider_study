@@ -276,7 +276,7 @@
 \label{sec:compute_pairing_efficiency}
 	To understand the pairing performance with different pairing methods, we compute how many events where 1h/2h/3h bosons are reconstructed correctly.
 
-	The pairing performance of \textsc{Spa-Net} are shown in Table~\ref{tab:SPANet_triHiggs_0b_1h2h3h}. Table~\ref{tab:chi2_pairing_triHiggs_0b_1h2h3h} is the performance of the $\chi^2$ method. For both cases, we found the number of events where only two Higgs are paired correctly is very small, which means if we can pair two Higgs bosons correctly, then we have a high chance to correctly pair the final Higgs.
+	The pairing performance of \textsc{Spa-Net} are shown in Table~\ref{tab:SPANet_triHiggs_0b_1h2h3h}. Table~\ref{tab:chi2_pairing_triHiggs_0b_1h2h3h} is the performance of the $\chi^2$ method. For both cases, we found the number of events where only two Higgs are paired correctly is very small, which means if we can pair two Higgs bosons correctly, then we have a high chance to pair the final Higgs correctly.
 
 	Note that Higgs Efficiencies of \textsc{Spa-Net} are inconsistent with Table~\ref{tab:SPANet_triHiggs_0b}. This issue needs more checking.
 	\begin{table}[htpb]
@@ -306,6 +306,84 @@
 		\end{tabular}
 	\end{table}
 % section compute_pairing_efficiency (end)
+\section{SPANet pairing and classification}% (fold)
+\label{sec:spanet_pairing_and_classification}
+	
+	We train a \textsc{Spa-Net} to identify the correct pairings and perform the signal/background classification at the same time.
+
+	\subsection{Training dataset}% (fold)
+	\label{sub:training_dataset_classification}
+		The selection and matching process for the jet pairing is the same as Section~\ref{sub:training_dataset_preparation}. We prepare the signal and background samples of the same size for classification.
+
+		For the jet assignment part,
+		\begin{itemize}
+			\item Training sample:
+			\begin{itemize}
+				\item Total sample size: 1,800,000
+				\item 1h sample size: 318,053
+				\item 2h sample size: 277,876
+				\item 3h sample size: 162,444
+				\item 5\% used on validation
+			\end{itemize}
+			\item Testing sample:
+			\begin{itemize}
+				\item Total sample size: 200,000
+				\item 1h sample size: 35,372
+				\item 2h sample size: 30,853
+				\item 3h sample size: 18,004
+			\end{itemize}
+		\end{itemize}
+
+		For event classification,
+		\begin{itemize}
+			\item Training sample:
+			\begin{itemize}
+				\item Total sample size: 1,800,000
+				\item Signal sample size: 900,000
+				\item Background sample size: 900,000
+				\item 5\% used on validation
+			\end{itemize}
+			\item Testing sample:
+			\begin{itemize}
+				\item Total sample size: 200,000
+				\item Signal sample size: 100,000
+				\item Background sample size: 100,000
+			\end{itemize}
+		\end{itemize}
+
+		This training takes around 10 hours on our server.
+	% subsection training_dataset_classification (end)
+	\subsection{Training results}% (fold)
+	\label{sub:training_results}
+		The training results are presented in Table \ref{tab:SPANet_triHiggs_0b_cls_pairing_results}. This result is better than Table~\ref{tab:SPANet_triHiggs_0b_1h2h3h}, since we use larger training datasets.
+
+		\begin{table}[htpb]
+			\centering
+			\caption{\textsc{Spa-Net} training results on the tri-Higgs samples. \textsc{Spa-Net} is trained on jet pairing and event classification tasks at the same time.}
+			\label{tab:SPANet_triHiggs_0b_cls_pairing_results}
+			\begin{tabular}{c|cccc|c}
+			\multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+			$N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+			$=6$                  & 0.656       & 0.000      & 0.082      & 0.262      & 0.684                \\
+			$=7$                  & 0.436       & 0.017      & 0.168      & 0.379      & 0.504                \\
+			$\ge 8$               & 0.341       & 0.018      & 0.173      & 0.468      & 0.411                \\ \hline
+			Total                 & 0.478       & 0.012      & 0.142      & 0.368      & 0.533               
+			\end{tabular}
+			
+		\end{table}
+
+		Table \ref{tab:SPANet_triHiggs_0b_cls_classification_results} presents the classification training results. We use the accuracy (ACC) and the area under the Receiver Operating Characteristic (ROC) curve (AUC) as two metrics.
+		\begin{table}[htpb]
+			\centering
+			\caption{The \textsc{Spa-Net} classification training results with tri-Higgs sample.}
+			\label{tab:SPANet_triHiggs_0b_cls_classification_results}
+			\begin{tabular}{c|cc}
+				             & ACC     & AUC      \\ \hline
+			\textsc{Spa-Net} & $0.822$ & $0.900 $
+			\end{tabular}
+		\end{table}
+	% subsection training_results (end)
+% section spanet_pairing_and_classification (end)
 \bibliographystyle{plain}
 \bibliography{reference}
 		
