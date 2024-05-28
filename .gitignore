@@ -10,6 +10,8 @@
 
 *.sh
 
+py.py
+
 /Reference
 Sample/MG5
 Sample/SPANet
