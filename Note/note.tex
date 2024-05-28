@@ -167,7 +167,7 @@
 			\item 2h sample size: 161,476
 			\item 3h sample size: 94,464
 		\end{itemize}
-		Here, the 1h sample is the event where we could define the correct jet assignments for 1 Higgs boson. 
+		Here, the 1h sample is where we could define the correct jet assignments for 1 Higgs boson. 
 	% subsection training_dataset_preparation (end)
 	\subsection{Training results}% (fold)
 	\label{sub:training_results}
@@ -355,7 +355,7 @@
 	% subsection training_dataset_classification (end)
 	\subsection{Training results}% (fold)
 	\label{sub:training_results}
-		The training results are presented in Table \ref{tab:SPANet_triHiggs_0b_cls_pairing_results}. This result is better than Table~\ref{tab:SPANet_triHiggs_0b_1h2h3h}, since we use larger training datasets.
+		The training results are presented in Table \ref{tab:SPANet_triHiggs_0b_cls_pairing_results}. This result is better than Table~\ref{tab:SPANet_triHiggs_0b_1h2h3h} since we use larger training datasets.
 
 		\begin{table}[htpb]
 			\centering
@@ -383,8 +383,91 @@
 			\end{tabular}
 		\end{table}
 	% subsection training_results (end)
+	\subsection{3h training dataset}% (fold)
+	\label{sub:3h_training_dataset}
+		We only consider 3h events in pairing tasks in this subsection. We prepare the signal and background samples of the same size for classification.
+
+		For the jet assignment part,
+		\begin{itemize}
+			\item Training sample:
+			\begin{itemize}
+				\item Total sample size: 1,800,000
+				\item 1h sample size: 0
+				\item 2h sample size: 0
+				\item 3h sample size: 900,000
+				\item 5\% used on validation
+			\end{itemize}
+			\item Testing sample:
+			\begin{itemize}
+				\item Total sample size: 200,000
+				\item 1h sample size: 0
+				\item 2h sample size: 0
+				\item 3h sample size: 100,000
+			\end{itemize}
+		\end{itemize}
+
+		For event classification,
+		\begin{itemize}
+			\item Training sample:
+			\begin{itemize}
+				\item Total sample size: 1,800,000
+				\item Signal sample size: 900,000
+				\item Background sample size: 900,000
+				\item 5\% used on validation
+			\end{itemize}
+			\item Testing sample:
+			\begin{itemize}
+				\item Total sample size: 200,000
+				\item Signal sample size: 100,000
+				\item Background sample size: 100,000
+			\end{itemize}
+		\end{itemize}
+
+		The training results are presented in Table \ref{tab:SPANet_triHiggs_0b_3h_cls_pairing_results}. This result is similar to Table~\ref{tab:SPANet_triHiggs_0b_cls_pairing_results}.
+
+		\begin{table}[htpb]
+			\centering
+			\caption{\textsc{Spa-Net} training results on the tri-Higgs samples, where we only consider 3h events. \textsc{Spa-Net} is trained on jet pairing and event classification tasks at the same time.}
+			\label{tab:SPANet_triHiggs_0b_3h_cls_pairing_results}
+			\begin{tabular}{c|cccc|c}
+			\multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+			$N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+			$=6$                  & 0.680       & 0.000      & 0.084      & 0.236      & 0.708                \\
+			$=7$                  & 0.477       & 0.014      & 0.150      & 0.359      & 0.536                \\
+			$\ge 8$               & 0.311       & 0.027      & 0.184      & 0.477      & 0.391                \\ \hline
+			Total                 & 0.491       & 0.014      & 0.139      & 0.356      & 0.547               
+			\end{tabular}
+			
+		\end{table}
+
+        However, some issues should be resolved when we try to use all 3h events for combining training. The loss values are not reasonable.
+	% subsection 3h_training_dataset (end)
 % section spanet_pairing_and_classification (end)
-\bibliographystyle{plain}
+\section{Review the pairing methods}% (fold)
+\label{sec:review_the_pairing_methods}
+	In Refs.~\cite{Papaefstathiou:2019ofh, Papaefstathiou:2023uum}: We select the 6 $b$-tagged jets with the highest transverse momentum. The requirements for the transverse momentum and pseudo-rapidity are applied. We subsequently make use of the observable:
+	\begin{equation}
+		\chi^{2,(6)} = \sum_{qr\in J} (m_{qr} - m_h)^2
+	\end{equation}
+	where $J = \{j_1j_2,j_3j_4,j_5j_6\} $ is the set of all possible 15 pairings of 6 $b$-tagged jets. Out of all the possible combinations we pick the one with the smallest value $\chi_{\text{min}}^{2,(6)}$. The pairing of $b$-jets defining $\chi_{\text{min}}^{2,(6)}$ is our best candidate for the reconstruction of the three Higgs bosons, $h$. No pairing efficiency is provided.
+
+	In Ref.~\cite{Papaefstathiou:2020lyp}: We select the 6 $b$-tagged jets with the highest transverse momentum and form pairs in different combinations, with the aim of first reconstructing individual SM-like Higgs bosons, $h_1$, and subsequently the two scalars $h_2$ and $h_3$. To this end, we introduce two observables:
+	\begin{equation}
+		\chi^{2,(4)} = \sum_{qr\in I} (m_{qr} - m_h)^2
+	\end{equation}
+	\begin{equation}
+		\chi^{2,(6)} = \sum_{qr\in J} (m_{qr} - m_h)^2
+	\end{equation}
+	where we have defined the sets $I = \{i_1i_2,i_3i_4\}$ and $J = \{j_1j_2,j_3j_4,j_5j_6\}$, constructed from different pairings of 4 and 6 $b$-tagged jets, respectively, and where $m_{qr}$ denotes the invariant mass of the respective pairing, $qr$. Note that the set $I$ that defines $\chi_{\text{min}}^{2,(4)}$ should be a subset of the arrangement $J$.
+
+	We select the combinations of $b$-tagged jets entering in $I$ and $J$ based on the minimization of the sum
+	\begin{equation}
+		\chi^{2,(4)} + \chi^{2,(6)}
+	\end{equation}
+	We then ``identify'' candidates for the scalars $h_2$ and $h_3$ with the pairing configurations $I_{\text{min}}$ and $J_{\text{min}}$ which minimise $\chi^{2,(4)}$ and $\chi^{2,(6)}$ respectively. Note that this procedure does not guarantee that $I_{\text{min}}$ indeed reconstructs to $h_2$; in fact, we found this to be the case in about 40\% on average for all benchmark samples, being slightly higher than a ``blind guess'' that would lead to a probability of 1/3.
+
+% section review_the_pairing_methods (end)
+\bibliographystyle{ieeetr}
 \bibliography{reference}
 		
 \end{document} 
