@@ -158,7 +158,7 @@
 	\label{sub:training_dataset_preparation}
 		Preselection: $\ge 6$ jets with transverse momentum $p_{\text{T}} \ge \text{25 GeV}$ in range $\abs{\eta} < 2.5$.
 
-		The input features for the \textsc{Spa-Net} are a list of jets, each represented by its 4-component vector $(p_\text{T}, \eta, \phi, m)$ as well as a boolean $b$-tag. We only keep each event's 15 highest $p_\text{T}$ jets. For each event, we define the correct jet assignments by matching the jets to the simulated truth quarks within an angular distance of $\Delta R < 0.4$. If a simulated truth quark is matched to more than one jet, such an event will be dropped. Furthermore, some simulated truth quarks may not be matched to any jet, in which case the event will not be used in training either. 
+		The input features for the \textsc{Spa-Net} are a list of jets, each represented by its 4-component vector $(p_\text{T}, \eta, \phi, m)$ as well as a boolean $b$-tag. We only keep each event's 15 highest $p_\text{T}$ jets. We define the correct jet assignments for each event by matching the jets to the simulated truth quarks within an angular distance of $\Delta R < 0.4$. Such an event will be dropped if a simulated truth quark is matched to more than one jet. Furthermore, some simulated truth quarks may not be matched to any jet, so the event will not be used in training either. 
 
 		After the selection and matching, we could obtain the following results from 1M events:
 		\begin{itemize}
@@ -276,7 +276,7 @@
 \label{sec:compute_pairing_efficiency}
 	To understand the pairing performance with different pairing methods, we compute how many events where 1h/2h/3h bosons are reconstructed correctly.
 
-	The pairing performance of \textsc{Spa-Net} are shown in Table~\ref{tab:SPANet_triHiggs_0b_1h2h3h}. Table~\ref{tab:chi2_pairing_triHiggs_0b_1h2h3h} is the performance of the $\chi^2$ method. For both cases, we found the number of events where only two Higgs are paired correctly is very small, which means if we can pair two Higgs bosons correctly, then we have a high chance to pair the final Higgs correctly.
+	The pairing performance of \textsc{Spa-Net} are shown in Table~\ref{tab:SPANet_triHiggs_0b_1h2h3h}. Table~\ref{tab:chi2_pairing_triHiggs_0b_1h2h3h} is the performance of the $\chi^2$ method. For both cases, we found the number of events where only two Higgs are paired correctly is tiny, which means if we can pair two Higgs bosons correctly, then we have a high chance to pair the final Higgs correctly.
 
 	Note that Higgs Efficiencies of \textsc{Spa-Net} are inconsistent with Table~\ref{tab:SPANet_triHiggs_0b}. This issue needs more checking.
 	\begin{table}[htpb]
@@ -467,6 +467,72 @@
 	We then ``identify'' candidates for the scalars $h_2$ and $h_3$ with the pairing configurations $I_{\text{min}}$ and $J_{\text{min}}$ which minimise $\chi^{2,(4)}$ and $\chi^{2,(6)}$ respectively. Note that this procedure does not guarantee that $I_{\text{min}}$ indeed reconstructs to $h_2$; in fact, we found this to be the case in about 40\% on average for all benchmark samples, being slightly higher than a ``blind guess'' that would lead to a probability of 1/3.
 
 % section review_the_pairing_methods (end)
+\section{6b requirement}% (fold)
+\label{sec:6b_requirement}
+	They could utilize stronger kinetic and $b$-tagging requirements in experiments. However, we do not use the $b$-tag information for the previous $\chi^2$ method. Thus, we change the preselection condition to make a fair comparison.
+
+	For testing samples, we only consider the event that contains at least 6 $b$-tagged jets. The Higgs Bosons are reconstructed by pairing the 6 leading $b$-jets for the $\chi^2$ method. Thus, the best one is chosen from 15 possible pairing combinations.
+
+	Table~\ref{tab:chi2_pairing_triHiggs_6b_3h} and Table~\ref{tab:SPANet_triHiggs_6b_3h} are the pairing performance on 6 $b$-tagged samples. The $\chi^2$ method performs better than the previous results (Table~\ref{tab:chi2_pairing_triHiggs_0b_1h2h3h}) but still performs worse than the \textsc{Spa-Net} pairing.
+	\begin{table}[htpb]
+		\centering
+		\caption{$\chi^2$ pairing efficiencies on different categories. The $\chi^2$ method only considers the 6 leading $b$-jets.}
+		\label{tab:chi2_pairing_triHiggs_6b_3h}
+		\begin{tabular}{c|cccc|c}
+			\multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+			$N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+			$=6$                  & 0.500       & 0.000      & 0.124      & 0.376      & 0.541                \\
+			$=7$                  & 0.322       & 0.072      & 0.185      & 0.486      & 0.389                \\
+			$\ge 8$               & 0.238       & 0.026      & 0.156      & 0.579      & 0.308                \\ \hline
+			Total                 & 0.329       & 0.013      & 0.159      & 0.499      & 0.391               
+		\end{tabular}
+	\end{table}
+	\begin{table}[htpb]
+		\centering
+		\caption{\textsc{Spa-Net} training results on the tri-Higgs samples, where we only consider 3h events. \textsc{Spa-Net} is trained on $\ge 0b$ datasets and tested on $\ge 6b$ datasets.}
+		\label{tab:SPANet_triHiggs_6b_3h}
+		\begin{tabular}{c|cccc|c}
+			\multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+			$N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+			$=6$                  & 0.679       & 0.000      & 0.074      & 0.246      & 0.704                \\
+			$=7$                  & 0.522       & 0.013      & 0.127      & 0.337      & 0.574                \\
+			$\ge 8$               & 0.354       & 0.019      & 0.180      & 0.447      & 0.427                \\ \hline
+			Total                 & 0.492       & 0.013      & 0.136      & 0.359      & 0.546               
+		\end{tabular}
+	\end{table}
+% section 6b_requirement (end)
+\section{Another pairing method}% (fold)
+\label{sec:another_pairing_method}
+	The pairing algorithm is defined to minimize
+	\begin{equation}\label{eq:pairing_method_abs}
+		\abs{m_{h_1} - 120} + \abs{m_{h_2} - 115} + \abs{m_{h_3} - 110}
+	\end{equation}
+	where $m_{h_i}$ is the mass of the $i$-th Higgs boson candidate (sorted by $p_{\text{T}}$) in units of GeV. The numbers in this definition are chosen based on the peaks of the $m_{h_i}$ distributions in simulated signal events.
+
+	Figure~\ref{fig:mh_distribution_6b} is the Higgs boson invariant mass $m_h$ distributions. The peaks of the $m_{h}$ distributions in our simulation are $121, 119, 116 \text{ GeV}$. Based on these values we modify the numbers in Equation~\ref{eq:pairing_method_abs}.
+	\begin{figure}[htpb] 
+		\centering
+		\subfloat[Resolution: $25\times 25$]{
+			\includegraphics[width=0.65\textwidth]{mh_distribution_6b.pdf} 
+		}
+		\caption{The Higgs boson mass distributions. Here, we only consider the event containing at least 6 $b$-tagged jets.}
+		\label{fig:mh_distribution_6b}
+	\end{figure}
+	Table~\ref{tab:chi2_abs_pairing_triHiggs_6b_3h} is the pairing performance on 6 $b$-tagged samples. The absolute value method performs worse than the $\chi^2$ method (Table~\ref{tab:chi2_pairing_triHiggs_6b_3h}).
+	\begin{table}[htpb]
+		\centering
+		\caption{$\chi^2$ pairing efficiencies on different categories. The $\chi^2$ method only considers the 6 leading $b$-jets.}
+		\label{tab:chi2_abs_pairing_triHiggs_6b_3h}
+		\begin{tabular}{c|cccc|c}
+			\multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+			$N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+			$=6$                  & 0.476       & 0.000      & 0.135      & 0.388      & 0.522                \\
+			$=7$                  & 0.293       & 0.011      & 0.185      & 0.511      & 0.362                \\
+			$\ge 8$               & 0.215       & 0.026      & 0.168      & 0.589      & 0.289                \\ \hline
+			Total                 & 0.303       & 0.015      & 0.167      & 0.515      & 0.367               
+		\end{tabular}
+	\end{table}
+% section another_pairing_method (end)
 \bibliographystyle{ieeetr}
 \bibliography{reference}
 		
