@@ -10,6 +10,7 @@
 
 *.sh
 
+__pycache__
 py.py
 
 /Reference
