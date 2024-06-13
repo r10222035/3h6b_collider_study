@@ -512,9 +512,7 @@
 	Figure~\ref{fig:mh_distribution_6b} is the Higgs boson invariant mass $m_h$ distributions. The peaks of the $m_{h}$ distributions in our simulation are $121, 119, 116 \text{ GeV}$. Based on these values we modify the numbers in Equation~\ref{eq:pairing_method_abs}.
 	\begin{figure}[htpb] 
 		\centering
-		\subfloat[Resolution: $25\times 25$]{
-			\includegraphics[width=0.65\textwidth]{mh_distribution_6b.pdf} 
-		}
+        \includegraphics[width=0.65\textwidth]{mh_distribution_6b.pdf} 
 		\caption{The Higgs boson mass distributions. Here, we only consider the event containing at least 6 $b$-tagged jets.}
 		\label{fig:mh_distribution_6b}
 	\end{figure}
@@ -533,6 +531,69 @@
 		\end{tabular}
 	\end{table}
 % section another_pairing_method (end)
+\section{New simulation setting}% (fold)
+\label{sec:new_simulation_setting}
+    We apply the new setting to the event generation to make a fair comparison. Following are the notes about the latest simulation setting.
+
+    The $6b$ analysis uses $R = 0.4$ anti-$k_{\text{T}}$ jets. All jets are required to have $p_{\text{T}} > 20 \text{ GeV}$ and  $\abs{\eta} < 2.5$, to be within the tracker acceptance for $b$-tagging. 
+
+    All events must pass the Preselection. They must have at least six jets, defined by the earlier selection criteria. Of these 6 jets, at least 4 jets must have $p_{\text{T}} > \text{40 GeV}$ and at least 4 jets must be $b$-tagged.
+
+    Pairing is performed on all events passing the Preselection. In the case of $4b$ or $5b$ events, the 6 jets considered for pairing into Higgs candidates are the $b$-tagged jets and the extra jets are selected as the highest $p_{\text{T}}$ of the remaining light-flavour jets. In the case of $6b$ events, the 6 jets are the 6 leading $p_{\text{T}}$ $b$-tagged jets.
+% section new_simulation_setting (end)
+\section{Pairing for new simulated samples}% (fold)
+\label{sec:pairing_for_new_simulated_samples}
+    We modified the \verb|Delphes| card to apply the anti-$k_{\text{T}}$ clustering algorithm with $R = 0.4$ and change the $b$-tagging efficiency to the ATLAS DL1r 77\% working point. At this working point, the light-jet (charm-jet) rejection is about 130 (4.9).
+
+    Figure~\ref{fig:mh_distribution_new} is the Higgs boson invariant mass $m_h$ distributions for new simulated samples. All events passing the Preselection and matching are used to generate this plot. The peaks of the $m_{h}$ distributions in our simulation are $119, 115, 111 \text{ GeV}$. Based on these values we modify the numbers in Equation~\ref{eq:pairing_method_abs}.
+	\begin{figure}[htpb] 
+		\centering
+        \includegraphics[width=0.65\textwidth]{mh_distribution_new.pdf}
+		\caption{The Higgs boson mass distributions. Here, we consider all events passing the Preselection and the correct pairing can be obtained.}
+		\label{fig:mh_distribution_new}
+	\end{figure}
+
+    Table~\ref{tab:chi2_pairing_triHiggs_3h_new}, \ref{tab:chi2_abs_pairing_triHiggs_3h_new} and \ref{tab:SPANet_triHiggs_3h_new} are the pairing performance on new simulated samples. The \textsc{Spa-Net} performs the best.
+    \begin{table}[htpb]
+		\centering
+        \caption{$\chi^2$ pairing efficiencies on different categories. We minimize the quantity defined in Equation~\ref{eq:triHiggs_chisq}. The $\chi^2$ method considers the possible combinations of 6 jets.}
+		\label{tab:chi2_pairing_triHiggs_3h_new}
+		\begin{tabular}{c|cccc|c}
+			\multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+			$N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+			$=6$                  & 0.519 & 0.000 & 0.112 & 0.368 &  0.557 \\
+			$=7$                  & 0.272 & 0.010 & 0.186 & 0.532 &  0.341 \\
+			$\ge 8$               & 0.147 & 0.008 & 0.196 & 0.649 &  0.218 \\ \hline
+			Total                 & 0.279 & 0.007 & 0.172 & 0.542 &  0.341 
+		\end{tabular}
+	\end{table}
+    \begin{table}[htpb]
+		\centering
+		\caption{$\chi^2$ pairing efficiencies on different categories. We minimize the quantity defined in Equation~\ref{eq:pairing_method_abs}. The $\chi^2$ method considers the possible combination of 6 jets.}
+		\label{tab:chi2_abs_pairing_triHiggs_3h_new}
+		\begin{tabular}{c|cccc|c}
+			\multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+			$N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+			$=6$                  & 0.457 & 0.000 & 0.131 & 0.412 &  0.500                \\
+			$=7$                  & 0.239 & 0.009 & 0.184 & 0.568 &  0.306                \\
+			$\ge 8$               & 0.136 & 0.007 & 0.197 & 0.661 &  0.206                \\ \hline
+			Total                 & 0.248 & 0.006 & 0.176 & 0.570 &  0.311               
+		\end{tabular}
+	\end{table}
+    \begin{table}[htpb]
+		\centering
+        \caption{\textsc{Spa-Net} training results on the tri-Higgs samples, where we only consider 3h events. The \textsc{Spa-Net} method considers all jets in the final state.}
+		\label{tab:SPANet_triHiggs_3h_new}
+		\begin{tabular}{c|cccc|c}
+			\multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+			$N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+			$=6$                  & 0.619 & 0.000 & 0.097 & 0.283 &  0.652                \\
+			$=7$                  & 0.481 & 0.008 & 0.150 & 0.361 &  0.536                \\
+			$\ge 8$               & 0.350 & 0.011 & 0.171 & 0.469 &  0.414                \\ \hline
+			Total                 & 0.459 & 0.007 & 0.146 & 0.388 &  0.512               
+		\end{tabular}
+	\end{table}
+% section pairing_for_new_simulated_samples (end)
 \bibliographystyle{ieeetr}
 \bibliography{reference}
 		
