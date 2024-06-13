@@ -15,13 +15,17 @@ import multiprocessing as mp
 from tqdm import tqdm
 from itertools import repeat
 
-ROOT.gROOT.ProcessLine('.include /usr/local/Delphes-3.4.2/')
-ROOT.gROOT.ProcessLine('.include /usr/local/Delphes-3.4.2/external/')
-ROOT.gInterpreter.Declare('#include "/usr/local/Delphes-3.4.2/classes/DelphesClasses.h"')
-ROOT.gInterpreter.Declare('#include "/usr/local/Delphes-3.4.2/external/ExRootAnalysis/ExRootTreeReader.h"')
-ROOT.gInterpreter.Declare('#include "/usr/local/Delphes-3.4.2/external/ExRootAnalysis/ExRootConfReader.h"')
-ROOT.gInterpreter.Declare('#include "/usr/local/Delphes-3.4.2/external/ExRootAnalysis/ExRootTask.h"')
-ROOT.gSystem.Load("/usr/local/Delphes-3.4.2/install/lib/libDelphes")
+sys.path.append('..')
+import utils_HDF5 as utils
+
+delphes_path = '/usr/local/Delphes-3.4.2/'
+ROOT.gROOT.ProcessLine(f'.include {delphes_path}')
+ROOT.gROOT.ProcessLine(f'.include {delphes_path}external/')
+ROOT.gInterpreter.Declare(f'#include "{delphes_path}classes/DelphesClasses.h"')
+ROOT.gInterpreter.Declare(f'#include "{delphes_path}external/ExRootAnalysis/ExRootTreeReader.h"')
+ROOT.gInterpreter.Declare(f'#include "{delphes_path}external/ExRootAnalysis/ExRootConfReader.h"')
+ROOT.gInterpreter.Declare(f'#include "{delphes_path}external/ExRootAnalysis/ExRootTask.h"')
+ROOT.gSystem.Load(f'{delphes_path}install/lib/libDelphes')
 
 MAX_JETS = 15
 N_CORES = 64
@@ -57,22 +61,6 @@ def create_triHiggs_dataset(f, nevent, MAX_JETS):
     f.create_dataset('CLASSIFICATIONS/EVENT/signal', (nevent,), maxshape=(None,), dtype='<i8')
 
 
-def get_particle_mask(quarks_Jet, quarks_index):
-    # quarks_index: 粒子對應的夸克編號
-    # 若某粒子的 每個夸克都有對應到 jet 且 每個夸克對應的 jet 都沒有重複，則返回 true
-    mask = True
-    for i in quarks_index:
-        if quarks_Jet[i] == -1:
-            mask = False
-        else:
-            for j in range(len(quarks_Jet)):
-                if j == i:
-                    continue
-                if quarks_Jet[i] == quarks_Jet[j]:
-                    mask = False
-    return mask
-
-
 def write_dataset(file, data: list):
     nevent = len(data)
 
@@ -84,13 +72,6 @@ def write_dataset(file, data: list):
         # Write
         value = np.array([data_dict[key] for data_dict in data])
         file[key][:] = value
-
-
-def get_dataset_keys(f):
-    # 取得所有 Dataset 的名稱
-    keys = []
-    f.visit(lambda key: keys.append(key) if isinstance(f[key], h5py.Dataset) else None)
-    return keys
 
 
 def select_event(root_path, nbj_min, start, end):
@@ -107,7 +88,7 @@ def select_event(root_path, nbj_min, start, end):
         quarks_id = []
         quarks_Eta = []
         quarks_Phi = []
-        quarks_Jet = [-1, -1, -1, -1, -1, -1]
+        quarks_Jet = np.array([-1, -1, -1, -1, -1, -1])
 
         # 找出 3 個 final Higgs
         final_h_index = []
@@ -122,7 +103,7 @@ def select_event(root_path, nbj_min, start, end):
 
         final_h_index = list(set(final_h_index))
 
-        # 找出 6個 final b quark
+        # 找出 6 個 final b quark
         for h in final_h_index:
             # h > b b~
             b1 = tree.Particle[h].D1
@@ -153,8 +134,10 @@ def select_event(root_path, nbj_min, start, end):
         jet_BTag = np.array([jet.BTag for jet in tree.Jet])
 
         # Jet 資料
-        # |eta| < 2.5 & PT > 25 GeV
-        eta_pt_cut = np.array((np.abs(jet_Eta) < 2.5) & (jet_PT > 25))
+        # |eta| < 2.5 & PT > 20 GeV
+        eta_pt_cut = np.array((np.abs(jet_Eta) < 2.5) & (jet_PT > 20))
+        # |eta| < 2.5 & PT > 40 GeV
+        eta_pt40_cut = np.array((np.abs(jet_Eta) < 2.5) & (jet_PT > 40))
 
         nj = eta_pt_cut.sum()
 
@@ -162,6 +145,10 @@ def select_event(root_path, nbj_min, start, end):
         if nj < 6:
             continue
 
+        # 至少要 4 jet pT > 40 GeV
+        if eta_pt40_cut.sum() < 4:
+            continue
+        
         nbj = np.array(jet_BTag[eta_pt_cut][:MAX_JETS]).sum()
         # 在前 MAX_JETS jets 中，至少要 nbj_min 個 b-jet
         if nbj < nbj_min:
@@ -186,9 +173,11 @@ def select_event(root_path, nbj_min, start, end):
         if more_than_1_jet:
             continue
 
-        h1_mask = get_particle_mask(quarks_Jet, quarks_index=(0, 1))
-        h2_mask = get_particle_mask(quarks_Jet, quarks_index=(2, 3))
-        h3_mask = get_particle_mask(quarks_Jet, quarks_index=(4, 5))
+        quark_jet = quarks_Jet.reshape(1, 6)
+
+        h1_mask = utils.get_particle_mask(quark_jet, [0, 1])
+        h2_mask = utils.get_particle_mask(quark_jet, [2, 3])
+        h3_mask = utils.get_particle_mask(quark_jet, [4, 5])
 
         # 準備寫入資料
         data_dict = {
