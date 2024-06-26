@@ -558,42 +558,93 @@
 		\centering
         \caption{$\chi^2$ pairing efficiencies on different categories. We minimize the quantity defined in Equation~\ref{eq:triHiggs_chisq}. The $\chi^2$ method considers the possible combinations of 6 jets.}
 		\label{tab:chi2_pairing_triHiggs_3h_new}
-		\begin{tabular}{c|cccc|c}
-			\multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
-			$N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
-			$=6$                  & 0.519 & 0.000 & 0.112 & 0.368 &  0.557 \\
-			$=7$                  & 0.272 & 0.010 & 0.186 & 0.532 &  0.341 \\
-			$\ge 8$               & 0.147 & 0.008 & 0.196 & 0.649 &  0.218 \\ \hline
-			Total                 & 0.279 & 0.007 & 0.172 & 0.542 &  0.341 
+		\begin{tabular}{c|c|cccc|c}
+        \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+        $N_\text{Jet}$        & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+        $=6$                  & 0.241    & 0.519       & 0.000      & 0.112      & 0.368      & 0.557                \\
+        $=7$                  & 0.335    & 0.272       & 0.010      & 0.186      & 0.532      & 0.341                \\
+        $\ge 8$               & 0.424    & 0.147       & 0.008      & 0.196      & 0.649      & 0.218                \\ \hline
+        Total                 & 1.000    & 0.279       & 0.007      & 0.172      & 0.542      & 0.341               
 		\end{tabular}
 	\end{table}
     \begin{table}[htpb]
 		\centering
-		\caption{$\chi^2$ pairing efficiencies on different categories. We minimize the quantity defined in Equation~\ref{eq:pairing_method_abs}. The $\chi^2$ method considers the possible combination of 6 jets.}
+		\caption{Absolute value pairing efficiencies on different categories. We minimize the quantity defined in Equation~\ref{eq:pairing_method_abs}. The absolute value method considers the possible combination of 6 jets.}
 		\label{tab:chi2_abs_pairing_triHiggs_3h_new}
-		\begin{tabular}{c|cccc|c}
-			\multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
-			$N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
-			$=6$                  & 0.457 & 0.000 & 0.131 & 0.412 &  0.500                \\
-			$=7$                  & 0.239 & 0.009 & 0.184 & 0.568 &  0.306                \\
-			$\ge 8$               & 0.136 & 0.007 & 0.197 & 0.661 &  0.206                \\ \hline
-			Total                 & 0.248 & 0.006 & 0.176 & 0.570 &  0.311               
+		\begin{tabular}{c|c|cccc|c}
+			\multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+			$N_\text{Jet}$        & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+			$=6$                  & 0.241    & 0.457 & 0.000 & 0.131 & 0.412 &  0.500                \\
+			$=7$                  & 0.335    & 0.239 & 0.009 & 0.184 & 0.568 &  0.306                \\
+			$\ge 8$               & 0.424    & 0.136 & 0.007 & 0.197 & 0.661 &  0.206                \\ \hline
+			Total                 & 1.000    & 0.248 & 0.006 & 0.176 & 0.570 &  0.311               
 		\end{tabular}
 	\end{table}
     \begin{table}[htpb]
 		\centering
         \caption{\textsc{Spa-Net} training results on the tri-Higgs samples, where we only consider 3h events. The \textsc{Spa-Net} method considers all jets in the final state.}
 		\label{tab:SPANet_triHiggs_3h_new}
-		\begin{tabular}{c|cccc|c}
-			\multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
-			$N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
-			$=6$                  & 0.619 & 0.000 & 0.097 & 0.283 &  0.652                \\
-			$=7$                  & 0.481 & 0.008 & 0.150 & 0.361 &  0.536                \\
-			$\ge 8$               & 0.350 & 0.011 & 0.171 & 0.469 &  0.414                \\ \hline
-			Total                 & 0.459 & 0.007 & 0.146 & 0.388 &  0.512               
+		\begin{tabular}{c|c|cccc|c}
+			\multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+			$N_\text{Jet}$        & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+			$=6$                  & 0.241    & 0.619 & 0.000 & 0.097 & 0.283 &  0.652                \\
+			$=7$                  & 0.335    & 0.481 & 0.008 & 0.150 & 0.361 &  0.536                \\
+			$\ge 8$               & 0.424    & 0.350 & 0.011 & 0.171 & 0.469 &  0.414                \\ \hline
+			Total                 & 1.000    & 0.459 & 0.007 & 0.146 & 0.388 &  0.512               
 		\end{tabular}
 	\end{table}
 % section pairing_for_new_simulated_samples (end)
+\section{Modify the matching strategy}% (fold)
+\label{sec:modify_the_matching_strategy}
+    For the previous exercise, we define the correct jet assignments for each event by matching the jets to the simulated truth quarks within an angular distance of $\Delta R < 0.4$. Such an event will be dropped if a simulated truth quark is matched to more than one jet. Furthermore, some simulated truth quarks may not be matched to any jet, so the event will not be used in training either.
+
+    We modify our strategy for more than one jet case. If there are more than one jet can be matched to a simulated truth quark in the $\Delta R=0.4$ cone, we choose the nearest one by the $\Delta R$ distance. This method is the same as the di-Higgs analysis~\cite{Stanislaus:2020vfx}.
+
+    Table~\ref{tab:preselection_cutflow_number} is the cutflow number at different selection cuts.
+    \begin{table}[htpb]
+        \centering
+        \caption{The number of passing events, efficiencies, and passing rates for signal processes at different selection cuts.}
+        \label{tab:preselection_cutflow_number}
+        \begin{tabular}{l|rrr}
+                                                         & Count  & Efficiency & Pass rate \\ \hline
+        Total                                            & 100000 & 1.00       & 1.00      \\
+        $\ge 6$ jets                                     & 61454  & 0.61       & 0.61      \\
+        $\ge 4$ jets with $p_{\text{T}} > \text{40 GeV}$ & 50341  & 0.82       & 0.50      \\
+        $\ge 4$ $b$-jets                                 & 32337  & 0.64       & 0.32      \\ \hline
+        Matching 3h                                      & 9944   & 0.31       & 0.10      \\
+        Matching 2h                                      & 11341  & 0.35       & 0.11      \\
+        Matching 1h                                      & 8941   & 0.28       & 0.09      \\
+        \end{tabular}
+    \end{table}
+
+    Table~\ref{tab:chi2_pairing_triHiggs_3h_new_match} and \ref{tab:abs_pairing_triHiggs_3h_new_match} are the pairing performance with the new matching strategy. The results are similar to the previous one (Table~\ref{tab:chi2_pairing_triHiggs_3h_new} and \ref{tab:chi2_abs_pairing_triHiggs_3h_new}).
+    \begin{table}[htpb]
+		\centering
+        \caption{$\chi^2$ pairing efficiencies on different categories. We minimize the quantity defined in Equation~\ref{eq:triHiggs_chisq}. The $\chi^2$ method considers the possible combinations of 6 jets.}
+		\label{tab:chi2_pairing_triHiggs_3h_new_match}
+		\begin{tabular}{c|c|cccc|c}
+        \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+        $N_\text{Jet}$        & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+        $=6$                  & 0.242 & 0.520 & 0.000 & 0.112 & 0.368 & 0.557 \\
+        $=7$                  & 0.335 & 0.277 & 0.007 & 0.182 & 0.534 & 0.343 \\
+        $\ge 8$               & 0.422 & 0.161 & 0.008 & 0.190 & 0.641 & 0.229 \\ \hline
+        Total                 & 1.000 & 0.287 & 0.006 & 0.168 & 0.539 & 0.347 
+		\end{tabular}
+	\end{table}
+    \begin{table}[htpb]
+		\centering
+		\caption{Absolute value pairing efficiencies on different categories. We minimize the quantity defined in Equation~\ref{eq:pairing_method_abs}. The absolute value method considers the possible combination of 6 jets.}
+		\label{tab:abs_pairing_triHiggs_3h_new_match}
+		\begin{tabular}{c|c|cccc|c}
+        \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+        $N_\text{Jet}$        & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+        $=6$                  & 0.242 & 0.450 & 0.000 & 0.132 & 0.418 & 0.494 \\
+        $=7$                  & 0.335 & 0.249 & 0.007 & 0.177 & 0.566 & 0.313 \\
+        $\ge 8$               & 0.422 & 0.145 & 0.009 & 0.194 & 0.653 & 0.215 \\ \hline
+        Total                 & 1.000 & 0.254 & 0.006 & 0.173 & 0.567 & 0.316 
+		\end{tabular}
+	\end{table}
+% section modify_the_matching_strategy (end)
 \bibliographystyle{ieeetr}
 \bibliography{reference}
 		
