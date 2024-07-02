@@ -533,7 +533,7 @@
 % section another_pairing_method (end)
 \section{New simulation setting}% (fold)
 \label{sec:new_simulation_setting}
-    We apply the new setting to the event generation to make a fair comparison. Following are the notes about the latest simulation setting.
+    We apply the new setting to the event generation for a fair comparison. Following are the notes about the latest simulation setting.
 
     The $6b$ analysis uses $R = 0.4$ anti-$k_{\text{T}}$ jets. All jets are required to have $p_{\text{T}} > 20 \text{ GeV}$ and  $\abs{\eta} < 2.5$, to be within the tracker acceptance for $b$-tagging. 
 
@@ -598,7 +598,7 @@
 \label{sec:modify_the_matching_strategy}
     For the previous exercise, we define the correct jet assignments for each event by matching the jets to the simulated truth quarks within an angular distance of $\Delta R < 0.4$. Such an event will be dropped if a simulated truth quark is matched to more than one jet. Furthermore, some simulated truth quarks may not be matched to any jet, so the event will not be used in training either.
 
-    We modify our strategy for more than one jet case. If there are more than one jet can be matched to a simulated truth quark in the $\Delta R=0.4$ cone, we choose the nearest one by the $\Delta R$ distance. This method is the same as the di-Higgs analysis~\cite{Stanislaus:2020vfx}.
+    We modify our strategy for more than one jet case. If more than one jet can be matched to a simulated truth quark in the $\Delta R=0.4$ cone, we choose the nearest one by the $\Delta R$ distance. This method is the same as the di-Higgs analysis~\cite{Stanislaus:2020vfx}.
 
     Table~\ref{tab:preselection_cutflow_number} is the cutflow number at different selection cuts.
     \begin{table}[htpb]
@@ -645,6 +645,86 @@
 		\end{tabular}
 	\end{table}
 % section modify_the_matching_strategy (end)
+\section{SM tri-Higgs samples}% (fold)
+\label{sec:sm_tri_higgs_samples}
+	We prepare the SM tri-Higgs samples to identify the reason for the matching issue. 
+
+	The SM tri-Higgs process is generated at the centre-of-mass energy $\sqrt{s} = \text{13 TeV}$ with the \verb|NNPDF30_nlo_as_0119| PDF set~\cite{NNPDF:2014otw}. In \verb|Delphes|, we use the anti-$k_{\text{T}}$ clustering algorithm with $R = 0.4$ and set the $b$-tagging efficiency to the ATLAS DL1r 77\% working point. At this working point, the light-jet (charm-jet) rejection is about 130 (4.9). Following are the MadGraph scripts for generating SM tri-Higgs samples:
+
+	\begin{verbatim}
+		generate p p > h h h [QCD] QED^2<=6
+		output MG5/pphhh_sm
+		launch MG5/pphhh_sm
+
+		shower=Pythia8
+		detector=Delphes
+		analysis=OFF
+		madspin=ON
+		done
+
+		Cards/delphes_card.dat
+
+		set run_card nevents 100000
+		set run_card ebeam1 6500.0
+		set run_card ebeam2 6500.0
+
+		set run_card pdlabel lhapdf
+		set run_card lhaid 266000
+
+		set run_card ptb 19
+		set run_card etab 2.6
+
+		set spinmode none
+		decay h > b b~
+
+		done
+	\end{verbatim}
+
+	Table~\ref{tab:preselection_cutflow_number_sm} is the cutflow number of the SM tri-Higgs process. The matching efficiency is similar to the resonant tri-Higgs case (Table~\ref{tab:preselection_cutflow_number}).
+    \begin{table}[htpb]
+        \centering
+        \caption{The number of passing events, efficiencies, and passing rates for signal processes at different selection cuts.}
+        \label{tab:preselection_cutflow_number_sm}
+        \begin{tabular}{l|rrr}
+                                                         & Count  & Efficiency & Pass rate \\ \hline
+        Total                                            & 100000 & 1.00       & 1.00      \\
+        $\ge 6$ jets                                     & 74878  & 0.75       & 0.75      \\
+        $\ge 4$ jets with $p_{\text{T}} > \text{40 GeV}$ & 70399  & 0.94       & 0.70      \\
+        $\ge 4$ $b$-jets                                 & 48734  & 0.69       & 0.49      \\ \hline
+        Matching 3h                                      & 17599  & 0.36       & 0.18      \\
+        Matching 2h                                      & 18601  & 0.38       & 0.19      \\
+        Matching 1h                                      & 10759  & 0.22       & 0.10      \\
+        \end{tabular}
+    \end{table}
+
+	Table~\ref{tab:chi2_pairing_triHiggs_3h_sm} and \ref{tab:abs_pairing_triHiggs_3h_sm} are the pairing performance of the SM tri-Higgs process.
+    \begin{table}[htpb]
+		\centering
+        \caption{$\chi^2$ pairing efficiencies of the SM tri-Higgs samples. We minimize the quantity defined in Equation~\ref{eq:triHiggs_chisq}. The $\chi^2$ method considers the possible combinations of 6 jets.}
+		\label{tab:chi2_pairing_triHiggs_3h_sm}
+		\begin{tabular}{c|c|cccc|c}
+        \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+        $N_\text{Jet}$        & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+        $=6$                  & 0.169 & 0.556 & 0.000 & 0.107 & 0.338 & 0.591 \\
+        $=7$                  & 0.311 & 0.334 & 0.008 & 0.154 & 0.505 & 0.390 \\
+        $\ge 8$               & 0.520 & 0.193 & 0.007 & 0.204 & 0.596 & 0.266 \\ \hline
+        Total                 & 1.000 & 0.298 & 0.006 & 0.172 & 0.524 & 0.359 
+		\end{tabular}
+	\end{table}
+    \begin{table}[htpb]
+		\centering
+		\caption{Absolute value pairing efficiencies of the SM tri-Higgs samples. We minimize the quantity defined in Equation~\ref{eq:pairing_method_abs}. The absolute value method considers the possible combination of 6 jets.}
+		\label{tab:abs_pairing_triHiggs_3h_sm}
+		\begin{tabular}{c|c|cccc|c}
+        \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+        $N_\text{Jet}$        & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+        $=6$                  & 0.169 & 0.651 & 0.000 & 0.095 & 0.254 & 0.683 \\
+        $=7$                  & 0.311 & 0.401 & 0.014 & 0.158 & 0.427 & 0.463 \\
+        $\ge 8$               & 0.520 & 0.226 & 0.009 & 0.213 & 0.552 & 0.303 \\ \hline
+        Total                 & 1.000 & 0.352 & 0.009 & 0.176 & 0.463 & 0.417 
+		\end{tabular}
+	\end{table}
+% section sm_tri_higgs_samples (end)
 \bibliographystyle{ieeetr}
 \bibliography{reference}
 		
