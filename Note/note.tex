@@ -725,6 +725,27 @@
 		\end{tabular}
 	\end{table}
 % section sm_tri_higgs_samples (end)
+\section{Use Pythia for Higgs decay}% (fold)
+\label{sec:use_pythia_for_higgs_decay}
+	We use \verb|MadSpin| to implement the Higgs decay in the previous exercise, while \verb|Pythia| could also do it. Thus, we generate the samples with \verb|Pythia| decay and compute the cutflow table.
+
+    Table~\ref{tab:preselection_cutflow_number_pythia_decay} is the cutflow number of the Pythia decayed resonant tri-Higgs process. The matching efficiency is similar to the \verb|MadSpin| case (Table~\ref{tab:preselection_cutflow_number}).
+	\begin{table}[htpb]
+        \centering
+        \caption{The number of passing events, efficiencies, and passing rates for signal processes at different selection cuts.}
+        \label{tab:preselection_cutflow_number_pythia_decay}
+        \begin{tabular}{l|rrr}
+                                                         & Count  & Efficiency & Pass rate \\ \hline
+        Total                                            & 10000 & 1.00       & 1.00      \\
+        $\ge 6$ jets                                     & 5209  & 0.52       & 0.52      \\
+        $\ge 4$ jets with $p_{\text{T}} > \text{40 GeV}$ & 4501  & 0.78       & 0.41      \\
+        $\ge 4$ $b$-jets                                 & 2035  & 0.50       & 0.20      \\ \hline
+        Matching 3h                                      & 705   & 0.35       & 0.07      \\
+        Matching 2h                                      & 644   & 0.32       & 0.06      \\
+        Matching 1h                                      & 575   & 0.28       & 0.06      \\
+        \end{tabular}
+    \end{table}
+% section use_pythia_for_higgs_decay (end)
 \bibliographystyle{ieeetr}
 \bibliography{reference}
 		
