@@ -780,7 +780,7 @@
 
     Table~\ref{tab:sm_match_rate_nbj} and \ref{tab:sm_match_rate_nj} are the matching rates in different $N_{b\text{-Jet}}$ and $N_{\text{Jet}}$ categories for SM samples, respectively.
 
-    Similarly, the matching rate in the $6b$ region is much higher than in the $4b$ and $5b$ regions. However, the event fraction of $6b$ categories is much lower than $4b$ and $5b$ regions. Thus, the total matching efficiency is 36\%.
+    Similarly, the matching rate in the $6b$ region is much higher than in the $4b$ and $5b$ regions. However, the event fraction of the $6b$ category is much lower than $4b$ and $5b$ regions. Thus, the total matching efficiency is 36\%.
     \begin{table}[htpb]
 		\centering
         \caption{The matching rates on different $N_{b\text{-Jet}}$ categories. The numerator is the number of events each $b$-parton can be matched to a jet. The denominator is the number of events passing the Preselection.}
@@ -806,6 +806,40 @@
 		\end{tabular}
 	\end{table}
 % section matching_rate_in_different_categories (end)
+\section{Pairing efficiency in different categories}% (fold)
+\label{sec:pairing_efficiency_in_different_categories}
+    Similarly, we can categorize events into $4b$,  $5b$, and $6b$ regions after Preselection, which are required to have exactly 4, exactly 5, or $\ge 6$ $b$-tagged jets, respectively. Then, we compute the pairing efficiency and event fraction in each category to obtain more details about the samples.
+
+    Table~\ref{tab:resonant_abs_pairing_3h_nbj} is the pairing efficiency in different $N_{b\text{-Jet}}$ categories for resonant samples. Only the events passing the Preselection and whose $b$-partons all can be matched would be considered. The pairing efficiency in the $6b$ region is higher than in the $4b$ and $5b$ regions. However, the event fraction of the $6b$ category only contributes 27\%. Therefore, the total pairing efficiency is 25\%. Note that these results are consistent with Table~\ref{tab:abs_pairing_triHiggs_3h_new_match}.
+    \begin{table}[htpb]
+		\centering
+		\caption{Absolute value pairing efficiencies of the resonant tri-Higgs samples on different $N_{b\text{-Jet}}$ categories. We minimize the quantity defined in Equation~\ref{eq:pairing_method_abs}. The absolute value method considers the possible combination of 6 jets.}
+		\label{tab:resonant_abs_pairing_3h_nbj}
+        \begin{tabular}{c|c|cccc|c}
+        \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+        $N_{b\text{-Jet}}$    & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+        $=4$                  & 0.309 & 0.190 & 0.008 & 0.189 & 0.614 & 0.258 \\
+        $=5$                  & 0.424 & 0.225 & 0.005 & 0.179 & 0.591 & 0.288 \\
+        $\ge 6$               & 0.267 & 0.373 & 0.005 & 0.146 & 0.475 & 0.425 \\ \hline
+        Total                 & 1.000 & 0.254 & 0.006 & 0.173 & 0.567 & 0.316 
+		\end{tabular}
+	\end{table}
+
+    Table~\ref{tab:sm_abs_pairing_3h_nbj} is the pairing efficiency in different $N_{b\text{-Jet}}$ categories for SM samples. Similarly, the pairing efficiency in the $6b$ region is higher than in the $4b$ and $5b$ regions. However, the event fraction of the $6b$ category is lower than the $4b$ and $5b$ regions. Thus, the total matching efficiency is 35\%. These results are consistent with Table~\ref{tab:abs_pairing_triHiggs_3h_sm}.
+    \begin{table}[htpb]
+		\centering
+		\caption{Absolute value pairing efficiencies of the SM tri-Higgs samples on different $N_{b\text{-Jet}}$ categories. We minimize the quantity defined in Equation~\ref{eq:pairing_method_abs}. The absolute value method considers the possible combination of 6 jets.}
+		\label{tab:sm_abs_pairing_3h_nbj}
+        \begin{tabular}{c|c|cccc|c}
+        \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+        $N_{b\text{-Jet}}$    & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+        $=4$                  & 0.301 & 0.295 & 0.011 & 0.181 & 0.514 & 0.362 \\
+        $=5$                  & 0.419 & 0.310 & 0.011 & 0.193 & 0.486 & 0.381 \\
+        $\ge 6$               & 0.280 & 0.477 & 0.005 & 0.145 & 0.373 & 0.529 \\ \hline
+        Total                 & 1.000 & 0.352 & 0.009 & 0.176 & 0.463 & 0.417 
+		\end{tabular}
+	\end{table}
+% section pairing_efficiency_in_different_categories (end)
 \bibliographystyle{ieeetr}
 \bibliography{reference}
 		
