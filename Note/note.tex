@@ -879,8 +879,83 @@
         Total                 & 1.000 & 0.361
 		\end{tabular}
 	\end{table}
-    
 % section matching_rate_in_more_categories (end)
+\section{High resonant samples}% (fold)
+\label{sec:high_resonant_samples}
+	We generate samples with high resonant mass. Here we choose three benchmarks: $(m_{h_3}, m_{h_2}) = (\text{1500 GeV}, \text{1000 GeV}), (\text{1500 GeV},\text{850 GeV}), (\text{1300 GeV}, \text{1000 GeV})$.
+
+	Table~\ref{tab:resonant_match_rate_nbj_high_mass} is the matching rates in different $N_{b\text{-Jet}}$ categories for resonant samples. Only the events passing the Preselection would be considered. These three benchmark points have similar match rates in the $6b$ region. This value is also similar to the previous one (Table~\ref{tab:resonant_match_rate_nbj}).
+    \begin{table}[htpb]
+		\centering
+        \caption{The matching rates on different $N_{b\text{-Jet}}$ categories. The numerator is the number of events each $b$-parton can be matched to a jet. The denominator is the number of events passing the Preselection.}
+		\label{tab:resonant_match_rate_nbj_high_mass}
+		\subfloat[$m_{h_3} = \text{1500 GeV}, m_{h_2} = \text{1000 GeV}$]{
+			\begin{tabular}{c|c|c}
+			$N_{b\text{-Jet}}$    & Fraction  & Match Efficiency     \\ \hline
+			$=4$                  & 0.603 & 0.260 \\
+			$=5$                  & 0.316 & 0.408 \\
+			$\ge 6$               & 0.082 & 0.662 \\ \hline
+			Total                 & 1.000 & 0.340
+			\end{tabular}
+		} 
+		\subfloat[$m_{h_3} = \text{1500 GeV}, m_{h_2} = \text{850 GeV}$]{
+			\begin{tabular}{c|c|c}
+			$N_{b\text{-Jet}}$    & Fraction  & Match Efficiency     \\ \hline
+			$=4$                  & 0.588 & 0.279 \\
+			$=5$                  & 0.320 & 0.466 \\
+			$\ge 6$               & 0.092 & 0.672 \\ \hline
+			Total                 & 1.000 & 0.375
+			\end{tabular}
+		} \\
+		\subfloat[$m_{h_3} = \text{1300 GeV}, m_{h_2} = \text{1000 GeV}$]{
+			\begin{tabular}{c|c|c}
+			$N_{b\text{-Jet}}$    & Fraction  & Match Efficiency     \\ \hline
+			$=4$                  & 0.578 & 0.294 \\
+			$=5$                  & 0.324 & 0.447 \\
+			$\ge 6$               & 0.098 & 0.654 \\ \hline
+			Total                 & 1.000 & 0.379
+			\end{tabular}
+		} \\
+	\end{table}
+	
+	Table~\ref{tab:high_mass_resonant_abs_pairing_3h_nbj} is the pairing efficiency in different $N_{b\text{-Jet}}$ categories for resonant samples. Only the events passing the Preselection and whose $b$-partons all can be matched would be considered. Compared with the low resonant case (Table~\ref{tab:resonant_abs_pairing_3h_nbj}), the high resonant samples have higher pairing efficiencies.
+    \begin{table}[htpb]
+		\centering
+		\caption{Absolute value pairing efficiencies of the resonant tri-Higgs samples on different $N_{b\text{-Jet}}$ categories. We minimize the quantity defined in Equation~\ref{eq:pairing_method_abs}. The absolute value method considers the possible combination of 6 jets.}
+		\label{tab:high_mass_resonant_abs_pairing_3h_nbj}
+		\subfloat[$m_{h_3} = \text{1500 GeV}, m_{h_2} = \text{1000 GeV}$]{
+			\begin{tabular}{c|c|cccc|c}
+			\multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+			$N_{b\text{-Jet}}$    & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+			$=4$                  & 0.435 & 0.467 & 0.037 & 0.185 & 0.310 & 0.554 \\
+			$=5$                  & 0.399 & 0.568 & 0.029 & 0.174 & 0.229 & 0.645 \\
+			$\ge 6$               & 0.166 & 0.671 & 0.012 & 0.124 & 0.193 & 0.720 \\ \hline
+			Total                 & 1.000 & 0.541 & 0.030 & 0.171 & 0.258 & 0.618 
+			\end{tabular}
+		} \\
+		\subfloat[$m_{h_3} = \text{1500 GeV}, m_{h_2} = \text{850 GeV}$]{
+			\begin{tabular}{c|c|cccc|c}
+			\multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+			$N_{b\text{-Jet}}$    & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+			$=4$                  & 0.432 & 0.474 & 0.040 & 0.199 & 0.288 & 0.566 \\
+			$=5$                  & 0.387 & 0.584 & 0.028 & 0.165 & 0.223 & 0.657 \\
+			$\ge 6$               & 0.181 & 0.678 & 0.019 & 0.115 & 0.189 & 0.729 \\ \hline
+			Total                 & 1.000 & 0.553 & 0.032 & 0.170 & 0.245 & 0.631 
+			\end{tabular}
+		} \\
+		\subfloat[$m_{h_3} = \text{1300 GeV}, m_{h_2} = \text{1000 GeV}$]{
+			\begin{tabular}{c|c|cccc|c}
+			\multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+			$N_{b\text{-Jet}}$    & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+			$=4$                  & 0.447 & 0.448 & 0.033 & 0.157 & 0.361 & 0.523 \\
+			$=5$                  & 0.379 & 0.525 & 0.017 & 0.124 & 0.334 & 0.578 \\
+			$\ge 6$               & 0.174 & 0.644 & 0.026 & 0.131 & 0.199 & 0.705 \\ \hline
+			Total                 & 1.000 & 0.511 & 0.026 & 0.140 & 0.323 & 0.575 
+			\end{tabular}
+		}
+	\end{table}
+	
+% section high_resonant_samples (end)
 \bibliographystyle{ieeetr}
 \bibliography{reference}
 		
