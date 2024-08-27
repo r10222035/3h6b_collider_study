@@ -954,8 +954,65 @@
 			\end{tabular}
 		}
 	\end{table}
-	
 % section high_resonant_samples (end)
+\section{Matching failed events}% (fold)
+\label{sec:matching_failed_events}
+    Even when considering the $6b$ category, the matching efficiencies remain around 66\%. To better understand this, we must investigate the reasons for the failed matching cases.
+
+    Matching algorithm: For each simulated truth quark, we compute the $\Delta R$ between the quark and all jets, and then match the quark to the jet within $\Delta R = 0.4$ cone. If more than one jet can be matched to a simulated truth quark in the $\Delta R = 0.4$ cone, we choose the nearest one by the $\Delta R$ distance. If multiple quarks are matched to the same jet, then the matching is failed.
+
+	Here we only consider the $6b$ category. First, we compute the number of quarks that can be matched to jets, meaning that at least one jet is within the $\Delta R=0.4$ cone of the quark. Events with $N_{\text{q}} < 6$ are the failed matching cases. Table~\ref{tab:number_of_quark_match_to_jet} presents the quark matching results.
+
+	For the $N_{\text{q}} = 6$ case, if multiple quarks are matched to the same jet, then the matching fails. Two types of $N_{\text{q}} = 6$ failed cases exist. One is for each quark that has only one jet within the $\Delta R=0.4$ cone. Another is there is more than one jet within the $\Delta R = 0.4$ cone of quark. Table~\ref{tab:various_types_of_6_match_quarks} summarizes the vairous cases in the $N_{\text{q}} = 6$ category.
+	\begin{table}[htpb]
+		\centering
+        \caption{The quark matching table. $N_{\text{q}}$ is the number of quarks that can be matched to jets in an event.}
+		\label{tab:number_of_quark_match_to_jet}
+		\subfloat[$m_{h_3} = \text{420 GeV}, \\ m_{h_2} = \text{280 GeV}$]{
+			\begin{tabular}{c|c|c}
+			$N_{\text{q}}$ & Count & Fraction \\ \hline
+			3          & 8    & 0.002       \\
+			4          & 89   & 0.022       \\
+			5          & 871  & 0.220       \\
+			6          & 2998 & 0.756       \\ \hline
+			Total      & 3966 & 1.000      
+			\end{tabular}
+		} 
+		\subfloat[SM]{
+			\begin{tabular}{c|c|c}
+			$N_{\text{q}}$ & Count & Fraction \\ \hline
+			3          & 4    & 0.001       \\
+			4          & 156  & 0.022       \\
+			5          & 1505 & 0.210       \\
+			6          & 5510 & 0.768       \\ \hline
+			Total      & 7175 & 1.000      
+			\end{tabular}
+		}
+	\end{table}
+	\begin{table}[htpb]
+		\centering
+        \caption{The various cases of quark matching results in the $N_{\text{q}} = 6$ case.}
+		\label{tab:various_types_of_6_match_quarks}
+		\subfloat[$m_{h_3} = \text{420 GeV}$, $m_{h_2} = \text{280 GeV}$]{
+			\begin{tabular}{c|c|c}
+			$N_{\text{q}} = 6$                   & Count & Fraction \\ \hline
+			Successful matching                  & 2655 & 0.886 \\
+			Only one matching jet for each quark & 285  & 0.095 \\
+			More than one jet for some quark     & 58   & 0.019 \\ \hline
+			Total                                & 2998 & 1.000
+			\end{tabular}
+		} \\
+		\subfloat[SM]{
+			\begin{tabular}{c|c|c}
+			$N_{\text{q}} = 6$                   & Count & Fraction \\ \hline
+			Successful matching                  & 5054 & 0.917 \\
+			Only one matching jet for each quark & 376  & 0.068 \\
+			More than one jet for some quark     & 80   & 0.015 \\ \hline
+			Total                                & 5510 & 1.000
+			\end{tabular}
+		}
+	\end{table}
+% section matching_failed_events (end)
 \bibliographystyle{ieeetr}
 \bibliography{reference}
 		
