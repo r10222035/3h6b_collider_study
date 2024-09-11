@@ -533,7 +533,7 @@
 % section another_pairing_method (end)
 \section{New simulation setting}% (fold)
 \label{sec:new_simulation_setting}
-    We apply the new setting to the event generation for a fair comparison. Following are the notes about the latest simulation setting.
+    We apply the new setting to the event generation for a fair comparison. The following are the notes on the latest simulation setting.
 
     The $6b$ analysis uses $R = 0.4$ anti-$k_{\text{T}}$ jets. All jets are required to have $p_{\text{T}} > 20 \text{ GeV}$ and  $\abs{\eta} < 2.5$, to be within the tracker acceptance for $b$-tagging. 
 
@@ -1012,6 +1012,37 @@
 			\end{tabular}
 		}
 	\end{table}
+    \subsection{\texorpdfstring{$\Delta R$}{delta R} distance}% (fold)
+    \label{sub:delta_r_distance}
+        Table~\ref{tab:number_of_quark_match_to_jet} shows that only 76\% event can match all quarks to at least one jet. We try to modify the $\Delta R$ requirement to study more details about matching failed events.
+
+        Table~\ref{tab:number_of_quark_match_to_jet_05} presents the quark matching results, where $\Delta R = 0.5$. By increasing the $\Delta R$ distance, the fraction of event with $N_{\text{q}} = 6$ is increased while the values are still lower than 80\%.
+        \begin{table}[htpb]
+            \centering
+            \caption{The quark matching table. $N_{\text{q}}$ is the number of quarks that can be matched to jets in an event.}
+            \label{tab:number_of_quark_match_to_jet_05}
+            \subfloat[$m_{h_3} = \text{420 GeV}, \\ m_{h_2} = \text{280 GeV}$]{
+                \begin{tabular}{c|c|c}
+                $N_{\text{q}}$ & Count & Fraction \\ \hline
+                3          & 7    & 0.002       \\
+                4          & 73   & 0.018       \\
+                5          & 768  & 0.194       \\
+                6          & 3118 & 0.786       \\ \hline
+                Total      & 3966 & 1.000      
+                \end{tabular}
+            } 
+            \subfloat[SM]{
+                \begin{tabular}{c|c|c}
+                $N_{\text{q}}$ & Count & Fraction \\ \hline
+                3          & 2    & 0.000       \\
+                4          & 113  & 0.016       \\
+                5          & 1321 & 0.184       \\
+                6          & 5739 & 0.800       \\ \hline
+                Total      & 7175 & 1.000      
+                \end{tabular}
+            }
+        \end{table}
+    % subsection delta_r_distance (end)
 % section matching_failed_events (end)
 \bibliographystyle{ieeetr}
 \bibliography{reference}
