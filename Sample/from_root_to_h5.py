@@ -33,12 +33,10 @@ N_CORES = 64
 
 def DeltaR(eta1, phi1, eta2, phi2):
     dEta = eta1 - eta2
-    dPhi = abs(phi1 - phi2)
-    if dPhi > np.pi:
-        dPhi = 2*np.pi - dPhi
+    dPhi = np.abs(phi1 - phi2)
+    dPhi = np.where(dPhi > np.pi, 2 * np.pi - dPhi, dPhi)
 
-    dR = (dPhi**2 + dEta**2)**0.5
-
+    dR = np.sqrt(dPhi**2 + dEta**2)
     return dR
 
 
@@ -161,17 +159,10 @@ def select_event(root_path, nbj_min, start, end):
         BTag = np.array(jet_BTag[eta_pt_cut])
 
         # 找出每個夸克配對的 jet
-        more_than_1_jet = False
         for quark in range(len(quarks_Jet)):
-            for i in range(min(nj, MAX_JETS)):
-                dR = DeltaR(Eta[i], Phi[i], quarks_Eta[quark], quarks_Phi[quark])
-                if dR < 0.4 and quarks_Jet[quark] == -1:
-                    quarks_Jet[quark] = i
-                elif dR < 0.4:
-                    more_than_1_jet = True
-
-        if more_than_1_jet:
-            continue
+            dR = DeltaR(quarks_Eta[quark], quarks_Phi[quark], Eta, Phi)
+            if dR.min() < 0.4:
+                quarks_Jet[quark] = np.argmin(dR)
 
         quark_jet = quarks_Jet.reshape(1, 6)
 
