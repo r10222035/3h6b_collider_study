@@ -449,7 +449,7 @@
 	\begin{equation}
 		\chi^{2,(6)} = \sum_{qr\in J} (m_{qr} - m_h)^2
 	\end{equation}
-	where $J = \{j_1j_2,j_3j_4,j_5j_6\} $ is the set of all possible 15 pairings of 6 $b$-tagged jets. Out of all the possible combinations we pick the one with the smallest value $\chi_{\text{min}}^{2,(6)}$. The pairing of $b$-jets defining $\chi_{\text{min}}^{2,(6)}$ is our best candidate for the reconstruction of the three Higgs bosons, $h$. No pairing efficiency is provided.
+	where $J = \{j_1j_2,j_3j_4,j_5j_6\} $ is the set of all possible 15 pairings of 6 $b$-tagged jets. Out of all the possible combinations, we pick the one with the smallest value $\chi_{\text{min}}^{2,(6)}$. The pairing of $b$-jets defining $\chi_{\text{min}}^{2,(6)}$ is our best candidate for the reconstruction of the three Higgs bosons, $h$. No pairing efficiency is provided.
 
 	In Ref.~\cite{Papaefstathiou:2020lyp}: We select the 6 $b$-tagged jets with the highest transverse momentum and form pairs in different combinations, with the aim of first reconstructing individual SM-like Higgs bosons, $h_1$, and subsequently the two scalars $h_2$ and $h_3$. To this end, we introduce two observables:
 	\begin{equation}
@@ -471,12 +471,12 @@
 \label{sec:6b_requirement}
 	They could utilize stronger kinetic and $b$-tagging requirements in experiments. However, we do not use the $b$-tag information for the previous $\chi^2$ method. Thus, we change the preselection condition to make a fair comparison.
 
-	For testing samples, we only consider the event that contains at least 6 $b$-tagged jets. The Higgs Bosons are reconstructed by pairing the 6 leading $b$-jets for the $\chi^2$ method. Thus, the best one is chosen from 15 possible pairing combinations.
+	For testing samples, we only consider the event that contains at least 6 $b$-tagged jets. The Higgs Bosons are reconstructed by pairing the six leading $b$-jets for the $\chi^2$ method. Thus, the best one is chosen from 15 possible pairing combinations.
 
 	Table~\ref{tab:chi2_pairing_triHiggs_6b_3h} and Table~\ref{tab:SPANet_triHiggs_6b_3h} are the pairing performance on 6 $b$-tagged samples. The $\chi^2$ method performs better than the previous results (Table~\ref{tab:chi2_pairing_triHiggs_0b_1h2h3h}) but still performs worse than the \textsc{Spa-Net} pairing.
 	\begin{table}[htpb]
 		\centering
-		\caption{$\chi^2$ pairing efficiencies on different categories. The $\chi^2$ method only considers the 6 leading $b$-jets.}
+		\caption{$\chi^2$ pairing efficiencies on different categories. The $\chi^2$ method only considers the six leading $b$-jets.}
 		\label{tab:chi2_pairing_triHiggs_6b_3h}
 		\begin{tabular}{c|cccc|c}
 			\multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
@@ -509,7 +509,7 @@
 	\end{equation}
 	where $m_{h_i}$ is the mass of the $i$-th Higgs boson candidate (sorted by $p_{\text{T}}$) in units of GeV. The numbers in this definition are chosen based on the peaks of the $m_{h_i}$ distributions in simulated signal events.
 
-	Figure~\ref{fig:mh_distribution_6b} is the Higgs boson invariant mass $m_h$ distributions. The peaks of the $m_{h}$ distributions in our simulation are $121, 119, 116 \text{ GeV}$. Based on these values we modify the numbers in Equation~\ref{eq:pairing_method_abs}.
+	Figure~\ref{fig:mh_distribution_6b} is the Higgs boson invariant mass $m_h$ distributions. The peaks of the $m_{h}$ distributions in our simulation are $121, 119, 116 \text{ GeV}$. We modify the numbers in Equation~\ref{eq:pairing_method_abs} based on these values.
 	\begin{figure}[htpb] 
 		\centering
         \includegraphics[width=0.65\textwidth]{mh_distribution_6b.pdf} 
@@ -519,7 +519,7 @@
 	Table~\ref{tab:chi2_abs_pairing_triHiggs_6b_3h} is the pairing performance on 6 $b$-tagged samples. The absolute value method performs worse than the $\chi^2$ method (Table~\ref{tab:chi2_pairing_triHiggs_6b_3h}).
 	\begin{table}[htpb]
 		\centering
-		\caption{$\chi^2$ pairing efficiencies on different categories. The $\chi^2$ method only considers the 6 leading $b$-jets.}
+		\caption{$\chi^2$ pairing efficiencies on different categories. The $\chi^2$ method only considers the six leading $b$-jets.}
 		\label{tab:chi2_abs_pairing_triHiggs_6b_3h}
 		\begin{tabular}{c|cccc|c}
 			\multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
@@ -537,15 +537,15 @@
 
     The $6b$ analysis uses $R = 0.4$ anti-$k_{\text{T}}$ jets. All jets are required to have $p_{\text{T}} > 20 \text{ GeV}$ and  $\abs{\eta} < 2.5$, to be within the tracker acceptance for $b$-tagging. 
 
-    All events must pass the Preselection. They must have at least six jets, defined by the earlier selection criteria. Of these 6 jets, at least 4 jets must have $p_{\text{T}} > \text{40 GeV}$ and at least 4 jets must be $b$-tagged.
+    All events must pass the Preselection. They must have at least six jets, defined by the earlier selection criteria. Of these six jets, at least four jets must have $p_{\text{T}} > \text{40 GeV}$, and at least four jets must be $b$-tagged.
 
-    Pairing is performed on all events passing the Preselection. In the case of $4b$ or $5b$ events, the 6 jets considered for pairing into Higgs candidates are the $b$-tagged jets and the extra jets are selected as the highest $p_{\text{T}}$ of the remaining light-flavour jets. In the case of $6b$ events, the 6 jets are the 6 leading $p_{\text{T}}$ $b$-tagged jets.
+    Pairing is performed on all events passing the Preselection. In the case of $4b$ or $5b$ events, the six jets considered for pairing into Higgs candidates are the $b$-tagged jets, and the extra jets are selected as the highest $p_{\text{T}}$ of the remaining light-flavor jets. In the case of $6b$ events, the 6 jets are the 6 leading $p_{\text{T}}$ $b$-tagged jets.
 % section new_simulation_setting (end)
 \section{Pairing for new simulated samples}% (fold)
 \label{sec:pairing_for_new_simulated_samples}
     We modified the \verb|Delphes| card to apply the anti-$k_{\text{T}}$ clustering algorithm with $R = 0.4$ and change the $b$-tagging efficiency to the ATLAS DL1r 77\% working point. At this working point, the light-jet (charm-jet) rejection is about 130 (4.9).
 
-    Figure~\ref{fig:mh_distribution_new} is the Higgs boson invariant mass $m_h$ distributions for new simulated samples. All events passing the Preselection and matching are used to generate this plot. The peaks of the $m_{h}$ distributions in our simulation are $119, 115, 111 \text{ GeV}$. Based on these values we modify the numbers in Equation~\ref{eq:pairing_method_abs}.
+    Figure~\ref{fig:mh_distribution_new} is the Higgs boson invariant mass $m_h$ distributions for new simulated samples. All events passing the Preselection and matching are used to generate this plot. The peaks of the $m_{h}$ distributions in our simulation are $119, 115, 111 \text{ GeV}$. Based on these values, we modify the numbers in Equation~\ref{eq:pairing_method_abs}.
 	\begin{figure}[htpb] 
 		\centering
         \includegraphics[width=0.65\textwidth]{mh_distribution_new.pdf}
@@ -752,7 +752,7 @@
 
     Table~\ref{tab:resonant_match_rate_nbj} and \ref{tab:resonant_match_rate_nj} are the matching rates in different $N_{b\text{-Jet}}$ and $N_{\text{Jet}}$ categories for resonant samples, respectively. Only the events passing the Preselection would be considered.
 
-    The matching rate in the $6b$ region is much higher than in the $4b$ and $5b$ regions. However, the event fraction of $6b$ categories is 12\%. Therefore, the total matching efficiency is 31\%. The matching rate in the $8j$ region is higher than $6j$ and $7j$ regions. If there is a jet not decaying from the $b$-parton, then the matching would fail in the $6j$ case. Thus, this result is satisfied our expectation.
+    The matching rate in the $6b$ region is much higher than in the $4b$ and $5b$ regions. However, the event fraction of $6b$ categories is 12\%. Therefore, the total matching efficiency is 31\%. The matching rate in the $8j$ region is higher than in the $6j$ and $7j$ regions. If there is a jet not decaying from the $b$-parton, then the matching would fail in the $6j$ case. Thus, this result is satisfied our expectation.
     \begin{table}[htpb]
 		\centering
         \caption{The matching rates on different $N_{b\text{-Jet}}$ categories. The numerator is the number of events each $b$-parton can be matched to a jet. The denominator is the number of events passing the Preselection.}
@@ -959,9 +959,9 @@
 \label{sec:matching_failed_events}
     Even when considering the $6b$ category, the matching efficiencies remain around 66\%. To better understand this, we must investigate the reasons for the failed matching cases.
 
-    Matching algorithm: For each simulated truth quark, we compute the $\Delta R$ between the quark and all jets, and then match the quark to the jet within $\Delta R = 0.4$ cone. If more than one jet can be matched to a simulated truth quark in the $\Delta R = 0.4$ cone, we choose the nearest one by the $\Delta R$ distance. If multiple quarks are matched to the same jet, then the matching is failed.
+    Matching algorithm: For each simulated truth quark, we compute the $\Delta R$ between the quark and all jets and then match the quark to the jet within $\Delta R = 0.4$ cone. If more than one jet can be matched to a simulated truth quark in the $\Delta R = 0.4$ cone, we choose the nearest one by the $\Delta R$ distance. If multiple quarks are matched to the same jet, then the matching is failed.
 
-	Here we only consider the $6b$ category. First, we compute the number of quarks that can be matched to jets, meaning that at least one jet is within the $\Delta R=0.4$ cone of the quark. Events with $N_{\text{q}} < 6$ are the failed matching cases. Table~\ref{tab:number_of_quark_match_to_jet} presents the quark matching results.
+	Here, we only consider the $6b$ category. First, we compute the number of quarks that can be matched to jets, meaning that at least one jet is within the $\Delta R=0.4$ cone of the quark. Events with $N_{\text{q}} < 6$ are the failed matching cases. Table~\ref{tab:number_of_quark_match_to_jet} presents the quark matching results.
 
 	For the $N_{\text{q}} = 6$ case, if multiple quarks are matched to the same jet, then the matching fails. Two types of $N_{\text{q}} = 6$ failed cases exist. One is for each quark that has only one jet within the $\Delta R=0.4$ cone. Another is there is more than one jet within the $\Delta R = 0.4$ cone of quark. Table~\ref{tab:various_types_of_6_match_quarks} summarizes the vairous cases in the $N_{\text{q}} = 6$ category.
 	\begin{table}[htpb]
@@ -1044,6 +1044,104 @@
         \end{table}
     % subsection delta_r_distance (end)
 % section matching_failed_events (end)
+\section{Train SPANet with the samples in \texorpdfstring{$6b$}{6b} region}% (fold)
+\label{sec:train_spanet_with_the_samples_in_6b_region}
+    In this section, we only consider the signal events in the $6b$ region, i.e., there $\ge 6$ $b$-tagged jets. We prepare the samples in the $6b$ region for the \textsc{Spa-Net} training. 
+
+    For the jet assignment part,
+    \begin{itemize}
+        \item Training sample:
+        \begin{itemize}
+            \item Total sample size: 360,000
+            \item 1h sample size: 38,595
+            \item 2h sample size: 73,036
+            \item 3h sample size: 243,762
+            \item 5\% used on validation
+        \end{itemize}
+        \item Testing sample:
+        \begin{itemize}
+            \item Total sample size: 40,000
+            \item 1h sample size: 4,360
+            \item 2h sample size: 8,070
+            \item 3h sample size: 27,087
+        \end{itemize}
+    \end{itemize}
+
+    Table~\ref{tab:resonant_chi2_pairing_6b_region}, \ref{tab:resonant_abs_pairing_6b_region} and \ref{tab:resonant_6b_SPANet_pairing_6b_region} are the pairing performance on the $6b$ samples. The \textsc{Spa-Net} performs the worst. One reason is the sample is not enough for training. We need to generate more training samples to improve the training performance.
+    \begin{table}[htpb]
+		\centering
+        \caption{$\chi^2$ pairing efficiencies of the resonant tri-Higgs samples on different categories. The testing set is the $6b$ samples. We minimize the quantity defined in Equation~\ref{eq:triHiggs_chisq}. The $\chi^2$ method considers the possible combinations of 6 highest $p_{\text{T}}$ $b$-jets.}
+		\label{tab:resonant_chi2_pairing_6b_region}
+		\begin{tabular}{c|c|cccc|c}
+        \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+        $N_\text{Jet}$        & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+        $=6$                  & 0.211 & 0.509 & 0.000 & 0.124 & 0.367 & 0.551                \\
+        $=7$                  & 0.318 & 0.429 & 0.005 & 0.135 & 0.431 & 0.477                \\
+        $\ge 8$               & 0.471 & 0.311 & 0.011 & 0.148 & 0.530 & 0.367                \\ \hline
+        Total                 & 1.000 & 0.390 & 0.007 & 0.139 & 0.464 & 0.441               
+		\end{tabular}
+    \end{table}
+    \begin{table}[htpb]
+		\centering
+		\caption{Absolute value pairing efficiencies of the resonant tri-Higgs samples on different categories. The testing set is the $6b$ samples. We minimize the quantity defined in Equation~\ref{eq:pairing_method_abs}. The absolute value method considers the possible combination of 6 highest $p_{\text{T}}$ $b$-jets.}
+		\label{tab:resonant_abs_pairing_6b_region}
+        \begin{tabular}{c|c|cccc|c}
+        \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+        $N_{b\text{-Jet}}$    & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+        $=4$                  & 0.211 & 0.456 & 0.000 & 0.126 & 0.418 & 0.498 \\
+        $=5$                  & 0.318 & 0.388 & 0.004 & 0.141 & 0.466 & 0.438 \\
+        $\ge 6$               & 0.471 & 0.280 & 0.010 & 0.153 & 0.558 & 0.337 \\ \hline
+        Total                 & 1.000 & 0.352 & 0.006 & 0.143 & 0.499 & 0.403 
+		\end{tabular}
+	\end{table}
+    \begin{table}[htpb]
+		\centering
+        \caption{The pairing performance of \textsc{Spa-Net} trained on $6b$ datasets. The testing set is the $6b$ samples. The \textsc{Spa-Net} method considers all jets in the final state.}
+		\label{tab:resonant_6b_SPANet_pairing_6b_region}
+		\begin{tabular}{c|c|cccc|c}
+			\multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+			$N_\text{Jet}$        & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+			$=6$                  & 0.211 & 0.417 & 0.000 & 0.137 & 0.446 & 0.463                \\
+			$=7$                  & 0.318 & 0.318 & 0.003 & 0.156 & 0.523 & 0.372                \\
+			$\ge 8$               & 0.471 & 0.219 & 0.010 & 0.172 & 0.599 & 0.283                \\ \hline
+			Total                 & 1.000 & 0.292 & 0.006 & 0.159 & 0.543 & 0.349               
+		\end{tabular}
+	\end{table}
+
+    Another test is that we prepare the training dataset by different selection criteria. We only require at least 4 $b$-jets for this dataset. Thus, the sample sizes are the following:
+    \begin{itemize}
+        \item Training sample:
+        \begin{itemize}
+            \item Total sample size: 900,000
+            \item 1h sample size: 246,462
+            \item 2h sample size: 318,057
+            \item 3h sample size: 280,788
+            \item 5\% used on validation
+        \end{itemize}
+        \item Testing sample:
+        \begin{itemize}
+            \item Total sample size: 100,000
+            \item 1h sample size: 27,243
+            \item 2h sample size: 35,050
+            \item 3h sample size: 31,499
+        \end{itemize}
+    \end{itemize}
+
+    Table~\ref{tab:resonant_4b_SPANet_pairing_6b_region} is the pairing performance of \textsc{Spa-Net} training on the $4b$ samples and testing on $6b$ events. The \textsc{Spa-Net} performs better than the previous one (Table~\ref{tab:resonant_6b_SPANet_pairing_6b_region}). Even if we only test on $6b$ samples, the event with 4 or 5 $b$-jets can improve the training performance.
+    \begin{table}[htpb]
+		\centering
+        \caption{The pairing performance of \textsc{Spa-Net} trained on the datasets with the at least 4 $b$-jets requirement. The testing set is the $6b$ samples. The \textsc{Spa-Net} method considers all jets in the final state.}
+		\label{tab:resonant_4b_SPANet_pairing_6b_region}
+		\begin{tabular}{c|c|cccc|c}
+			\multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+			$N_\text{Jet}$        & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+			$=6$                  & 0.211 & 0.648 & 0.000 & 0.088 & 0.264 & 0.677                \\
+			$=7$                  & 0.318 & 0.539 & 0.005 & 0.120 & 0.336 & 0.582                \\
+			$\ge 8$               & 0.471 & 0.390 & 0.013 & 0.160 & 0.437 & 0.452                \\ \hline
+			Total                 & 1.000 & 0.492 & 0.008 & 0.132 & 0.368 & 0.541               
+		\end{tabular}
+	\end{table}
+% section train_spanet_with_the_samples_in_6b_region (end)
 \bibliographystyle{ieeetr}
 \bibliography{reference}
 		
