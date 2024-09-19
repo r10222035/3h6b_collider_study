@@ -1086,12 +1086,12 @@
 		\caption{Absolute value pairing efficiencies of the resonant tri-Higgs samples on different categories. The testing set is the $6b$ samples. We minimize the quantity defined in Equation~\ref{eq:pairing_method_abs}. The absolute value method considers the possible combination of 6 highest $p_{\text{T}}$ $b$-jets.}
 		\label{tab:resonant_abs_pairing_6b_region}
         \begin{tabular}{c|c|cccc|c}
-        \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
-        $N_{b\text{-Jet}}$    & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
-        $=4$                  & 0.211 & 0.456 & 0.000 & 0.126 & 0.418 & 0.498 \\
-        $=5$                  & 0.318 & 0.388 & 0.004 & 0.141 & 0.466 & 0.438 \\
-        $\ge 6$               & 0.471 & 0.280 & 0.010 & 0.153 & 0.558 & 0.337 \\ \hline
-        Total                 & 1.000 & 0.352 & 0.006 & 0.143 & 0.499 & 0.403 
+            \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+            $N_{\text{Jet}}$    & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+            $=6$                  & 0.211 & 0.456 & 0.000 & 0.126 & 0.418 & 0.498 \\
+            $=7$                  & 0.318 & 0.388 & 0.004 & 0.141 & 0.466 & 0.438 \\
+            $\ge 8$               & 0.471 & 0.280 & 0.010 & 0.153 & 0.558 & 0.337 \\ \hline
+            Total                 & 1.000 & 0.352 & 0.006 & 0.143 & 0.499 & 0.403 
 		\end{tabular}
 	\end{table}
     \begin{table}[htpb]
@@ -1142,6 +1142,43 @@
 		\end{tabular}
 	\end{table}
 % section train_spanet_with_the_samples_in_6b_region (end)
+\section{DNN classifier}% (fold)
+\label{sec:dnn_classifier}
+    To distinguish the signal and background events, we use the deep neural networks (DNNs) to classify events as signal-like or background-like.
+    \subsection{Input features}% (fold)
+    \label{sub:input_features}
+        Following are the input features:
+        \begin{itemize}
+            \item $\Delta R_{H_1}, \Delta R_{H_2}, \Delta R_{H_3}$ : The angular distance between the 2 jets form the leading, sub-leading and least-leading Higgs Boson candidate, respectively.
+            \item $\text{rms } \Delta R_{\text{dijet}}$ : The root mean squre of the angular distance between all possible dijet that can form a Higgs Boson candidate.
+            \item $\text{Skewness } \Delta A_{\text{dijet}}$: The skewness of $\cosh\left( \Delta\eta_{ij} \right) - \cos\left( \Delta\phi_{ij} \right) $, where $i,j$ are all possible dijet that can form a Higgs Boson candidate.
+            \item $H_{\text{T, 6jets}}$ : Scalar sum of the $p_{\text{T}}$ of the 6 jets that can form 3 Higgs Boson candidates.
+            \item $m_{H}\cos\theta$ : $\theta$ is the angular between the vector of the reconstructed mass of the Higgs Boson candidates $\left( m_{H_1}, m_{H_2}, m_{H_3} \right) $ and $\left( 120, 115, 110 \right) \text{ GeV}$ and $m_H = \text{125 GeV}$.
+            \item $\eta - m_{HHH}$ fraction: Defiend as
+            \begin{equation}
+            \frac{\sum_{i,j} 2 p_{\text{T},i} p_{\text{T},j} \left( \cosh\left( \Delta\eta_{ij} \right) -1 \right) }{m_{HHH}^2}
+            \end{equation}
+            where $i,j$ are all possible dijet that can form a Higgs Boson candidate and $m_{HHH}$ is the reconstructed tri-Higgs invariant mass.
+            \item Shpericity and Aplanarity of 6 jets. Compute the momentum tensor $M_{xyz}$ 
+               \begin{equation}
+                   M_{xyz} = \sum_{i}
+                   \begin{pmatrix}
+                       p_{xi}^2 & p_{xi}p_{yi} & p_{xi}p_{zi} \\
+                       p_{xi}p_{yi} & p_{yi}^2 & p_{yi}p_{zi} \\
+                       p_{xi}p_{zi} & p_{yi}p_{zi} & p_{zi}^2 \\
+                   \end{pmatrix}
+               \end{equation}
+               where $i$ is the jet index. Its eigenvalues are ordered and normalised such that $\lambda_1  > \lambda_2 > \lambda_3$. Sphericity is deﬁned as
+               \begin{equation}
+                   S = \frac{3}{2} \left( \lambda_2 + \lambda_3 \right) 
+               \end{equation}
+               The aplanarity is defined as
+               \begin{equation}
+                   A = \frac{3}{2} \lambda_3
+               \end{equation}
+        \end{itemize}
+    % subsection input_features (end)
+% section dnn_classifier (end)
 \bibliographystyle{ieeetr}
 \bibliography{reference}
 		
