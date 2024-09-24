@@ -549,7 +549,7 @@
 	\begin{figure}[htpb] 
 		\centering
         \includegraphics[width=0.65\textwidth]{mh_distribution_new.pdf}
-		\caption{The Higgs boson mass distributions. Here, we consider all events passing the Preselection and the correct pairing can be obtained.}
+		\caption{The Higgs boson mass distributions. Here, we consider all events passing the Preselection, and the correct pairing can be obtained.}
 		\label{fig:mh_distribution_new}
 	\end{figure}
 
@@ -1016,7 +1016,7 @@
     \label{sub:delta_r_distance}
         Table~\ref{tab:number_of_quark_match_to_jet} shows that only 76\% event can match all quarks to at least one jet. We try to modify the $\Delta R$ requirement to study more details about matching failed events.
 
-        Table~\ref{tab:number_of_quark_match_to_jet_05} presents the quark matching results, where $\Delta R = 0.5$. By increasing the $\Delta R$ distance, the fraction of event with $N_{\text{q}} = 6$ is increased while the values are still lower than 80\%.
+        Table~\ref{tab:number_of_quark_match_to_jet_05} presents the quark matching results, where $\Delta R = 0.5$. Increasing the $\Delta R$ distance increases the fraction of event with $N_{\text{q}} = 6$ while the values are still lower than 80\%.
         \begin{table}[htpb]
             \centering
             \caption{The quark matching table. $N_{\text{q}}$ is the number of quarks that can be matched to jets in an event.}
@@ -1108,7 +1108,7 @@
 		\end{tabular}
 	\end{table}
 
-    Another test is that we prepare the training dataset by different selection criteria. We only require at least 4 $b$-jets for this dataset. Thus, the sample sizes are the following:
+    Another test is that we prepare the training dataset using different selection criteria. We only require at least 4 $b$-jets for this dataset. Thus, the sample sizes are the following:
     \begin{itemize}
         \item Training sample:
         \begin{itemize}
@@ -1144,21 +1144,21 @@
 % section train_spanet_with_the_samples_in_6b_region (end)
 \section{DNN classifier}% (fold)
 \label{sec:dnn_classifier}
-    To distinguish the signal and background events, we use the deep neural networks (DNNs) to classify events as signal-like or background-like.
+    To distinguish the signal and background events, we use deep neural networks (DNNs) to classify events as signal-like or background-like.
     \subsection{Input features}% (fold)
     \label{sub:input_features}
-        Following are the input features:
+        The following are the input features:
         \begin{itemize}
-            \item $\Delta R_{H_1}, \Delta R_{H_2}, \Delta R_{H_3}$ : The angular distance between the 2 jets form the leading, sub-leading and least-leading Higgs Boson candidate, respectively.
-            \item $\text{rms } \Delta R_{\text{dijet}}$ : The root mean squre of the angular distance between all possible dijet that can form a Higgs Boson candidate.
+            \item $\Delta R_{h_1}, \Delta R_{h_2}, \Delta R_{h_3}$: The angular distance between the 2 jets form the leading, sub-leading and least-leading Higgs Boson candidate, respectively.
+            \item $\text{rms } \Delta R_{\text{dijet}}$: The root mean square of the angular distance between all possible dijet that can form a Higgs Boson candidate. We consider all possible permutations of 6 jets selected for pairing.
             \item $\text{Skewness } \Delta A_{\text{dijet}}$: The skewness of $\cosh\left( \Delta\eta_{ij} \right) - \cos\left( \Delta\phi_{ij} \right) $, where $i,j$ are all possible dijet that can form a Higgs Boson candidate.
-            \item $H_{\text{T, 6jets}}$ : Scalar sum of the $p_{\text{T}}$ of the 6 jets that can form 3 Higgs Boson candidates.
-            \item $m_{H}\cos\theta$ : $\theta$ is the angular between the vector of the reconstructed mass of the Higgs Boson candidates $\left( m_{H_1}, m_{H_2}, m_{H_3} \right) $ and $\left( 120, 115, 110 \right) \text{ GeV}$ and $m_H = \text{125 GeV}$.
-            \item $\eta - m_{HHH}$ fraction: Defiend as
+            \item $H_{\text{T, 6jets}}$: Scalar sum of the $p_{\text{T}}$ of the 6 jets that can form 3 Higgs Boson candidates.
+            \item $m_{h}\cos\theta$: $\theta$ is the angle between the vector of the reconstructed mass of the Higgs Boson candidates $\left( m_{h_1}, m_{h_2}, m_{h_3} \right) $ and $\left( 120, 115, 110 \right) \text{ GeV}$.
+            \item $\eta - m_{hhh}$ fraction: Defined as
             \begin{equation}
-            \frac{\sum_{i,j} 2 p_{\text{T},i} p_{\text{T},j} \left( \cosh\left( \Delta\eta_{ij} \right) -1 \right) }{m_{HHH}^2}
+            \frac{\sum_{i,j} 2 p_{\text{T},i} p_{\text{T},j} \left( \cosh\left( \Delta\eta_{ij} \right) -1 \right) }{m_{hhh}^2}
             \end{equation}
-            where $i,j$ are all possible dijet that can form a Higgs Boson candidate and $m_{HHH}$ is the reconstructed tri-Higgs invariant mass.
+            where $i,j$ are all possible dijet that can form a Higgs Boson candidate and $m_{hhh}$ is the reconstructed tri-Higgs invariant mass.
             \item Shpericity and Aplanarity of 6 jets. Compute the momentum tensor $M_{xyz}$ 
                \begin{equation}
                    M_{xyz} = \sum_{i}
@@ -1167,8 +1167,10 @@
                        p_{xi}p_{yi} & p_{yi}^2 & p_{yi}p_{zi} \\
                        p_{xi}p_{zi} & p_{yi}p_{zi} & p_{zi}^2 \\
                    \end{pmatrix}
+                   /
+                   \sum_{i}\abs{p_i}^2
                \end{equation}
-               where $i$ is the jet index. Its eigenvalues are ordered and normalised such that $\lambda_1  > \lambda_2 > \lambda_3$. Sphericity is deﬁned as
+               where $i$ is the jet index. Its eigenvalues are ordered such that $\lambda_1  > \lambda_2 > \lambda_3$. Sphericity is defined as
                \begin{equation}
                    S = \frac{3}{2} \left( \lambda_2 + \lambda_3 \right) 
                \end{equation}
@@ -1177,6 +1179,42 @@
                    A = \frac{3}{2} \lambda_3
                \end{equation}
         \end{itemize}
+
+        The signal is the resonant sample described in Section~\ref{sec:signal}. The background is the $pp\to 6b$ events. We utilize the events in the $6b$ category to plot the input feature distributions. Some variables depend on the pairing results, for example, $\Delta R_{h_i}, m_h\cos\theta$. Strictly speaking, other variables would also depend on how to select the 6 jets for pairing. Figure~\ref{fig:DNN_input_feature_1} and \ref{fig:DNN_input_feature_2} are the input feature distributions. We employ the absolute value pairing to construct these variables.
+        \begin{figure}[htpb]
+            \centering
+             \subfloat[]{
+                 \includegraphics[width=0.97\textwidth]{dR_distribution-abs_pairing.pdf}
+            } \\
+            \subfloat[]{
+                 \includegraphics[width=0.45\textwidth]{rms_dR_distribution-abs_pairing.pdf}
+            } 
+            \subfloat[]{
+                 \includegraphics[width=0.45\textwidth]{dA_skew_distribution-abs_pairing.pdf}
+            } \\
+            \subfloat[]{
+                 \includegraphics[width=0.45\textwidth]{HT_distribution-abs_pairing.pdf}
+            } 
+            \subfloat[]{
+                 \includegraphics[width=0.45\textwidth]{mhCostheta_distribution-abs_pairing.pdf}
+            } \\
+            \caption{Distributions of the DNN input features.}
+            \label{fig:DNN_input_feature_1}
+        \end{figure}
+        \begin{figure}[htpb] 
+            \centering
+            \subfloat[]{
+                 \includegraphics[width=0.45\textwidth]{eta_mhhh_fraction_distribution-abs_pairing.pdf}
+            } \\
+            \subfloat[]{
+                 \includegraphics[width=0.45\textwidth]{sphericity_distribution-abs_pairing.pdf}
+            } 
+            \subfloat[]{
+                 \includegraphics[width=0.45\textwidth]{aplanarity_distribution-abs_pairing.pdf}
+            } \\
+            \caption{Distributions of the DNN input features.}
+            \label{fig:DNN_input_feature_2}
+        \end{figure}
     % subsection input_features (end)
 % section dnn_classifier (end)
 \bibliographystyle{ieeetr}
