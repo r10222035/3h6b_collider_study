@@ -5,6 +5,7 @@ import numpy as np
 from tqdm import tqdm
 from scipy.stats import skew
 
+
 def DeltaR(eta1, phi1, eta2, phi2):
     dEta = eta1 - eta2
     dPhi = np.abs(phi1 - phi2)
@@ -48,7 +49,6 @@ def from_h5_to_DNN_feature(h5_file, output_file):
     with h5py.File(h5_file, 'r') as f:
 
         nevent = f['INPUTS/Source/pt'].shape[0]
-        # nevent = 1000
 
         dR = [[], [], []]
         rms_dR = []
@@ -82,7 +82,6 @@ def from_h5_to_DNN_feature(h5_file, output_file):
             dR2 = DeltaR(eta[h2b1], phi[h2b1], eta[h2b2], phi[h2b2])
             dR3 = DeltaR(eta[h3b1], phi[h3b1], eta[h3b2], phi[h3b2])
 
-
             dR[0].append(dR1)
             dR[1].append(dR2)
             dR[2].append(dR3)
@@ -101,10 +100,10 @@ def from_h5_to_DNN_feature(h5_file, output_file):
             _, _, _, mh2 = PtEtaPhiM(*PxPyPzE(jets[[2, 3]]))
             _, _, _, mh3 = PtEtaPhiM(*PxPyPzE(jets[[4, 5]]))
 
-            HT.append(jets[:,0].sum())
+            HT.append(jets[:, 0].sum())
 
-            mh_rec = np.array([mh1, mh2, mh3])
             mh_ref = np.array([120, 115, 110])
+            mh_rec = np.array([mh1, mh2, mh3]) - mh_ref
 
             mhCostheta.append(mh_rec.dot(mh_ref) / (np.linalg.norm(mh_rec) * np.linalg.norm(mh_ref)))
 
@@ -133,15 +132,16 @@ def from_h5_to_DNN_feature(h5_file, output_file):
             eigvals = np.linalg.eigvals(Mxyz)
             eigvals = np.sort(eigvals)[::-1]
 
-            sphericity.append(3/2 * (eigvals[1] + eigvals[2]))
-            aplanarity.append(3/2 * eigvals[2])
+            sphericity.append(3 / 2 * (eigvals[1] + eigvals[2]))
+            aplanarity.append(3 / 2 * eigvals[2])
 
     # save the features to npy file
     results = np.array([dR[0], dR[1], dR[2], rms_dR, dA_skew, HT, mhCostheta, eta_mhhh_fraction, sphericity, aplanarity]).transpose()
     np.save(output_file, results)
 
+
 if __name__ == '__main__':
-    
+
     h5_file = sys.argv[1]
     output_file = sys.argv[2]
     from_h5_to_DNN_feature(h5_file, output_file)
