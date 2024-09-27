@@ -509,7 +509,7 @@
 	\end{equation}
 	where $m_{h_i}$ is the mass of the $i$-th Higgs boson candidate (sorted by $p_{\text{T}}$) in units of GeV. The numbers in this definition are chosen based on the peaks of the $m_{h_i}$ distributions in simulated signal events.
 
-	Figure~\ref{fig:mh_distribution_6b} is the Higgs boson invariant mass $m_h$ distributions. The peaks of the $m_{h}$ distributions in our simulation are $121, 119, 116 \text{ GeV}$. We modify the numbers in Equation~\ref{eq:pairing_method_abs} based on these values.
+	Figure~\ref{fig:mh_distribution_6b} is the Higgs boson invariant mass $m_h$ distributions. The peaks of the $m_{h}$ distributions in our simulation are $121, 119, 116 \text{ GeV}$. Based on these values, we modify the numbers in Equation~\ref{eq:pairing_method_abs}.
 	\begin{figure}[htpb] 
 		\centering
         \includegraphics[width=0.65\textwidth]{mh_distribution_6b.pdf} 
@@ -545,7 +545,7 @@
 \label{sec:pairing_for_new_simulated_samples}
     We modified the \verb|Delphes| card to apply the anti-$k_{\text{T}}$ clustering algorithm with $R = 0.4$ and change the $b$-tagging efficiency to the ATLAS DL1r 77\% working point. At this working point, the light-jet (charm-jet) rejection is about 130 (4.9).
 
-    Figure~\ref{fig:mh_distribution_new} is the Higgs boson invariant mass $m_h$ distributions for new simulated samples. All events passing the Preselection and matching are used to generate this plot. The peaks of the $m_{h}$ distributions in our simulation are $119, 115, 111 \text{ GeV}$. Based on these values, we modify the numbers in Equation~\ref{eq:pairing_method_abs}.
+    Figure~\ref{fig:mh_distribution_new} is the Higgs boson invariant mass $m_h$ distributions for new simulated samples. All events passing the Preselection and matching are used to generate this plot. The peaks of the $m_{h}$ distributions in our simulation are $119, 115, 111 \text{ GeV}$. We modify the numbers in Equation~\ref{eq:pairing_method_abs} based on these values.
 	\begin{figure}[htpb] 
 		\centering
         \includegraphics[width=0.65\textwidth]{mh_distribution_new.pdf}
@@ -1153,7 +1153,11 @@
             \item $\text{rms } \Delta R_{\text{dijet}}$: The root mean square of the angular distance between all possible dijet that can form a Higgs Boson candidate. We consider all possible permutations of 6 jets selected for pairing.
             \item $\text{Skewness } \Delta A_{\text{dijet}}$: The skewness of $\cosh\left( \Delta\eta_{ij} \right) - \cos\left( \Delta\phi_{ij} \right) $, where $i,j$ are all possible dijet that can form a Higgs Boson candidate.
             \item $H_{\text{T, 6jets}}$: Scalar sum of the $p_{\text{T}}$ of the 6 jets that can form 3 Higgs Boson candidates.
-            \item $m_{h}\cos\theta$: $\theta$ is the angle between the vector of the reconstructed mass of the Higgs Boson candidates $\left( m_{h_1}, m_{h_2}, m_{h_3} \right) $ and $\left( 120, 115, 110 \right) \text{ GeV}$.
+            \item $m_{h}\cos\theta$: $\theta$ is the angle between the reconstructed mass vector and the reference mass vector. The reconstructed mass vector is defined as:
+                \begin{equation}
+                    \left( m_{h_1}, m_{h_2}, m_{h_3} \right) - \left( 120, 115, 110 \right) \text{GeV},
+                \end{equation}
+                where $m_{h_1}, m_{h_2}, m_{h_3}$ are the invariant mass of Higgs candidates. The reference mass vector is formed by the origin to $\left( 120, 115, 110 \right) \text{GeV}$.
             \item $\eta - m_{hhh}$ fraction: Defined as
             \begin{equation}
             \frac{\sum_{i,j} 2 p_{\text{T},i} p_{\text{T},j} \left( \cosh\left( \Delta\eta_{ij} \right) -1 \right) }{m_{hhh}^2}
@@ -1214,6 +1218,25 @@
             } \\
             \caption{Distributions of the DNN input features.}
             \label{fig:DNN_input_feature_2}
+        \end{figure}
+
+        Figure~\ref{fig:DNN_input_feature_various_pairing_method} is the input feature distribution of various pairing methods. Since the distribution of $\Delta R_{h_i}$ and $m_{h} \cos\theta$ depend on the pairing results, we show the plots of these two variables.
+        \begin{figure}[htpb]
+            \centering
+            \subfloat[Signal]{
+                 \includegraphics[width=0.97\textwidth]{dR_distribution_signal.pdf}
+            } \\
+            \subfloat[Background]{
+                 \includegraphics[width=0.97\textwidth]{dR_distribution_background.pdf}
+            } \\
+            \subfloat[Signal]{
+                 \includegraphics[width=0.45\textwidth]{mhCostheta_distribution_signal.pdf}
+            } 
+            \subfloat[Background]{
+                 \includegraphics[width=0.45\textwidth]{mhCostheta_distribution_background.pdf}
+            } \\
+            \caption{Distributions of $\Delta R_{h_i}$ and $m_{h} \cos\theta$.}
+            \label{fig:DNN_input_feature_various_pairing_method}
         \end{figure}
     % subsection input_features (end)
 % section dnn_classifier (end)
