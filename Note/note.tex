@@ -1150,8 +1150,8 @@
         The following are the input features:
         \begin{itemize}
             \item $\Delta R_{h_1}, \Delta R_{h_2}, \Delta R_{h_3}$: The angular distance between the 2 jets form the leading, sub-leading and least-leading Higgs Boson candidate, respectively.
-            \item $\text{rms } \Delta R_{\text{dijet}}$: The root mean square of the angular distance between all possible dijet that can form a Higgs Boson candidate. We consider all possible permutations of 6 jets selected for pairing.
-            \item $\text{Skewness } \Delta A_{\text{dijet}}$: The skewness of $\cosh\left( \Delta\eta_{ij} \right) - \cos\left( \Delta\phi_{ij} \right) $, where $i,j$ are all possible dijet that can form a Higgs Boson candidate.
+            \item $\text{RMS } \Delta R_{\text{dijet}}$: The root mean square of the angular distance between all possible dijet combinations that can form a Higgs Boson candidate. We consider all possible permutations of 6 jets selected for pairing.
+            \item $\text{Skewness } \Delta A_{\text{dijet}}$: The skewness of $\cosh\left( \Delta\eta_{ij} \right) - \cos\left( \Delta\phi_{ij} \right) $, where $i,j$ are all possible dijet combinations that can form a Higgs Boson candidate.
             \item $H_{\text{T, 6jets}}$: Scalar sum of the $p_{\text{T}}$ of the 6 jets that can form 3 Higgs Boson candidates.
             \item $m_{h}\cos\theta$: $\theta$ is the angle between the reconstructed mass vector and the reference mass vector. The reconstructed mass vector is defined as:
                 \begin{equation}
@@ -1220,7 +1220,7 @@
             \label{fig:DNN_input_feature_2}
         \end{figure}
 
-        Figure~\ref{fig:DNN_input_feature_various_pairing_method} is the input feature distribution of various pairing methods. Since the distribution of $\Delta R_{h_i}$ and $m_{h} \cos\theta$ depend on the pairing results, we show the plots of these two variables.
+        Figure~\ref{fig:DNN_input_feature_various_pairing_method} is the input feature distributions of various pairing methods. Since the distribution of $\Delta R_{h_i}$ and $m_{h} \cos\theta$ depend on the pairing results, we show the plots of these two variables. For other variables, the distributions only depend on how to select the 6 jets for pairing. The distribution of various pairing methods looks similar but not the same.
         \begin{figure}[htpb]
             \centering
             \subfloat[Signal]{
@@ -1235,10 +1235,58 @@
             \subfloat[Background]{
                  \includegraphics[width=0.45\textwidth]{mhCostheta_distribution_background.pdf}
             } \\
-            \caption{Distributions of $\Delta R_{h_i}$ and $m_{h} \cos\theta$.}
+            \caption{Distributions of $\Delta R_{h_i}$ and $m_{h} \cos\theta$. $\abs{m-m_h}$ is the absolute value pairing method. $(m-m_h)^2$ is the $\chi^2$ pairing method. SPANet is the pairing results from the $4b$ \textsc{Spa-Net}. Truth is the result of the truth pairing.}
             \label{fig:DNN_input_feature_various_pairing_method}
         \end{figure}
     % subsection input_features (end)
+    \subsection{Model structure}% (fold)
+    \label{sub:model_structure}
+        We use the fully connected network with the ReLU activation function. After each dense layer, we add a dropout layer. The binary cross entropy is used as the loss function, and the Adam optimizer is used to minimize the loss value. We utilize the early stopping technique to prevent over-training.
+
+        Table~\ref{tab:DNN_hyperparameters} shows the hyperparameters used in this exercise.
+        \begin{table}[htpb]
+		\centering
+        \caption{The hyperparameter sets of the dense neural network training.}
+		\label{tab:DNN_hyperparameters}
+		\begin{tabular}{l|c}
+        Parameter                     & Value \\ \hline
+        Learning rate                 & 0.001 \\
+        Batchsize                     & 128   \\
+        Number of hidden layers       & 3     \\
+        Number of nodes in each layer & 24    \\
+        Dropout rate                  & 0.1   \\
+        Patience                      & 10   
+		\end{tabular}
+	\end{table}
+    % subsection model_structure (end)
+    \subsection{Training performance}% (fold)
+    \label{sub:training_performance}
+        We use 25k signal and 25k background events, where 70\% for training, 15\% for validation, and 15\% for testing. We use the absolute value pairing method to construct the input features.
+
+        Figure~\ref{fig:DNN_resonant_loss_accuracy} illustrates the loss and accuracy across the training process. Figure~\ref{fig:DNN_resonant_event_score_roc} shows the event score distribution and the ROC curve. The neural network is evaluated on the testing samples to generate these plots.
+        \begin{figure}[htpb] 
+            \centering
+            \subfloat[]{
+                 \includegraphics[width=0.45\textwidth]{DNN_loss_resonant.pdf}
+            } 
+            \subfloat[]{
+                 \includegraphics[width=0.45\textwidth]{DNN_accuracy_resonant.pdf}
+            } \\
+            \caption{The training and validation results during the training process.}
+            \label{fig:DNN_resonant_loss_accuracy}
+        \end{figure}
+        \begin{figure}[htpb] 
+            \centering
+            \subfloat[]{
+                 \includegraphics[width=0.45\textwidth]{DNN_event_score_resonant.pdf}
+            } 
+            \subfloat[]{
+                 \includegraphics[width=0.45\textwidth]{DNN_roc_resonant.pdf}
+            } \\
+            \caption{(a) The event score distribution of the testing dataset. (b) The ROC curve of the testing dataset. Here, the AUC is the area under the ROC curve, and the ACC is the best accuracy.}
+            \label{fig:DNN_resonant_event_score_roc}
+        \end{figure}
+    % subsection training_performance (end)
 % section dnn_classifier (end)
 \bibliographystyle{ieeetr}
 \bibliography{reference}
