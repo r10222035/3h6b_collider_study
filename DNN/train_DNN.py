@@ -78,7 +78,7 @@ def main():
     sample_type = config['sample_type']
 
     # Load data
-    ns, nb = 25000, 25000
+    ns, nb = 50000, 50000
     X_s = np.load(sig_path)[:ns]
     X_b = np.load(bkg_path)[:nb]
 
