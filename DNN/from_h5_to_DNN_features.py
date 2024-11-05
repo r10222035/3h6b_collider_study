@@ -1,9 +1,13 @@
 import sys
 import h5py
 import numpy as np
+import multiprocessing as mp
 
 from tqdm import tqdm
 from scipy.stats import skew
+from itertools import repeat
+
+N_CORES = 64
 
 
 def DeltaR(eta1, phi1, eta2, phi2):
@@ -45,10 +49,9 @@ def PtEtaPhiM(px, py, pz, e):
     return pt, eta, phi, m
 
 
-def from_h5_to_DNN_feature(h5_file, output_file):
-    with h5py.File(h5_file, 'r') as f:
+def construct_inputs(h5_file, start, end):
 
-        nevent = f['INPUTS/Source/pt'].shape[0]
+    with h5py.File(h5_file, 'r') as f:
 
         dR = [[], [], []]
         rms_dR = []
@@ -59,7 +62,7 @@ def from_h5_to_DNN_feature(h5_file, output_file):
         sphericity = []
         aplanarity = []
 
-        for event in tqdm(range(nevent)):
+        for event in tqdm(range(start, end)):
 
             nj = f['INPUTS/Source/MASK'][event].sum()
             pt = f['INPUTS/Source/pt'][event]
@@ -135,9 +138,32 @@ def from_h5_to_DNN_feature(h5_file, output_file):
             sphericity.append(3 / 2 * (eigvals[1] + eigvals[2]))
             aplanarity.append(3 / 2 * eigvals[2])
 
-    # save the features to npy file
-    results = np.array([dR[0], dR[1], dR[2], rms_dR, dA_skew, HT, mhCostheta, eta_mhhh_fraction, sphericity, aplanarity]).transpose()
-    np.save(output_file, results)
+        # save the features to npy file
+        results = np.array([dR[0], dR[1], dR[2], rms_dR, dA_skew, HT, mhCostheta, eta_mhhh_fraction, sphericity, aplanarity]).transpose()
+        return results
+    
+
+def from_h5_to_DNN_feature(h5_file, output_file):
+    # file_path: input h5 file path
+    # output_path: output h5 file path with jet pairing results
+    # use_btag: whether to use btag information
+
+
+    with h5py.File(h5_file, 'r') as f:
+        nevent = f['INPUTS/Source/pt'].shape[0]
+    print(f'Number of events: {nevent}')
+
+    # Multi-core processing
+    print(f'Number of cores: {N_CORES}')
+    start = [nevent // N_CORES * i for i in range(N_CORES)]
+    end = [nevent // N_CORES * (i+1) for i in range(N_CORES)]
+    end[-1] = nevent
+
+    with mp.Pool(processes=N_CORES) as pool:
+        results = pool.starmap(construct_inputs, zip(repeat(h5_file), start, end))
+
+    data = np.concatenate(results)
+    np.save(output_file, data)
 
 
 if __name__ == '__main__':
