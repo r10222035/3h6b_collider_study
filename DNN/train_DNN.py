@@ -72,13 +72,14 @@ def main():
 
     sig_path = config['signal_npy_path']
     bkg_path = config['background_npy_path']
+    ns = config['signal_size']
+    nb = config['background_size']
     batch_size = config['batch_size']
 
     model_name = config['model_name']
     sample_type = config['sample_type']
 
     # Load data
-    ns, nb = 50000, 50000
     X_s = np.load(sig_path)[:ns]
     X_b = np.load(bkg_path)[:nb]
 
