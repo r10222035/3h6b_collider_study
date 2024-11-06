@@ -1320,7 +1320,106 @@
             \end{tabular}
         \end{table}
     % subsection training_performance_with_larger_datasets (end)
+    \subsection{4b dataset}% (fold)
+    \label{sub:4b_dataset}
+        We only consider the events with 6 $b$-tagged jets in previous sections. However, only a few events can pass this requirement. To enlarge the training datasets, we lose the requirement to 4 $b$-tagged jets. The amount of $4b$ datasets is 10 times larger than $6b$ datasets.
+
+        Table~\ref{tab:DNN_training_results_50k_100k_4b} summarizes the training results of $4b$ datasets. All methods exhibit similar performance. These results are consistent with previous results. 
+        \begin{table}[htpb]
+            \centering
+            \caption{The dense neural network training results. The ACC and AUC are evaluated based on 10 trainings. 50k means that we use 50k signal and 50k background events.}
+            \label{tab:DNN_training_results_50k_100k_4b}
+            \begin{tabular}{c|l|cc|cc}
+            \multicolumn{1}{l}{}  &                & \multicolumn{2}{c|}{Test on $4b$ datasets} & \multicolumn{2}{c}{Test on $6b$ datasets} \\ \hline
+            Sample size           & Pairing method & ACC                 & AUC                 & ACC                 & AUC                 \\ \hline
+            \multirow{3}{*}{50k}  & Absolute value   & $0.782 \pm 0.057$ & $0.844 \pm 0.076$ & $0.827 \pm 0.038$   & $0.886 \pm 0.048$   \\
+                                  & $\chi^2$         & $0.800 \pm 0.004$ & $0.867 \pm 0.005$ & $0.837 \pm 0.003$   & $0.900 \pm 0.002$   \\
+                                  & \textsc{Spa-Net} & $0.798 \pm 0.004$ & $0.870 \pm 0.008$ & $0.829 \pm 0.004$   & $0.899 \pm 0.006$   \\ \hline
+            \multirow{3}{*}{100k} & Absolute value   & $0.803 \pm 0.005$ & $0.870 \pm 0.006$ & $0.841 \pm 0.003$   & $0.903 \pm 0.003$   \\
+                                  & $\chi^2$         & $0.803 \pm 0.005$ & $0.871 \pm 0.005$ & $0.838 \pm 0.003$   & $0.901 \pm 0.002$   \\
+                                  & \textsc{Spa-Net} & $0.807 \pm 0.008$ & $0.878 \pm 0.007$ & $0.834 \pm 0.006$   & $0.905 \pm 0.005$  
+            \end{tabular}
+        \end{table}
+    % subsection 4b_dataset (end)
 % section dnn_classifier (end)
+\section{SPANet classifier}% (fold)
+\label{sec:spanet_classifier}
+    \textsc{Spa-Net} can be treated as a classifier. In this section, we train a \textsc{Spa-Net} to identify the correct pairings and perform the signal/background classification at the same time.
+
+	\subsection{Training dataset}% (fold)
+	\label{sub:training_dataset_spanet_classifier}
+    The selection and matching process for the jet pairing is described in section~\ref{sec:new_simulation_setting} and \ref{sec:modify_the_matching_strategy}. We only require the 4 $b$-tagged jets on training datasets. We prepare the signal and background samples of the same size for classification.
+
+		For the jet assignment part,
+		\begin{itemize}
+			\item Training sample:
+			\begin{itemize}
+                \item Total sample size: 900,000
+                \item 1h sample size: 123,141
+                \item 2h sample size: 159,219
+                \item 3h sample size: 140,132
+				\item 5\% used on validation
+			\end{itemize}
+			\item Testing sample:
+			\begin{itemize}
+                \item Total sample size: 100,000
+                \item 1h sample size: 13,785
+                \item 2h sample size: 17,448
+                \item 3h sample size: 15,668
+			\end{itemize}
+		\end{itemize}
+
+		For event classification,
+		\begin{itemize}
+			\item Training sample:
+			\begin{itemize}
+				\item Total sample size: 900,000
+				\item Signal sample size: 450,000
+				\item Background sample size: 450,000
+				\item 5\% used on validation
+			\end{itemize}
+			\item Testing sample:
+			\begin{itemize}
+				\item Total sample size: 100,000
+				\item Signal sample size: 50,000
+				\item Background sample size: 50,000
+			\end{itemize}
+		\end{itemize}
+
+		This training takes around 4.5 hours on our server.
+	% subsection training_dataset_spanet_classifier (end)
+	\subsection{Training results}% (fold)
+	\label{sub:training_results_spanet_classifier}
+		The training results are presented in Table \ref{tab:SPANet_triHiggs_4b_cls_pairing_results}.
+
+		\begin{table}[htpb]
+			\centering
+			\caption{\textsc{Spa-Net} training results on the $4b$ tri-Higgs samples. \textsc{Spa-Net} is trained on jet pairing and event classification tasks at the same time.}
+			\label{tab:SPANet_triHiggs_4b_cls_pairing_results}
+			\begin{tabular}{c|cccc|c}
+			               & \multicolumn{4}{c|}{Correctly reconstructed Higgs} &                  \\ \hline
+			$N_\text{Jet}$ & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency \\ \hline
+			$=6$           & 0.656       & 0.000      & 0.082      & 0.262      & 0.684            \\
+			$=7$           & 0.436       & 0.017      & 0.168      & 0.379      & 0.504            \\
+			$\ge 8$        & 0.341       & 0.018      & 0.173      & 0.468      & 0.411            \\ \hline
+			Total          & 0.478       & 0.012      & 0.142      & 0.368      & 0.533            
+			\end{tabular}
+			
+		\end{table}
+
+        Table \ref{tab:SPANet_triHiggs_4b_cls_classification_results} presents the classification training results. We use the accuracy (ACC) and the area under the Receiver Operating Characteristic (ROC) curve (AUC) as two metrics. The results are much better than the DNN classifiers (Table~\ref{tab:DNN_training_results_50k_100k_4b}). However, one thing should be noted that the training sample size of \textsc{Spa-Net} is 5 times greater than DNN's.
+		\begin{table}[htpb]
+			\centering
+			\caption{The \textsc{Spa-Net} classification training results with $4b$ tri-Higgs sample.}
+			\label{tab:SPANet_triHiggs_4b_cls_classification_results}
+			\begin{tabular}{c|cc|cc}
+				             & \multicolumn{2}{c|}{Test on $4b$ datasets}& \multicolumn{2}{c}{Test on $6b$ datasets} \\ \hline
+                             & ACC                 & AUC                 & ACC                 & AUC                 \\ \hline
+			\textsc{Spa-Net} & $0.935$             & $0.984$             & $0.939$             & $0.986$            
+            \end{tabular}    
+		\end{table}
+	% subsection training_results_spanet_classifier (end)
+% section spanet_classifier (end)
 \bibliographystyle{ieeetr}
 \bibliography{reference}
 		
