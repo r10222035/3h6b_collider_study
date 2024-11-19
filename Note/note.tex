@@ -1446,6 +1446,38 @@
             \end{tabular}
         \end{table}
     % subsection training_performance_with_500k_datasets (end)
+    \subsection{Modify hyperparameter}% (fold)
+    \label{sub:modify_hyperparameter}
+        We modify the hyperparameter set to explore its impact on training performance. We increase both the number of hidden nodes and the batch size. Table~\ref{tab:DNN_hyperparameters_2} lists the hyperparameters used in this subsection.
+        \begin{table}[htpb]
+            \centering
+            \caption{The hyperparameter sets of the dense neural network training.}
+            \label{tab:DNN_hyperparameters_2}
+            \begin{tabular}{l|c}
+            Parameter                     & Value \\ \hline
+            Learning rate                 & 0.001 \\
+            Batchsize                     & 1024  \\
+            Number of hidden layers       & 3     \\
+            Number of nodes in each layer & 256   \\
+            Dropout rate                  & 0.1   \\
+            Patience                      & 10   
+            \end{tabular}
+        \end{table}
+
+        Table~\ref{tab:DNN_training_results_500k_4b_256_nodes} summarizes the training results of 500k $4b$ datasets with this updated hyperparameter set. The performance of dense neural networks is better than previous results (Table~\ref{tab:DNN_training_results_50k_100k_500k_4b}), while the \textsc{Spa-Net} still outperforms the dense neural network.
+        \begin{table}[htpb]
+            \centering
+            \caption{The dense neural network training results. The ACC and AUC are evaluated based on 10 trainings.}
+            \label{tab:DNN_training_results_500k_4b_256_nodes}
+            \begin{tabular}{l|cc|cc}
+                             & \multicolumn{2}{c|}{Test on $4b$ datasets}& \multicolumn{2}{c}{Test on $6b$ datasets} \\ \hline
+            Pairing method   & ACC                 & AUC                 & ACC                 & AUC                 \\ \hline
+            Absolute value   & $0.8290 \pm 0.0002$ & $0.9024 \pm 0.0002$ & $0.8552 \pm 0.0015$ & $0.9221 \pm 0.0006$ \\
+            $\chi^2$         & $0.8288 \pm 0.0002$ & $0.9022 \pm 0.0002$ & $0.8537 \pm 0.0009$ & $0.9212 \pm 0.0006$ \\
+            \textsc{Spa-Net} & $0.8318 \pm 0.0003$ & $0.9065 \pm 0.0001$ & $0.8543 \pm 0.0009$ & $0.9241 \pm 0.0003$  
+            \end{tabular}
+        \end{table}
+    % subsection modify_hyperparameter (end)
 % section dnn_classifier_2 (end)
 \bibliographystyle{ieeetr}
 \bibliography{reference}
