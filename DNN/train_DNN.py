@@ -42,14 +42,14 @@ class DNN(tf.keras.Model):
     def __init__(self, name='DNN'):
         super(DNN, self).__init__(name=name)
 
-        # self.bn = tf.keras.layers.BatchNormalization()
+        self.bn = tf.keras.layers.BatchNormalization()
 
         self.network = tf.keras.Sequential([
-            tf.keras.layers.Dense(24, activation='relu'),
+            tf.keras.layers.Dense(256, activation='relu'),
             tf.keras.layers.Dropout(0.1),
-            tf.keras.layers.Dense(24, activation='relu'),
+            tf.keras.layers.Dense(256, activation='relu'),
             tf.keras.layers.Dropout(0.1),
-            tf.keras.layers.Dense(24, activation='relu'),
+            tf.keras.layers.Dense(256, activation='relu'),
             tf.keras.layers.Dropout(0.1),
             tf.keras.layers.Dense(1, activation='sigmoid'),
         ])
@@ -57,6 +57,7 @@ class DNN(tf.keras.Model):
     @tf.function
     def call(self, inputs, training=False):
 
+        inputs = self.bn(inputs)
         output = self.network(inputs)
 
         return output
