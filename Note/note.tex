@@ -1407,7 +1407,7 @@
 			
 		\end{table}
 
-        Table \ref{tab:SPANet_triHiggs_4b_cls_classification_results} presents the classification training results. We use the accuracy (ACC) and the area under the Receiver Operating Characteristic (ROC) curve (AUC) as two metrics. The results are much better than the DNN classifiers (Table~\ref{tab:DNN_training_results_50k_100k_4b}). However, one thing should be noted that the training sample size of \textsc{Spa-Net} is 5 times greater than DNN's.
+        Table \ref{tab:SPANet_triHiggs_4b_cls_classification_results} presents the classification training results. We use the accuracy (ACC) and the area under the Receiver Operating Characteristic (ROC) curve (AUC) as two metrics. The results are much better than the DNN classifiers (Table~\ref{tab:DNN_training_results_50k_100k_4b}). However, one thing should be noted: the training sample size of \textsc{Spa-Net} is 5 times greater than DNN's.
 		\begin{table}[htpb]
 			\centering
 			\caption{The \textsc{Spa-Net} classification training results with $4b$ tri-Higgs sample.}
@@ -1420,6 +1420,33 @@
 		\end{table}
 	% subsection training_results_spanet_classifier (end)
 % section spanet_classifier (end)
+\section{DNN classifier 2}% (fold)
+\label{sec:dnn_classifier_2}
+    \subsection{Training performance with 500k datasets}% (fold)
+    \label{sub:training_performance_with_500k_datasets}
+        To make a fair comparison of the \textsc{Spa-Net} classifier, we prepare the 500k $4b$ training dataset. The input feature and hyperparameter setting are similar to what we described in section~\ref{sec:dnn_classifier}.
+
+        Table~\ref{tab:DNN_training_results_50k_100k_500k_4b} summarizes the training results of $4b$ datasets. Even though we enlarged the sample size to 500k, all methods exhibit similar performance. The \textsc{Spa-Net} outperforms the dense neural network.
+        \begin{table}[htpb]
+            \centering
+            \caption{The dense neural network training results. The ACC and AUC are evaluated based on 10 trainings. 50k means that we use 50k signal and 50k background events.}
+            \label{tab:DNN_training_results_50k_100k_500k_4b}
+            \begin{tabular}{c|l|cc|cc}
+            \multicolumn{1}{l}{}  &                & \multicolumn{2}{c|}{Test on $4b$ datasets} & \multicolumn{2}{c}{Test on $6b$ datasets} \\ \hline
+            Sample size           & Pairing method & ACC                 & AUC                 & ACC                 & AUC                 \\ \hline
+            \multirow{3}{*}{50k}  & Absolute value   & $0.782 \pm 0.057$ & $0.844 \pm 0.076$ & $0.827 \pm 0.038$   & $0.886 \pm 0.048$   \\
+                                  & $\chi^2$         & $0.800 \pm 0.004$ & $0.867 \pm 0.005$ & $0.837 \pm 0.003$   & $0.900 \pm 0.002$   \\
+                                  & \textsc{Spa-Net} & $0.798 \pm 0.004$ & $0.870 \pm 0.008$ & $0.829 \pm 0.004$   & $0.899 \pm 0.006$   \\ \hline
+            \multirow{3}{*}{100k} & Absolute value   & $0.803 \pm 0.005$ & $0.870 \pm 0.006$ & $0.841 \pm 0.003$   & $0.903 \pm 0.003$   \\
+                                  & $\chi^2$         & $0.803 \pm 0.005$ & $0.871 \pm 0.005$ & $0.838 \pm 0.003$   & $0.901 \pm 0.002$   \\
+                                  & \textsc{Spa-Net} & $0.807 \pm 0.008$ & $0.878 \pm 0.007$ & $0.834 \pm 0.006$   & $0.905 \pm 0.005$   \\ \hline
+            \multirow{3}{*}{500k} & Absolute value   & $0.813 \pm 0.007$ & $0.881 \pm 0.012$ & $0.844 \pm 0.007$   & $0.906 \pm 0.008$   \\
+                                  & $\chi^2$         & $0.813 \pm 0.004$ & $0.882 \pm 0.005$ & $0.844 \pm 0.003$   & $0.908 \pm 0.004$   \\
+                                  & \textsc{Spa-Net} & $0.810 \pm 0.004$ & $0.881 \pm 0.006$ & $0.836 \pm 0.004$   & $0.907 \pm 0.004$   
+            \end{tabular}
+        \end{table}
+    % subsection training_performance_with_500k_datasets (end)
+% section dnn_classifier_2 (end)
 \bibliographystyle{ieeetr}
 \bibliography{reference}
 		
