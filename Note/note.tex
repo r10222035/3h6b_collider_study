@@ -50,7 +50,7 @@
 \hypersetup{
     colorlinks=true,
     linkcolor=violet,
-    filecolor=blue,      
+    filecolor=blue,
     urlcolor=blue,
     citecolor=cyan,
 }
@@ -67,7 +67,7 @@
 \setlength{\parindent}{2em}
 \linespread{1.25}
 
-% 
+%
 % \setmainfont{Times New Roman}
 \usepackage[T1]{fontenc}
 \title{Note}
@@ -80,462 +80,462 @@
 
 \section{Signal}% (fold)
 \label{sec:signal}
-	We consider a simple extension of the standard model (SM)~\cite{Chen:2022vac}, which includes a vector-like dark fermion $(\overline{\chi}, \chi)$ and a complex singlet scalar $S$. A signature of CP violation could come from the Higgs-to-Higgs decays, $h_3 \to h_2h_1$, where $h_3 / h_2 / h_1$ are the heaviest scalar, second heaviest scalar, and the SM-like 125 GeV Higgs, respectively.
+    We consider a simple extension of the standard model (SM)~\cite{Chen:2022vac}, which includes a vector-like dark fermion $(\overline{\chi}, \chi)$ and a complex singlet scalar $S$. A signature of CP violation could come from the Higgs-to-Higgs decays, $h_3 \to h_2h_1$, where $h_3 / h_2 / h_1$ are the heaviest scalar, second heaviest scalar, and the SM-like 125 GeV Higgs, respectively.
 
-	The signal process is the triple production of 125 GeV Higgs bosons via the gluon fusion: 
-	\[
-		g g \to h_3 \to h_2 h_1 \to h_1h_1h_1
-	\] 
-	The Higgs boson $h_1$ would further decay to the $b \overline{b}$ pair. We consider the banchmark point 1 (BP1), where $m_{h_3} = \text{450 GeV}, m_{h_2} = \text{280 GeV}, m_{h_1} = \text{125 GeV}$. This process is generated at $\sqrt{s} = \text{13 TeV}$. Following are the MadGraph scripts for generating signal samples:
-	\begin{verbatim}
-		import model cxSM_VLF_EFT
-		generate g g > h h h
-		output MG5/gghhh_bsm
-		launch MG5/gghhh_bsm
+    The signal process is the triple production of 125 GeV Higgs bosons via the gluon fusion:
+    \[
+        g g \to h_3 \to h_2 h_1 \to h_1h_1h_1
+    \]
+    The Higgs boson $h_1$ would further decay to the $b \overline{b}$ pair. We consider the banchmark point 1 (BP1), where $m_{h_3} = \text{450 GeV}, m_{h_2} = \text{280 GeV}, m_{h_1} = \text{125 GeV}$. This process is generated at $\sqrt{s} = \text{13 TeV}$. Following are the MadGraph scripts for generating signal samples:
+    \begin{verbatim}
+        import model cxSM_VLF_EFT
+        generate g g > h h h
+        output MG5/gghhh_bsm
+        launch MG5/gghhh_bsm
 
-		shower=Pythia8
-		detector=Delphes
-		analysis=OFF
-		madspin=ON
-		done
+        shower=Pythia8
+        detector=Delphes
+        analysis=OFF
+        madspin=ON
+        done
 
-		set param_card mh1 125
-		set param_card mh2 280
-		set param_card mh3 420
-		set param_card theta12 0.73
-		set param_card theta13 1.67079632679
-		set param_card theta23 -0.73
-		set param_card vs 200
-		set param_card delta2 0
-		set param_card Rdelta3 0
-		set param_card Idelta3 -3.5
-		set param_card b2 0
-		set param_card Rc1 0
-		set param_card Ic1 0
-		set param_card Rc2 0
-		set param_card Ic2 0
-		set param_card Rd3 0
-		set param_card Id3 0
-		set param_card msq -5033.406281907266
-		set param_card lam 0.13850082540690806
-		set param_card Rdelta1 -47.561525227572744
-		set param_card Idelta1 853.05384671134
-		set param_card Rb1 -70476.6380004269
-		set param_card Ib1 -30486.140015405872
-		set param_card Rd1 -2.562109886826132
-		set param_card Id1 2.257859679994403
-		set param_card d2 6.340799300844676
-		set param_card gh1ggr -0.00005478952893059635
-		set param_card gh1gagar -0.00003270447254456052
-		set param_card gh1Zgar -0.00005871986046374793
-		set param_card gh2ggr -1.4279972541632635e-7
-		set param_card gh2gagar -8.237715486808595e-8
-		set param_card gh2Zgar -1.3984990232267825e-7
-		set param_card gh3ggr -6.031835872118092e-6
-		set param_card gh3gagar -1.1377279177203616e-6
-		set param_card gh3Zgar -2.2999597941282603e-6
+        set param_card mh1 125
+        set param_card mh2 280
+        set param_card mh3 420
+        set param_card theta12 0.73
+        set param_card theta13 1.67079632679
+        set param_card theta23 -0.73
+        set param_card vs 200
+        set param_card delta2 0
+        set param_card Rdelta3 0
+        set param_card Idelta3 -3.5
+        set param_card b2 0
+        set param_card Rc1 0
+        set param_card Ic1 0
+        set param_card Rc2 0
+        set param_card Ic2 0
+        set param_card Rd3 0
+        set param_card Id3 0
+        set param_card msq -5033.406281907266
+        set param_card lam 0.13850082540690806
+        set param_card Rdelta1 -47.561525227572744
+        set param_card Idelta1 853.05384671134
+        set param_card Rb1 -70476.6380004269
+        set param_card Ib1 -30486.140015405872
+        set param_card Rd1 -2.562109886826132
+        set param_card Id1 2.257859679994403
+        set param_card d2 6.340799300844676
+        set param_card gh1ggr -0.00005478952893059635
+        set param_card gh1gagar -0.00003270447254456052
+        set param_card gh1Zgar -0.00005871986046374793
+        set param_card gh2ggr -1.4279972541632635e-7
+        set param_card gh2gagar -8.237715486808595e-8
+        set param_card gh2Zgar -1.3984990232267825e-7
+        set param_card gh3ggr -6.031835872118092e-6
+        set param_card gh3gagar -1.1377279177203616e-6
+        set param_card gh3Zgar -2.2999597941282603e-6
 
-		set param_card decay 102 auto
-		set param_card decay 103 auto
+        set param_card decay 102 auto
+        set param_card decay 103 auto
 
-		set run_card nevents 100000
-		set run_card ebeam1 6500.0
-		set run_card ebeam2 6500.0
+        set run_card nevents 100000
+        set run_card ebeam1 6500.0
+        set run_card ebeam2 6500.0
 
-		set run_card ptb 24
-		set run_card etab 2.6
+        set run_card ptb 24
+        set run_card etab 2.6
 
-		set spinmode none
-		decay h > b b~
+        set spinmode none
+        decay h > b b~
 
-		done
-	\end{verbatim}
+        done
+    \end{verbatim}
 % section signal (end)
 \section{SPANet pairing}% (fold)
 \label{sec:spanet_pairing}
-	We employ the novel neural network structure \textsc{Spa-Net}~\cite{PhysRevD.105.112008, Fenton:2023ikr, 10.21468/SciPostPhys.12.5.178} to identify the correct pairings among the jets in the final states.
-	\subsection{Training dataset preparation}% (fold)
-	\label{sub:training_dataset_preparation}
-		Preselection: $\ge 6$ jets with transverse momentum $p_{\text{T}} \ge \text{25 GeV}$ in range $\abs{\eta} < 2.5$.
+    We employ the novel neural network structure \textsc{Spa-Net}~\cite{PhysRevD.105.112008, Fenton:2023ikr, 10.21468/SciPostPhys.12.5.178} to identify the correct pairings among the jets in the final states.
+    \subsection{Training dataset preparation}% (fold)
+    \label{sub:training_dataset_preparation}
+        Preselection: $\ge 6$ jets with transverse momentum $p_{\text{T}} \ge \text{25 GeV}$ in range $\abs{\eta} < 2.5$.
 
-		The input features for the \textsc{Spa-Net} are a list of jets, each represented by its 4-component vector $(p_\text{T}, \eta, \phi, m)$ as well as a boolean $b$-tag. We only keep each event's 15 highest $p_\text{T}$ jets. We define the correct jet assignments for each event by matching the jets to the simulated truth quarks within an angular distance of $\Delta R < 0.4$. Such an event will be dropped if a simulated truth quark is matched to more than one jet. Furthermore, some simulated truth quarks may not be matched to any jet, so the event will not be used in training either. 
+        The input features for the \textsc{Spa-Net} are a list of jets, each represented by its 4-component vector $(p_\text{T}, \eta, \phi, m)$ as well as a boolean $b$-tag. We only keep each event's 15 highest $p_\text{T}$ jets. We define the correct jet assignments for each event by matching the jets to the simulated truth quarks within an angular distance of $\Delta R < 0.4$. Such an event will be dropped if a simulated truth quark is matched to more than one jet. Furthermore, some simulated truth quarks may not be matched to any jet, so the event will not be used in training either.
 
-		After the selection and matching, we could obtain the following results from 1M events:
-		\begin{itemize}
-			\item Total sample size: 522,899
-			\item 1h sample size: 184,769
-			\item 2h sample size: 161,476
-			\item 3h sample size: 94,464
-		\end{itemize}
-		Here, the 1h sample is where we could define the correct jet assignments for 1 Higgs boson. 
-	% subsection training_dataset_preparation (end)
-	\subsection{Training results}% (fold)
-	\label{sub:training_results}
-		\begin{itemize}
-			\item Training sample:
-			\begin{itemize}
-				\item Total sample size: 470,609
-				\item 1h sample size: 166,490
-				\item 2h sample size: 145,309
-				\item 3h sample size: 84,913
-				\item 5\% used on validation
-			\end{itemize}
-			\item Testing sample: 
-			\begin{itemize}
-				\item Total sample size: 52,290
-				\item 1h sample size: 18,279
-				\item 2h sample size: 16,167
-				\item 3h sample size: 9,551
-			\end{itemize}
-		\end{itemize}
+        After the selection and matching, we could obtain the following results from 1M events:
+        \begin{itemize}
+            \item Total sample size: 522,899
+            \item 1h sample size: 184,769
+            \item 2h sample size: 161,476
+            \item 3h sample size: 94,464
+        \end{itemize}
+        Here, the 1h sample is where we could define the correct jet assignments for 1 Higgs boson.
+    % subsection training_dataset_preparation (end)
+    \subsection{Training results}% (fold)
+    \label{sub:training_results}
+        \begin{itemize}
+            \item Training sample:
+            \begin{itemize}
+                \item Total sample size: 470,609
+                \item 1h sample size: 166,490
+                \item 2h sample size: 145,309
+                \item 3h sample size: 84,913
+                \item 5\% used on validation
+            \end{itemize}
+            \item Testing sample:
+            \begin{itemize}
+                \item Total sample size: 52,290
+                \item 1h sample size: 18,279
+                \item 2h sample size: 16,167
+                \item 3h sample size: 9,551
+            \end{itemize}
+        \end{itemize}
 
-		Some useful definitions for evaluating jet assignment performance:
-		\begin{itemize}		
-		\item Event Efficiency
-		\begin{equation}
-			\epsilon^{\text{event}} \equiv \frac{\text{number of events with and all Higgs are correctly identified}}{\text{number of events}} 
-		\end{equation}
+        Some useful definitions for evaluating jet assignment performance:
+        \begin{itemize}
+        \item Event Efficiency
+        \begin{equation}
+            \epsilon^{\text{event}} \equiv \frac{\text{number of events with and all Higgs are correctly identified}}{\text{number of events}}
+        \end{equation}
 
-		\item Higgs Efficiency
-		\begin{equation}
-			\epsilon^{\text{h}} \equiv \frac{\text{number of correctly identified Higgs}}{\text{number of identifiable Higgs}} 
-		\end{equation}
-	\end{itemize}
-		The training results are shown in Table~\ref{tab:SPANet_triHiggs_0b}.
-		\begin{table}[htpb]
-			\centering
-			\caption{\textsc{Spa-Net} pairing efficiencies on 3h events.}
-			\label{tab:SPANet_triHiggs_0b}
-			\begin{tabular}{c|c|cc}
-				$N_\text{Jet}$ & Event Fraction & Event Efficiency & Higgs Efficiency \\
-				\hline
-				$=6$	  &   0.077             &    0.532              &    0.650             \\
-				$=7$	  &   0.057             &    0.345              &    0.536             \\
-				$\ge 8$	  &   0.052             &    0.237              &    0.452             \\
-				Total	  &   0.186             &    0.375              &    0.548   
-			\end{tabular}
-		\end{table}
-	% subsection training_results (end)
+        \item Higgs Efficiency
+        \begin{equation}
+            \epsilon^{\text{h}} \equiv \frac{\text{number of correctly identified Higgs}}{\text{number of identifiable Higgs}}
+        \end{equation}
+    \end{itemize}
+        The training results are shown in Table~\ref{tab:SPANet_triHiggs_0b}.
+        \begin{table}[htpb]
+            \centering
+            \caption{\textsc{Spa-Net} pairing efficiencies on 3h events.}
+            \label{tab:SPANet_triHiggs_0b}
+            \begin{tabular}{c|c|cc}
+                $N_\text{Jet}$ & Event Fraction & Event Efficiency & Higgs Efficiency \\
+                \hline
+                $=6$      &   0.077             &    0.532              &    0.650             \\
+                $=7$      &   0.057             &    0.345              &    0.536             \\
+                $\ge 8$   &   0.052             &    0.237              &    0.452             \\
+                Total     &   0.186             &    0.375              &    0.548
+            \end{tabular}
+        \end{table}
+    % subsection training_results (end)
 % section spanet_pairing (end)
 \section{\texorpdfstring{$\chi^2$}{chi2} pairing}% (fold)
 \label{sec:chi2_pairing}
-	$\chi^2$ method considers all possible combinations of final jets and selects the configuration that minimizes the mass difference between Higgs candidates and SM Higgs, i.e., minimizes this:
-	\begin{equation}\label{eq:triHiggs_chisq}
-		\chi^2 = [m(j_1j_2) - m_h]^2 + [m(j_3j_4) - m_h]^2 + [m(j_5j_6) - m_h]^2
-	\end{equation}
-	where $m(j_ij_j)$ is the invariant mass of jet $i, j$ and $m_h = \text{125 GeV}$.
+    $\chi^2$ method considers all possible combinations of final jets and selects the configuration that minimizes the mass difference between Higgs candidates and SM Higgs, i.e., minimizes this:
+    \begin{equation}\label{eq:triHiggs_chisq}
+        \chi^2 = [m(j_1j_2) - m_h]^2 + [m(j_3j_4) - m_h]^2 + [m(j_5j_6) - m_h]^2
+    \end{equation}
+    where $m(j_ij_j)$ is the invariant mass of jet $i, j$ and $m_h = \text{125 GeV}$.
 
-	Table~\ref{tab:chi2_pairing_triHiggs_0b} is the performance of the $\chi^2$ method.
-	\begin{table}[htpb]
-		\centering
-		\caption{$\chi^2$ pairing efficiencies on 3h events.}
-		\label{tab:chi2_pairing_triHiggs_0b}
-		\begin{tabular}{c|c|cc}
-			$N_\text{Jet}$ & Event Fraction & Event Efficiency & Higgs Efficiency \\
-			\hline
-			$=6$	  &   0.077             &    0.403              &    0.450             \\
-			$=7$	  &   0.057             &    0.158              &    0.281             \\
-			$\ge 8$	  &   0.052             &    0.000              &    0.077             \\
-			Total	  &   0.186             &    0.215              &    0.294
-		\end{tabular}
-	\end{table}
+    Table~\ref{tab:chi2_pairing_triHiggs_0b} is the performance of the $\chi^2$ method.
+    \begin{table}[htpb]
+        \centering
+        \caption{$\chi^2$ pairing efficiencies on 3h events.}
+        \label{tab:chi2_pairing_triHiggs_0b}
+        \begin{tabular}{c|c|cc}
+            $N_\text{Jet}$ & Event Fraction & Event Efficiency & Higgs Efficiency \\
+            \hline
+            $=6$      &   0.077             &    0.403              &    0.450             \\
+            $=7$      &   0.057             &    0.158              &    0.281             \\
+            $\ge 8$   &   0.052             &    0.000              &    0.077             \\
+            Total     &   0.186             &    0.215              &    0.294
+        \end{tabular}
+    \end{table}
 % section chi2_pairing (end)
 \section{Estimate cross-section of background process}% (fold)
 \label{sec:estimate_cross_section_of_background_process}
-	Besides the 6 $b$ background, we need to consider the backgrounds that come from the mis-tagging of light jets or charm-jets to $b$-jets. We assume that the probability of a charm-jet being misidentified as $b$-jet is $\mathcal{P}_{c\to b} = 0.1$ and that of light jets is $\mathcal{P}_{j\to b} = 0.01$. The $b$-tagging efficiency is assumed to be $\mathcal{P}_{b\to b} = 0.7$.
+    Besides the 6 $b$ background, we need to consider the backgrounds that come from the mis-tagging of light jets or charm-jets to $b$-jets. We assume that the probability of a charm-jet being misidentified as $b$-jet is $\mathcal{P}_{c\to b} = 0.1$ and that of light jets is $\mathcal{P}_{j\to b} = 0.01$. The $b$-tagging efficiency is assumed to be $\mathcal{P}_{b\to b} = 0.7$.
 
-	Table~\ref{tab:cross_section_of_mis_tagging_background} shows the cross-section computed from \verb|MadGraph| and the cross-section times the mis-tagging probabilities $\mathcal{P}_{c\to b}$ and $\mathcal{P}_{j\to b}$. Table~\ref{tab:cross_section_of_mis_tagging_background_w_cuts} shows the same results with kinetic cuts. We require the transverse momentum $p_{\text{T}}$ of each jet greater than $\text{24 GeV}$ and in the range $\abs{\eta} < 2.6$ at the \verb|MadGraph| level. The $6b$ process contributes much more than the processes containing charm jets and light jets.
-	\begin{table}[htpb]
-		\centering
-		\caption{The cross-sections of $6b$ and mis-tagging background processes. The cross-sections are computed from the MadGraph at $\sqrt{s} = 13 \text{ TeV}$.}
-		\label{tab:cross_section_of_mis_tagging_background}
-		\begin{tabular}{c|cc}
-		process                                         & $\sigma\text{ (pb)}$ & $\sigma\times\mathcal{P}(\text{tagging efficiency})\text{ (pb)}$ \\ \hline
-		$(b\overline{b})(b\overline{b})(b\overline{b})$ & $2.53 \times 10^{3}$ & $2.97 \times 10^{2}$                                             \\
-		$(b\overline{b})(b\overline{b})(c\overline{c})$ & $2.72 \times 10^{2}$ & $6.54 \times 10^{-1}$                                            \\
-		$(b\overline{b})(c\overline{c})(c\overline{c})$ & $3.73 \times 10^{1}$ & $1.83 \times 10^{-3}$                                            \\
-		$(b\overline{b})(b\overline{b})(jj)$            & $7.44 \times 10^{4}$ & 1.79
-		\end{tabular}
-	\end{table}
+    Table~\ref{tab:cross_section_of_mis_tagging_background} shows the cross-section computed from \verb|MadGraph| and the cross-section times the mis-tagging probabilities $\mathcal{P}_{c\to b}$ and $\mathcal{P}_{j\to b}$. Table~\ref{tab:cross_section_of_mis_tagging_background_w_cuts} shows the same results with kinetic cuts. We require the transverse momentum $p_{\text{T}}$ of each jet greater than $\text{24 GeV}$ and in the range $\abs{\eta} < 2.6$ at the \verb|MadGraph| level. The $6b$ process contributes much more than the processes containing charm jets and light jets.
+    \begin{table}[htpb]
+        \centering
+        \caption{The cross-sections of $6b$ and mis-tagging background processes. The cross-sections are computed from the MadGraph at $\sqrt{s} = 13 \text{ TeV}$.}
+        \label{tab:cross_section_of_mis_tagging_background}
+        \begin{tabular}{c|cc}
+        process                                         & $\sigma\text{ (pb)}$ & $\sigma\times\mathcal{P}(\text{tagging efficiency})\text{ (pb)}$ \\ \hline
+        $(b\overline{b})(b\overline{b})(b\overline{b})$ & $2.53 \times 10^{3}$ & $2.97 \times 10^{2}$                                             \\
+        $(b\overline{b})(b\overline{b})(c\overline{c})$ & $2.72 \times 10^{2}$ & $6.54 \times 10^{-1}$                                            \\
+        $(b\overline{b})(c\overline{c})(c\overline{c})$ & $3.73 \times 10^{1}$ & $1.83 \times 10^{-3}$                                            \\
+        $(b\overline{b})(b\overline{b})(jj)$            & $7.44 \times 10^{4}$ & 1.79
+        \end{tabular}
+    \end{table}
 
-	\begin{table}[htpb]
-		\centering
-		\caption{The cross-sections of $6b$ and mis-tagging background processes. The cross-sections are computed from the MadGraph at $\sqrt{s} = 13 \text{ TeV}$. We require the transverse momentum $p_{\text{T}}$ of each jets greater than $\text{24 GeV}$ in range $\abs{\eta} < 2.6$.}
-		\label{tab:cross_section_of_mis_tagging_background_w_cuts}
-		\begin{tabular}{c|cc}
-		process                                         & $\sigma\text{ (fb)}$ & $\sigma\times\mathcal{P}(\text{tagging efficiency})\text{ (fb)}$ \\ \hline
-		$(b\overline{b})(b\overline{b})(b\overline{b})$ & $9.63 \times 10^{2}$ & $113.35$                                                         \\
-		$(b\overline{b})(b\overline{b})(c\overline{c})$ & $1.67 \times 10^{3}$ & $4.02$                                                           \\
-		$(b\overline{b})(c\overline{c})(c\overline{c})$ & $1.06 \times 10^{3}$ & $5.19 \times 10^{-2}$                                            \\
-		$(b\overline{b})(b\overline{b})(jj)$            & $4.16 \times 10^{5}$ & $9.98$                                                           \\
-		$(b\overline{b})(jj)(jj)$                       & $1.50 \times 10^{7}$ & $7.73 \times 10^{-2}$                                           
-		\end{tabular}
-	\end{table}
+    \begin{table}[htpb]
+        \centering
+        \caption{The cross-sections of $6b$ and mis-tagging background processes. The cross-sections are computed from the MadGraph at $\sqrt{s} = 13 \text{ TeV}$. We require the transverse momentum $p_{\text{T}}$ of each jets greater than $\text{24 GeV}$ in range $\abs{\eta} < 2.6$.}
+        \label{tab:cross_section_of_mis_tagging_background_w_cuts}
+        \begin{tabular}{c|cc}
+        process                                         & $\sigma\text{ (fb)}$ & $\sigma\times\mathcal{P}(\text{tagging efficiency})\text{ (fb)}$ \\ \hline
+        $(b\overline{b})(b\overline{b})(b\overline{b})$ & $9.63 \times 10^{2}$ & $113.35$                                                         \\
+        $(b\overline{b})(b\overline{b})(c\overline{c})$ & $1.67 \times 10^{3}$ & $4.02$                                                           \\
+        $(b\overline{b})(c\overline{c})(c\overline{c})$ & $1.06 \times 10^{3}$ & $5.19 \times 10^{-2}$                                            \\
+        $(b\overline{b})(b\overline{b})(jj)$            & $4.16 \times 10^{5}$ & $9.98$                                                           \\
+        $(b\overline{b})(jj)(jj)$                       & $1.50 \times 10^{7}$ & $7.73 \times 10^{-2}$
+        \end{tabular}
+    \end{table}
 % section estimate_cross_section_of_background_process (end)
 \section{Compute pairing efficiency}% (fold)
 \label{sec:compute_pairing_efficiency}
-	To understand the pairing performance with different pairing methods, we compute how many events where 1h/2h/3h bosons are reconstructed correctly.
+    To understand the pairing performance with different pairing methods, we compute how many events where 1h/2h/3h bosons are reconstructed correctly.
 
-	The pairing performance of \textsc{Spa-Net} are shown in Table~\ref{tab:SPANet_triHiggs_0b_1h2h3h}. Table~\ref{tab:chi2_pairing_triHiggs_0b_1h2h3h} is the performance of the $\chi^2$ method. For both cases, we found the number of events where only two Higgs are paired correctly is tiny, which means if we can pair two Higgs bosons correctly, then we have a high chance to pair the final Higgs correctly.
+    The pairing performance of \textsc{Spa-Net} are shown in Table~\ref{tab:SPANet_triHiggs_0b_1h2h3h}. Table~\ref{tab:chi2_pairing_triHiggs_0b_1h2h3h} is the performance of the $\chi^2$ method. For both cases, we found the number of events where only two Higgs are paired correctly is tiny, which means if we can pair two Higgs bosons correctly, then we have a high chance to pair the final Higgs correctly.
 
-	Note that Higgs Efficiencies of \textsc{Spa-Net} are inconsistent with Table~\ref{tab:SPANet_triHiggs_0b}. This issue needs more checking.
-	\begin{table}[htpb]
-		\centering
-		\caption{\textsc{Spa-Net} pairing efficiencies on different categories.}
-		\label{tab:SPANet_triHiggs_0b_1h2h3h}
-		\begin{tabular}{c|cccc|c}
-			\multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
-			$N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
-			$=6$                  & 0.532       & 0.000      & 0.119      & 0.348      & 0.572                \\
-			$=7$                  & 0.345       & 0.021      & 0.166      & 0.469      & 0.414                \\
-			$\ge 8$               & 0.237       & 0.022      & 0.186      & 0.554      & 0.314                \\ \hline
-			Total                 & 0.375       & 0.014      & 0.156      & 0.455      & 0.436               
-		\end{tabular}
-	\end{table}
-	\begin{table}[htpb]
-		\centering
-		\caption{$\chi^2$ pairing efficiencies on different categories.}
-		\label{tab:chi2_pairing_triHiggs_0b_1h2h3h}
-		\begin{tabular}{c|cccc|c}
-			\multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
-			$N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
-			$=6$                  & 0.403       & 0.000      & 0.143      & 0.455      & 0.450                \\
-			$=7$                  & 0.158       & 0.070      & 0.228      & 0.544      & 0.281                \\
-			$\ge 8$               & 0.000       & 0.000      & 0.231      & 0.769      & 0.077                \\ \hline
-			Total                 & 0.215       & 0.022      & 0.194      & 0.570      & 0.294               
-		\end{tabular}
-	\end{table}
+    Note that Higgs Efficiencies of \textsc{Spa-Net} are inconsistent with Table~\ref{tab:SPANet_triHiggs_0b}. This issue needs more checking.
+    \begin{table}[htpb]
+        \centering
+        \caption{\textsc{Spa-Net} pairing efficiencies on different categories.}
+        \label{tab:SPANet_triHiggs_0b_1h2h3h}
+        \begin{tabular}{c|cccc|c}
+            \multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+            $N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+            $=6$                  & 0.532       & 0.000      & 0.119      & 0.348      & 0.572                \\
+            $=7$                  & 0.345       & 0.021      & 0.166      & 0.469      & 0.414                \\
+            $\ge 8$               & 0.237       & 0.022      & 0.186      & 0.554      & 0.314                \\ \hline
+            Total                 & 0.375       & 0.014      & 0.156      & 0.455      & 0.436
+        \end{tabular}
+    \end{table}
+    \begin{table}[htpb]
+        \centering
+        \caption{$\chi^2$ pairing efficiencies on different categories.}
+        \label{tab:chi2_pairing_triHiggs_0b_1h2h3h}
+        \begin{tabular}{c|cccc|c}
+            \multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+            $N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+            $=6$                  & 0.403       & 0.000      & 0.143      & 0.455      & 0.450                \\
+            $=7$                  & 0.158       & 0.070      & 0.228      & 0.544      & 0.281                \\
+            $\ge 8$               & 0.000       & 0.000      & 0.231      & 0.769      & 0.077                \\ \hline
+            Total                 & 0.215       & 0.022      & 0.194      & 0.570      & 0.294
+        \end{tabular}
+    \end{table}
 % section compute_pairing_efficiency (end)
 \section{SPANet pairing and classification}% (fold)
 \label{sec:spanet_pairing_and_classification}
-	
-	We train a \textsc{Spa-Net} to identify the correct pairings and perform the signal/background classification at the same time.
 
-	\subsection{Training dataset}% (fold)
-	\label{sub:training_dataset_classification}
-		The selection and matching process for the jet pairing is the same as Section~\ref{sub:training_dataset_preparation}. We prepare the signal and background samples of the same size for classification.
+    We train a \textsc{Spa-Net} to identify the correct pairings and perform the signal/background classification at the same time.
 
-		For the jet assignment part,
-		\begin{itemize}
-			\item Training sample:
-			\begin{itemize}
-				\item Total sample size: 1,800,000
-				\item 1h sample size: 318,053
-				\item 2h sample size: 277,876
-				\item 3h sample size: 162,444
-				\item 5\% used on validation
-			\end{itemize}
-			\item Testing sample:
-			\begin{itemize}
-				\item Total sample size: 200,000
-				\item 1h sample size: 35,372
-				\item 2h sample size: 30,853
-				\item 3h sample size: 18,004
-			\end{itemize}
-		\end{itemize}
+    \subsection{Training dataset}% (fold)
+    \label{sub:training_dataset_classification}
+        The selection and matching process for the jet pairing is the same as Section~\ref{sub:training_dataset_preparation}. We prepare the signal and background samples of the same size for classification.
 
-		For event classification,
-		\begin{itemize}
-			\item Training sample:
-			\begin{itemize}
-				\item Total sample size: 1,800,000
-				\item Signal sample size: 900,000
-				\item Background sample size: 900,000
-				\item 5\% used on validation
-			\end{itemize}
-			\item Testing sample:
-			\begin{itemize}
-				\item Total sample size: 200,000
-				\item Signal sample size: 100,000
-				\item Background sample size: 100,000
-			\end{itemize}
-		\end{itemize}
+        For the jet assignment part,
+        \begin{itemize}
+            \item Training sample:
+            \begin{itemize}
+                \item Total sample size: 1,800,000
+                \item 1h sample size: 318,053
+                \item 2h sample size: 277,876
+                \item 3h sample size: 162,444
+                \item 5\% used on validation
+            \end{itemize}
+            \item Testing sample:
+            \begin{itemize}
+                \item Total sample size: 200,000
+                \item 1h sample size: 35,372
+                \item 2h sample size: 30,853
+                \item 3h sample size: 18,004
+            \end{itemize}
+        \end{itemize}
 
-		This training takes around 10 hours on our server.
-	% subsection training_dataset_classification (end)
-	\subsection{Training results}% (fold)
-	\label{sub:training_results}
-		The training results are presented in Table \ref{tab:SPANet_triHiggs_0b_cls_pairing_results}. This result is better than Table~\ref{tab:SPANet_triHiggs_0b_1h2h3h} since we use larger training datasets.
+        For event classification,
+        \begin{itemize}
+            \item Training sample:
+            \begin{itemize}
+                \item Total sample size: 1,800,000
+                \item Signal sample size: 900,000
+                \item Background sample size: 900,000
+                \item 5\% used on validation
+            \end{itemize}
+            \item Testing sample:
+            \begin{itemize}
+                \item Total sample size: 200,000
+                \item Signal sample size: 100,000
+                \item Background sample size: 100,000
+            \end{itemize}
+        \end{itemize}
 
-		\begin{table}[htpb]
-			\centering
-			\caption{\textsc{Spa-Net} training results on the tri-Higgs samples. \textsc{Spa-Net} is trained on jet pairing and event classification tasks at the same time.}
-			\label{tab:SPANet_triHiggs_0b_cls_pairing_results}
-			\begin{tabular}{c|cccc|c}
-			\multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
-			$N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
-			$=6$                  & 0.656       & 0.000      & 0.082      & 0.262      & 0.684                \\
-			$=7$                  & 0.436       & 0.017      & 0.168      & 0.379      & 0.504                \\
-			$\ge 8$               & 0.341       & 0.018      & 0.173      & 0.468      & 0.411                \\ \hline
-			Total                 & 0.478       & 0.012      & 0.142      & 0.368      & 0.533               
-			\end{tabular}
-			
-		\end{table}
+        This training takes around 10 hours on our server.
+    % subsection training_dataset_classification (end)
+    \subsection{Training results}% (fold)
+    \label{sub:training_results}
+        The training results are presented in Table \ref{tab:SPANet_triHiggs_0b_cls_pairing_results}. This result is better than Table~\ref{tab:SPANet_triHiggs_0b_1h2h3h} since we use larger training datasets.
 
-		Table \ref{tab:SPANet_triHiggs_0b_cls_classification_results} presents the classification training results. We use the accuracy (ACC) and the area under the Receiver Operating Characteristic (ROC) curve (AUC) as two metrics.
-		\begin{table}[htpb]
-			\centering
-			\caption{The \textsc{Spa-Net} classification training results with tri-Higgs sample.}
-			\label{tab:SPANet_triHiggs_0b_cls_classification_results}
-			\begin{tabular}{c|cc}
-				             & ACC     & AUC      \\ \hline
-			\textsc{Spa-Net} & $0.822$ & $0.900 $
-			\end{tabular}
-		\end{table}
-	% subsection training_results (end)
-	\subsection{3h training dataset}% (fold)
-	\label{sub:3h_training_dataset}
-		We only consider 3h events in pairing tasks in this subsection. We prepare the signal and background samples of the same size for classification.
+        \begin{table}[htpb]
+            \centering
+            \caption{\textsc{Spa-Net} training results on the tri-Higgs samples. \textsc{Spa-Net} is trained on jet pairing and event classification tasks at the same time.}
+            \label{tab:SPANet_triHiggs_0b_cls_pairing_results}
+            \begin{tabular}{c|cccc|c}
+            \multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+            $N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+            $=6$                  & 0.656       & 0.000      & 0.082      & 0.262      & 0.684                \\
+            $=7$                  & 0.436       & 0.017      & 0.168      & 0.379      & 0.504                \\
+            $\ge 8$               & 0.341       & 0.018      & 0.173      & 0.468      & 0.411                \\ \hline
+            Total                 & 0.478       & 0.012      & 0.142      & 0.368      & 0.533
+            \end{tabular}
 
-		For the jet assignment part,
-		\begin{itemize}
-			\item Training sample:
-			\begin{itemize}
-				\item Total sample size: 1,800,000
-				\item 1h sample size: 0
-				\item 2h sample size: 0
-				\item 3h sample size: 900,000
-				\item 5\% used on validation
-			\end{itemize}
-			\item Testing sample:
-			\begin{itemize}
-				\item Total sample size: 200,000
-				\item 1h sample size: 0
-				\item 2h sample size: 0
-				\item 3h sample size: 100,000
-			\end{itemize}
-		\end{itemize}
+        \end{table}
 
-		For event classification,
-		\begin{itemize}
-			\item Training sample:
-			\begin{itemize}
-				\item Total sample size: 1,800,000
-				\item Signal sample size: 900,000
-				\item Background sample size: 900,000
-				\item 5\% used on validation
-			\end{itemize}
-			\item Testing sample:
-			\begin{itemize}
-				\item Total sample size: 200,000
-				\item Signal sample size: 100,000
-				\item Background sample size: 100,000
-			\end{itemize}
-		\end{itemize}
+        Table \ref{tab:SPANet_triHiggs_0b_cls_classification_results} presents the classification training results. We use the accuracy (ACC) and the area under the Receiver Operating Characteristic (ROC) curve (AUC) as two metrics.
+        \begin{table}[htpb]
+            \centering
+            \caption{The \textsc{Spa-Net} classification training results with tri-Higgs sample.}
+            \label{tab:SPANet_triHiggs_0b_cls_classification_results}
+            \begin{tabular}{c|cc}
+                             & ACC     & AUC      \\ \hline
+            \textsc{Spa-Net} & $0.822$ & $0.900 $
+            \end{tabular}
+        \end{table}
+    % subsection training_results (end)
+    \subsection{3h training dataset}% (fold)
+    \label{sub:3h_training_dataset}
+        We only consider 3h events in pairing tasks in this subsection. We prepare the signal and background samples of the same size for classification.
 
-		The training results are presented in Table \ref{tab:SPANet_triHiggs_0b_3h_cls_pairing_results}. This result is similar to Table~\ref{tab:SPANet_triHiggs_0b_cls_pairing_results}.
+        For the jet assignment part,
+        \begin{itemize}
+            \item Training sample:
+            \begin{itemize}
+                \item Total sample size: 1,800,000
+                \item 1h sample size: 0
+                \item 2h sample size: 0
+                \item 3h sample size: 900,000
+                \item 5\% used on validation
+            \end{itemize}
+            \item Testing sample:
+            \begin{itemize}
+                \item Total sample size: 200,000
+                \item 1h sample size: 0
+                \item 2h sample size: 0
+                \item 3h sample size: 100,000
+            \end{itemize}
+        \end{itemize}
 
-		\begin{table}[htpb]
-			\centering
-			\caption{\textsc{Spa-Net} training results on the tri-Higgs samples, where we only consider 3h events. \textsc{Spa-Net} is trained on jet pairing and event classification tasks at the same time.}
-			\label{tab:SPANet_triHiggs_0b_3h_cls_pairing_results}
-			\begin{tabular}{c|cccc|c}
-			\multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
-			$N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
-			$=6$                  & 0.680       & 0.000      & 0.084      & 0.236      & 0.708                \\
-			$=7$                  & 0.477       & 0.014      & 0.150      & 0.359      & 0.536                \\
-			$\ge 8$               & 0.311       & 0.027      & 0.184      & 0.477      & 0.391                \\ \hline
-			Total                 & 0.491       & 0.014      & 0.139      & 0.356      & 0.547               
-			\end{tabular}
-			
-		\end{table}
+        For event classification,
+        \begin{itemize}
+            \item Training sample:
+            \begin{itemize}
+                \item Total sample size: 1,800,000
+                \item Signal sample size: 900,000
+                \item Background sample size: 900,000
+                \item 5\% used on validation
+            \end{itemize}
+            \item Testing sample:
+            \begin{itemize}
+                \item Total sample size: 200,000
+                \item Signal sample size: 100,000
+                \item Background sample size: 100,000
+            \end{itemize}
+        \end{itemize}
+
+        The training results are presented in Table \ref{tab:SPANet_triHiggs_0b_3h_cls_pairing_results}. This result is similar to Table~\ref{tab:SPANet_triHiggs_0b_cls_pairing_results}.
+
+        \begin{table}[htpb]
+            \centering
+            \caption{\textsc{Spa-Net} training results on the tri-Higgs samples, where we only consider 3h events. \textsc{Spa-Net} is trained on jet pairing and event classification tasks at the same time.}
+            \label{tab:SPANet_triHiggs_0b_3h_cls_pairing_results}
+            \begin{tabular}{c|cccc|c}
+            \multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+            $N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+            $=6$                  & 0.680       & 0.000      & 0.084      & 0.236      & 0.708                \\
+            $=7$                  & 0.477       & 0.014      & 0.150      & 0.359      & 0.536                \\
+            $\ge 8$               & 0.311       & 0.027      & 0.184      & 0.477      & 0.391                \\ \hline
+            Total                 & 0.491       & 0.014      & 0.139      & 0.356      & 0.547
+            \end{tabular}
+
+        \end{table}
 
         However, some issues should be resolved when we try to use all 3h events for combining training. The loss values are not reasonable.
-	% subsection 3h_training_dataset (end)
+    % subsection 3h_training_dataset (end)
 % section spanet_pairing_and_classification (end)
 \section{Review the pairing methods}% (fold)
 \label{sec:review_the_pairing_methods}
-	In Refs.~\cite{Papaefstathiou:2019ofh, Papaefstathiou:2023uum}: We select the 6 $b$-tagged jets with the highest transverse momentum. The requirements for the transverse momentum and pseudo-rapidity are applied. We subsequently make use of the observable:
-	\begin{equation}
-		\chi^{2,(6)} = \sum_{qr\in J} (m_{qr} - m_h)^2
-	\end{equation}
-	where $J = \{j_1j_2,j_3j_4,j_5j_6\} $ is the set of all possible 15 pairings of 6 $b$-tagged jets. Out of all the possible combinations, we pick the one with the smallest value $\chi_{\text{min}}^{2,(6)}$. The pairing of $b$-jets defining $\chi_{\text{min}}^{2,(6)}$ is our best candidate for the reconstruction of the three Higgs bosons, $h$. No pairing efficiency is provided.
+    In Refs.~\cite{Papaefstathiou:2019ofh, Papaefstathiou:2023uum}: We select the 6 $b$-tagged jets with the highest transverse momentum. The requirements for the transverse momentum and pseudo-rapidity are applied. We subsequently make use of the observable:
+    \begin{equation}
+        \chi^{2,(6)} = \sum_{qr\in J} (m_{qr} - m_h)^2
+    \end{equation}
+    where $J = \{j_1j_2,j_3j_4,j_5j_6\} $ is the set of all possible 15 pairings of 6 $b$-tagged jets. Out of all the possible combinations, we pick the one with the smallest value $\chi_{\text{min}}^{2,(6)}$. The pairing of $b$-jets defining $\chi_{\text{min}}^{2,(6)}$ is our best candidate for the reconstruction of the three Higgs bosons, $h$. No pairing efficiency is provided.
 
-	In Ref.~\cite{Papaefstathiou:2020lyp}: We select the 6 $b$-tagged jets with the highest transverse momentum and form pairs in different combinations, with the aim of first reconstructing individual SM-like Higgs bosons, $h_1$, and subsequently the two scalars $h_2$ and $h_3$. To this end, we introduce two observables:
-	\begin{equation}
-		\chi^{2,(4)} = \sum_{qr\in I} (m_{qr} - m_h)^2
-	\end{equation}
-	\begin{equation}
-		\chi^{2,(6)} = \sum_{qr\in J} (m_{qr} - m_h)^2
-	\end{equation}
-	where we have defined the sets $I = \{i_1i_2,i_3i_4\}$ and $J = \{j_1j_2,j_3j_4,j_5j_6\}$, constructed from different pairings of 4 and 6 $b$-tagged jets, respectively, and where $m_{qr}$ denotes the invariant mass of the respective pairing, $qr$. Note that the set $I$ that defines $\chi_{\text{min}}^{2,(4)}$ should be a subset of the arrangement $J$.
+    In Ref.~\cite{Papaefstathiou:2020lyp}: We select the 6 $b$-tagged jets with the highest transverse momentum and form pairs in different combinations, with the aim of first reconstructing individual SM-like Higgs bosons, $h_1$, and subsequently the two scalars $h_2$ and $h_3$. To this end, we introduce two observables:
+    \begin{equation}
+        \chi^{2,(4)} = \sum_{qr\in I} (m_{qr} - m_h)^2
+    \end{equation}
+    \begin{equation}
+        \chi^{2,(6)} = \sum_{qr\in J} (m_{qr} - m_h)^2
+    \end{equation}
+    where we have defined the sets $I = \{i_1i_2,i_3i_4\}$ and $J = \{j_1j_2,j_3j_4,j_5j_6\}$, constructed from different pairings of 4 and 6 $b$-tagged jets, respectively, and where $m_{qr}$ denotes the invariant mass of the respective pairing, $qr$. Note that the set $I$ that defines $\chi_{\text{min}}^{2,(4)}$ should be a subset of the arrangement $J$.
 
-	We select the combinations of $b$-tagged jets entering in $I$ and $J$ based on the minimization of the sum
-	\begin{equation}
-		\chi^{2,(4)} + \chi^{2,(6)}
-	\end{equation}
-	We then ``identify'' candidates for the scalars $h_2$ and $h_3$ with the pairing configurations $I_{\text{min}}$ and $J_{\text{min}}$ which minimise $\chi^{2,(4)}$ and $\chi^{2,(6)}$ respectively. Note that this procedure does not guarantee that $I_{\text{min}}$ indeed reconstructs to $h_2$; in fact, we found this to be the case in about 40\% on average for all benchmark samples, being slightly higher than a ``blind guess'' that would lead to a probability of 1/3.
+    We select the combinations of $b$-tagged jets entering in $I$ and $J$ based on the minimization of the sum
+    \begin{equation}
+        \chi^{2,(4)} + \chi^{2,(6)}
+    \end{equation}
+    We then ``identify'' candidates for the scalars $h_2$ and $h_3$ with the pairing configurations $I_{\text{min}}$ and $J_{\text{min}}$ which minimise $\chi^{2,(4)}$ and $\chi^{2,(6)}$ respectively. Note that this procedure does not guarantee that $I_{\text{min}}$ indeed reconstructs to $h_2$; in fact, we found this to be the case in about 40\% on average for all benchmark samples, being slightly higher than a ``blind guess'' that would lead to a probability of 1/3.
 
 % section review_the_pairing_methods (end)
 \section{6b requirement}% (fold)
 \label{sec:6b_requirement}
-	They could utilize stronger kinetic and $b$-tagging requirements in experiments. However, we do not use the $b$-tag information for the previous $\chi^2$ method. Thus, we change the preselection condition to make a fair comparison.
+    They could utilize stronger kinetic and $b$-tagging requirements in experiments. However, we do not use the $b$-tag information for the previous $\chi^2$ method. Thus, we change the preselection condition to make a fair comparison.
 
-	For testing samples, we only consider the event that contains at least 6 $b$-tagged jets. The Higgs Bosons are reconstructed by pairing the six leading $b$-jets for the $\chi^2$ method. Thus, the best one is chosen from 15 possible pairing combinations.
+    For testing samples, we only consider the event that contains at least 6 $b$-tagged jets. The Higgs Bosons are reconstructed by pairing the six leading $b$-jets for the $\chi^2$ method. Thus, the best one is chosen from 15 possible pairing combinations.
 
-	Table~\ref{tab:chi2_pairing_triHiggs_6b_3h} and Table~\ref{tab:SPANet_triHiggs_6b_3h} are the pairing performance on 6 $b$-tagged samples. The $\chi^2$ method performs better than the previous results (Table~\ref{tab:chi2_pairing_triHiggs_0b_1h2h3h}) but still performs worse than the \textsc{Spa-Net} pairing.
-	\begin{table}[htpb]
-		\centering
-		\caption{$\chi^2$ pairing efficiencies on different categories. The $\chi^2$ method only considers the six leading $b$-jets.}
-		\label{tab:chi2_pairing_triHiggs_6b_3h}
-		\begin{tabular}{c|cccc|c}
-			\multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
-			$N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
-			$=6$                  & 0.500       & 0.000      & 0.124      & 0.376      & 0.541                \\
-			$=7$                  & 0.322       & 0.072      & 0.185      & 0.486      & 0.389                \\
-			$\ge 8$               & 0.238       & 0.026      & 0.156      & 0.579      & 0.308                \\ \hline
-			Total                 & 0.329       & 0.013      & 0.159      & 0.499      & 0.391               
-		\end{tabular}
-	\end{table}
-	\begin{table}[htpb]
-		\centering
-		\caption{\textsc{Spa-Net} training results on the tri-Higgs samples, where we only consider 3h events. \textsc{Spa-Net} is trained on $\ge 0b$ datasets and tested on $\ge 6b$ datasets.}
-		\label{tab:SPANet_triHiggs_6b_3h}
-		\begin{tabular}{c|cccc|c}
-			\multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
-			$N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
-			$=6$                  & 0.679       & 0.000      & 0.074      & 0.246      & 0.704                \\
-			$=7$                  & 0.522       & 0.013      & 0.127      & 0.337      & 0.574                \\
-			$\ge 8$               & 0.354       & 0.019      & 0.180      & 0.447      & 0.427                \\ \hline
-			Total                 & 0.492       & 0.013      & 0.136      & 0.359      & 0.546               
-		\end{tabular}
-	\end{table}
+    Table~\ref{tab:chi2_pairing_triHiggs_6b_3h} and Table~\ref{tab:SPANet_triHiggs_6b_3h} are the pairing performance on 6 $b$-tagged samples. The $\chi^2$ method performs better than the previous results (Table~\ref{tab:chi2_pairing_triHiggs_0b_1h2h3h}) but still performs worse than the \textsc{Spa-Net} pairing.
+    \begin{table}[htpb]
+        \centering
+        \caption{$\chi^2$ pairing efficiencies on different categories. The $\chi^2$ method only considers the six leading $b$-jets.}
+        \label{tab:chi2_pairing_triHiggs_6b_3h}
+        \begin{tabular}{c|cccc|c}
+            \multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+            $N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+            $=6$                  & 0.500       & 0.000      & 0.124      & 0.376      & 0.541                \\
+            $=7$                  & 0.322       & 0.072      & 0.185      & 0.486      & 0.389                \\
+            $\ge 8$               & 0.238       & 0.026      & 0.156      & 0.579      & 0.308                \\ \hline
+            Total                 & 0.329       & 0.013      & 0.159      & 0.499      & 0.391
+        \end{tabular}
+    \end{table}
+    \begin{table}[htpb]
+        \centering
+        \caption{\textsc{Spa-Net} training results on the tri-Higgs samples, where we only consider 3h events. \textsc{Spa-Net} is trained on $\ge 0b$ datasets and tested on $\ge 6b$ datasets.}
+        \label{tab:SPANet_triHiggs_6b_3h}
+        \begin{tabular}{c|cccc|c}
+            \multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+            $N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+            $=6$                  & 0.679       & 0.000      & 0.074      & 0.246      & 0.704                \\
+            $=7$                  & 0.522       & 0.013      & 0.127      & 0.337      & 0.574                \\
+            $\ge 8$               & 0.354       & 0.019      & 0.180      & 0.447      & 0.427                \\ \hline
+            Total                 & 0.492       & 0.013      & 0.136      & 0.359      & 0.546
+        \end{tabular}
+    \end{table}
 % section 6b_requirement (end)
 \section{Another pairing method}% (fold)
 \label{sec:another_pairing_method}
-	The pairing algorithm is defined to minimize
-	\begin{equation}\label{eq:pairing_method_abs}
-		\abs{m_{h_1} - 120} + \abs{m_{h_2} - 115} + \abs{m_{h_3} - 110}
-	\end{equation}
-	where $m_{h_i}$ is the mass of the $i$-th Higgs boson candidate (sorted by $p_{\text{T}}$) in units of GeV. The numbers in this definition are chosen based on the peaks of the $m_{h_i}$ distributions in simulated signal events.
+    The pairing algorithm is defined to minimize
+    \begin{equation}\label{eq:pairing_method_abs}
+        \abs{m_{h_1} - 120} + \abs{m_{h_2} - 115} + \abs{m_{h_3} - 110}
+    \end{equation}
+    where $m_{h_i}$ is the mass of the $i$-th Higgs boson candidate (sorted by $p_{\text{T}}$) in units of GeV. The numbers in this definition are chosen based on the peaks of the $m_{h_i}$ distributions in simulated signal events.
 
-	Figure~\ref{fig:mh_distribution_6b} is the Higgs boson invariant mass $m_h$ distributions. The peaks of the $m_{h}$ distributions in our simulation are $121, 119, 116 \text{ GeV}$. Based on these values, we modify the numbers in Equation~\ref{eq:pairing_method_abs}.
-	\begin{figure}[htpb] 
-		\centering
-        \includegraphics[width=0.65\textwidth]{mh_distribution_6b.pdf} 
-		\caption{The Higgs boson mass distributions. Here, we only consider the event containing at least 6 $b$-tagged jets.}
-		\label{fig:mh_distribution_6b}
-	\end{figure}
-	Table~\ref{tab:chi2_abs_pairing_triHiggs_6b_3h} is the pairing performance on 6 $b$-tagged samples. The absolute value method performs worse than the $\chi^2$ method (Table~\ref{tab:chi2_pairing_triHiggs_6b_3h}).
-	\begin{table}[htpb]
-		\centering
-		\caption{$\chi^2$ pairing efficiencies on different categories. The $\chi^2$ method only considers the six leading $b$-jets.}
-		\label{tab:chi2_abs_pairing_triHiggs_6b_3h}
-		\begin{tabular}{c|cccc|c}
-			\multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
-			$N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
-			$=6$                  & 0.476       & 0.000      & 0.135      & 0.388      & 0.522                \\
-			$=7$                  & 0.293       & 0.011      & 0.185      & 0.511      & 0.362                \\
-			$\ge 8$               & 0.215       & 0.026      & 0.168      & 0.589      & 0.289                \\ \hline
-			Total                 & 0.303       & 0.015      & 0.167      & 0.515      & 0.367               
-		\end{tabular}
-	\end{table}
+    Figure~\ref{fig:mh_distribution_6b} is the Higgs boson invariant mass $m_h$ distributions. The peaks of the $m_{h}$ distributions in our simulation are $121, 119, 116 \text{ GeV}$. Based on these values, we modify the numbers in Equation~\ref{eq:pairing_method_abs}.
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.65\textwidth]{mh_distribution_6b.pdf}
+        \caption{The Higgs boson mass distributions. Here, we only consider the event containing at least 6 $b$-tagged jets.}
+        \label{fig:mh_distribution_6b}
+    \end{figure}
+    Table~\ref{tab:chi2_abs_pairing_triHiggs_6b_3h} is the pairing performance on 6 $b$-tagged samples. The absolute value method performs worse than the $\chi^2$ method (Table~\ref{tab:chi2_pairing_triHiggs_6b_3h}).
+    \begin{table}[htpb]
+        \centering
+        \caption{$\chi^2$ pairing efficiencies on different categories. The $\chi^2$ method only considers the six leading $b$-jets.}
+        \label{tab:chi2_abs_pairing_triHiggs_6b_3h}
+        \begin{tabular}{c|cccc|c}
+            \multicolumn{1}{l|}{} & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+            $N_\text{Jet}$        & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+            $=6$                  & 0.476       & 0.000      & 0.135      & 0.388      & 0.522                \\
+            $=7$                  & 0.293       & 0.011      & 0.185      & 0.511      & 0.362                \\
+            $\ge 8$               & 0.215       & 0.026      & 0.168      & 0.589      & 0.289                \\ \hline
+            Total                 & 0.303       & 0.015      & 0.167      & 0.515      & 0.367
+        \end{tabular}
+    \end{table}
 % section another_pairing_method (end)
 \section{New simulation setting}% (fold)
 \label{sec:new_simulation_setting}
     We apply the new setting to the event generation for a fair comparison. The following are the notes on the latest simulation setting.
 
-    The $6b$ analysis uses $R = 0.4$ anti-$k_{\text{T}}$ jets. All jets are required to have $p_{\text{T}} > 20 \text{ GeV}$ and  $\abs{\eta} < 2.5$, to be within the tracker acceptance for $b$-tagging. 
+    The $6b$ analysis uses $R = 0.4$ anti-$k_{\text{T}}$ jets. All jets are required to have $p_{\text{T}} > 20 \text{ GeV}$ and  $\abs{\eta} < 2.5$, to be within the tracker acceptance for $b$-tagging.
 
     All events must pass the Preselection. They must have at least six jets, defined by the earlier selection criteria. Of these six jets, at least four jets must have $p_{\text{T}} > \text{40 GeV}$, and at least four jets must be $b$-tagged.
 
@@ -546,53 +546,53 @@
     We modified the \verb|Delphes| card to apply the anti-$k_{\text{T}}$ clustering algorithm with $R = 0.4$ and change the $b$-tagging efficiency to the ATLAS DL1r 77\% working point. At this working point, the light-jet (charm-jet) rejection is about 130 (4.9).
 
     Figure~\ref{fig:mh_distribution_new} is the Higgs boson invariant mass $m_h$ distributions for new simulated samples. All events passing the Preselection and matching are used to generate this plot. The peaks of the $m_{h}$ distributions in our simulation are $119, 115, 111 \text{ GeV}$. We modify the numbers in Equation~\ref{eq:pairing_method_abs} based on these values.
-	\begin{figure}[htpb] 
-		\centering
+    \begin{figure}[htpb]
+        \centering
         \includegraphics[width=0.65\textwidth]{mh_distribution_new.pdf}
-		\caption{The Higgs boson mass distributions. Here, we consider all events passing the Preselection, and the correct pairing can be obtained.}
-		\label{fig:mh_distribution_new}
-	\end{figure}
+        \caption{The Higgs boson mass distributions. Here, we consider all events passing the Preselection, and the correct pairing can be obtained.}
+        \label{fig:mh_distribution_new}
+    \end{figure}
 
     Table~\ref{tab:chi2_pairing_triHiggs_3h_new}, \ref{tab:chi2_abs_pairing_triHiggs_3h_new} and \ref{tab:SPANet_triHiggs_3h_new} are the pairing performance on new simulated samples. The \textsc{Spa-Net} performs the best.
     \begin{table}[htpb]
-		\centering
+        \centering
         \caption{$\chi^2$ pairing efficiencies on different categories. We minimize the quantity defined in Equation~\ref{eq:triHiggs_chisq}. The $\chi^2$ method considers the possible combinations of 6 jets.}
-		\label{tab:chi2_pairing_triHiggs_3h_new}
-		\begin{tabular}{c|c|cccc|c}
+        \label{tab:chi2_pairing_triHiggs_3h_new}
+        \begin{tabular}{c|c|cccc|c}
         \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
         $N_\text{Jet}$        & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
         $=6$                  & 0.241    & 0.519       & 0.000      & 0.112      & 0.368      & 0.557                \\
         $=7$                  & 0.335    & 0.272       & 0.010      & 0.186      & 0.532      & 0.341                \\
         $\ge 8$               & 0.424    & 0.147       & 0.008      & 0.196      & 0.649      & 0.218                \\ \hline
-        Total                 & 1.000    & 0.279       & 0.007      & 0.172      & 0.542      & 0.341               
-		\end{tabular}
-	\end{table}
+        Total                 & 1.000    & 0.279       & 0.007      & 0.172      & 0.542      & 0.341
+        \end{tabular}
+    \end{table}
     \begin{table}[htpb]
-		\centering
-		\caption{Absolute value pairing efficiencies on different categories. We minimize the quantity defined in Equation~\ref{eq:pairing_method_abs}. The absolute value method considers the possible combination of 6 jets.}
-		\label{tab:chi2_abs_pairing_triHiggs_3h_new}
-		\begin{tabular}{c|c|cccc|c}
-			\multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
-			$N_\text{Jet}$        & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
-			$=6$                  & 0.241    & 0.457 & 0.000 & 0.131 & 0.412 &  0.500                \\
-			$=7$                  & 0.335    & 0.239 & 0.009 & 0.184 & 0.568 &  0.306                \\
-			$\ge 8$               & 0.424    & 0.136 & 0.007 & 0.197 & 0.661 &  0.206                \\ \hline
-			Total                 & 1.000    & 0.248 & 0.006 & 0.176 & 0.570 &  0.311               
-		\end{tabular}
-	\end{table}
+        \centering
+        \caption{Absolute value pairing efficiencies on different categories. We minimize the quantity defined in Equation~\ref{eq:pairing_method_abs}. The absolute value method considers the possible combination of 6 jets.}
+        \label{tab:chi2_abs_pairing_triHiggs_3h_new}
+        \begin{tabular}{c|c|cccc|c}
+            \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+            $N_\text{Jet}$        & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+            $=6$                  & 0.241    & 0.457 & 0.000 & 0.131 & 0.412 &  0.500                \\
+            $=7$                  & 0.335    & 0.239 & 0.009 & 0.184 & 0.568 &  0.306                \\
+            $\ge 8$               & 0.424    & 0.136 & 0.007 & 0.197 & 0.661 &  0.206                \\ \hline
+            Total                 & 1.000    & 0.248 & 0.006 & 0.176 & 0.570 &  0.311
+        \end{tabular}
+    \end{table}
     \begin{table}[htpb]
-		\centering
+        \centering
         \caption{\textsc{Spa-Net} training results on the tri-Higgs samples, where we only consider 3h events. The \textsc{Spa-Net} method considers all jets in the final state.}
-		\label{tab:SPANet_triHiggs_3h_new}
-		\begin{tabular}{c|c|cccc|c}
-			\multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
-			$N_\text{Jet}$        & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
-			$=6$                  & 0.241    & 0.619 & 0.000 & 0.097 & 0.283 &  0.652                \\
-			$=7$                  & 0.335    & 0.481 & 0.008 & 0.150 & 0.361 &  0.536                \\
-			$\ge 8$               & 0.424    & 0.350 & 0.011 & 0.171 & 0.469 &  0.414                \\ \hline
-			Total                 & 1.000    & 0.459 & 0.007 & 0.146 & 0.388 &  0.512               
-		\end{tabular}
-	\end{table}
+        \label{tab:SPANet_triHiggs_3h_new}
+        \begin{tabular}{c|c|cccc|c}
+            \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+            $N_\text{Jet}$        & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+            $=6$                  & 0.241    & 0.619 & 0.000 & 0.097 & 0.283 &  0.652                \\
+            $=7$                  & 0.335    & 0.481 & 0.008 & 0.150 & 0.361 &  0.536                \\
+            $\ge 8$               & 0.424    & 0.350 & 0.011 & 0.171 & 0.469 &  0.414                \\ \hline
+            Total                 & 1.000    & 0.459 & 0.007 & 0.146 & 0.388 &  0.512
+        \end{tabular}
+    \end{table}
 % section pairing_for_new_simulated_samples (end)
 \section{Modify the matching strategy}% (fold)
 \label{sec:modify_the_matching_strategy}
@@ -619,68 +619,68 @@
 
     Table~\ref{tab:chi2_pairing_triHiggs_3h_new_match} and \ref{tab:abs_pairing_triHiggs_3h_new_match} are the pairing performance with the new matching strategy. The results are similar to the previous one (Table~\ref{tab:chi2_pairing_triHiggs_3h_new} and \ref{tab:chi2_abs_pairing_triHiggs_3h_new}).
     \begin{table}[htpb]
-		\centering
+        \centering
         \caption{$\chi^2$ pairing efficiencies on different categories. We minimize the quantity defined in Equation~\ref{eq:triHiggs_chisq}. The $\chi^2$ method considers the possible combinations of 6 jets.}
-		\label{tab:chi2_pairing_triHiggs_3h_new_match}
-		\begin{tabular}{c|c|cccc|c}
+        \label{tab:chi2_pairing_triHiggs_3h_new_match}
+        \begin{tabular}{c|c|cccc|c}
         \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
         $N_\text{Jet}$        & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
         $=6$                  & 0.242 & 0.520 & 0.000 & 0.112 & 0.368 & 0.557 \\
         $=7$                  & 0.335 & 0.277 & 0.007 & 0.182 & 0.534 & 0.343 \\
         $\ge 8$               & 0.422 & 0.161 & 0.008 & 0.190 & 0.641 & 0.229 \\ \hline
-        Total                 & 1.000 & 0.287 & 0.006 & 0.168 & 0.539 & 0.347 
-		\end{tabular}
-	\end{table}
+        Total                 & 1.000 & 0.287 & 0.006 & 0.168 & 0.539 & 0.347
+        \end{tabular}
+    \end{table}
     \begin{table}[htpb]
-		\centering
-		\caption{Absolute value pairing efficiencies on different categories. We minimize the quantity defined in Equation~\ref{eq:pairing_method_abs}. The absolute value method considers the possible combination of 6 jets.}
-		\label{tab:abs_pairing_triHiggs_3h_new_match}
-		\begin{tabular}{c|c|cccc|c}
+        \centering
+        \caption{Absolute value pairing efficiencies on different categories. We minimize the quantity defined in Equation~\ref{eq:pairing_method_abs}. The absolute value method considers the possible combination of 6 jets.}
+        \label{tab:abs_pairing_triHiggs_3h_new_match}
+        \begin{tabular}{c|c|cccc|c}
         \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
         $N_\text{Jet}$        & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
         $=6$                  & 0.242 & 0.450 & 0.000 & 0.132 & 0.418 & 0.494 \\
         $=7$                  & 0.335 & 0.249 & 0.007 & 0.177 & 0.566 & 0.313 \\
         $\ge 8$               & 0.422 & 0.145 & 0.009 & 0.194 & 0.653 & 0.215 \\ \hline
-        Total                 & 1.000 & 0.254 & 0.006 & 0.173 & 0.567 & 0.316 
-		\end{tabular}
-	\end{table}
+        Total                 & 1.000 & 0.254 & 0.006 & 0.173 & 0.567 & 0.316
+        \end{tabular}
+    \end{table}
 % section modify_the_matching_strategy (end)
 \section{SM tri-Higgs samples}% (fold)
 \label{sec:sm_tri_higgs_samples}
-	We prepare the SM tri-Higgs samples to identify the reason for the matching issue. 
+    We prepare the SM tri-Higgs samples to identify the reason for the matching issue.
 
-	The SM tri-Higgs process is generated at the centre-of-mass energy $\sqrt{s} = \text{13 TeV}$ with the \verb|NNPDF30_nlo_as_0119| PDF set~\cite{NNPDF:2014otw}. In \verb|Delphes|, we use the anti-$k_{\text{T}}$ clustering algorithm with $R = 0.4$ and set the $b$-tagging efficiency to the ATLAS DL1r 77\% working point. At this working point, the light-jet (charm-jet) rejection is about 130 (4.9). Following are the MadGraph scripts for generating SM tri-Higgs samples:
+    The SM tri-Higgs process is generated at the centre-of-mass energy $\sqrt{s} = \text{13 TeV}$ with the \verb|NNPDF30_nlo_as_0119| PDF set~\cite{NNPDF:2014otw}. In \verb|Delphes|, we use the anti-$k_{\text{T}}$ clustering algorithm with $R = 0.4$ and set the $b$-tagging efficiency to the ATLAS DL1r 77\% working point. At this working point, the light-jet (charm-jet) rejection is about 130 (4.9). Following are the MadGraph scripts for generating SM tri-Higgs samples:
 
-	\begin{verbatim}
-		generate p p > h h h [QCD] QED^2<=6
-		output MG5/pphhh_sm
-		launch MG5/pphhh_sm
+    \begin{verbatim}
+        generate p p > h h h [QCD] QED^2<=6
+        output MG5/pphhh_sm
+        launch MG5/pphhh_sm
 
-		shower=Pythia8
-		detector=Delphes
-		analysis=OFF
-		madspin=ON
-		done
+        shower=Pythia8
+        detector=Delphes
+        analysis=OFF
+        madspin=ON
+        done
 
-		Cards/delphes_card.dat
+        Cards/delphes_card.dat
 
-		set run_card nevents 100000
-		set run_card ebeam1 6500.0
-		set run_card ebeam2 6500.0
+        set run_card nevents 100000
+        set run_card ebeam1 6500.0
+        set run_card ebeam2 6500.0
 
-		set run_card pdlabel lhapdf
-		set run_card lhaid 266000
+        set run_card pdlabel lhapdf
+        set run_card lhaid 266000
 
-		set run_card ptb 19
-		set run_card etab 2.6
+        set run_card ptb 19
+        set run_card etab 2.6
 
-		set spinmode none
-		decay h > b b~
+        set spinmode none
+        decay h > b b~
 
-		done
-	\end{verbatim}
+        done
+    \end{verbatim}
 
-	Table~\ref{tab:preselection_cutflow_number_sm} is the cutflow number of the SM tri-Higgs process. The matching efficiency is similar to the resonant tri-Higgs case (Table~\ref{tab:preselection_cutflow_number}).
+    Table~\ref{tab:preselection_cutflow_number_sm} is the cutflow number of the SM tri-Higgs process. The matching efficiency is similar to the resonant tri-Higgs case (Table~\ref{tab:preselection_cutflow_number}).
     \begin{table}[htpb]
         \centering
         \caption{The number of passing events, efficiencies, and passing rates for signal processes at different selection cuts.}
@@ -697,40 +697,40 @@
         \end{tabular}
     \end{table}
 
-	Table~\ref{tab:chi2_pairing_triHiggs_3h_sm} and \ref{tab:abs_pairing_triHiggs_3h_sm} are the pairing performance of the SM tri-Higgs process.
+    Table~\ref{tab:chi2_pairing_triHiggs_3h_sm} and \ref{tab:abs_pairing_triHiggs_3h_sm} are the pairing performance of the SM tri-Higgs process.
     \begin{table}[htpb]
-		\centering
+        \centering
         \caption{$\chi^2$ pairing efficiencies of the SM tri-Higgs samples. We minimize the quantity defined in Equation~\ref{eq:triHiggs_chisq}. The $\chi^2$ method considers the possible combinations of 6 jets.}
-		\label{tab:chi2_pairing_triHiggs_3h_sm}
-		\begin{tabular}{c|c|cccc|c}
+        \label{tab:chi2_pairing_triHiggs_3h_sm}
+        \begin{tabular}{c|c|cccc|c}
         \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
         $N_\text{Jet}$        & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
         $=6$                  & 0.169 & 0.556 & 0.000 & 0.107 & 0.338 & 0.591 \\
         $=7$                  & 0.311 & 0.334 & 0.008 & 0.154 & 0.505 & 0.390 \\
         $\ge 8$               & 0.520 & 0.193 & 0.007 & 0.204 & 0.596 & 0.266 \\ \hline
-        Total                 & 1.000 & 0.298 & 0.006 & 0.172 & 0.524 & 0.359 
-		\end{tabular}
-	\end{table}
+        Total                 & 1.000 & 0.298 & 0.006 & 0.172 & 0.524 & 0.359
+        \end{tabular}
+    \end{table}
     \begin{table}[htpb]
-		\centering
-		\caption{Absolute value pairing efficiencies of the SM tri-Higgs samples. We minimize the quantity defined in Equation~\ref{eq:pairing_method_abs}. The absolute value method considers the possible combination of 6 jets.}
-		\label{tab:abs_pairing_triHiggs_3h_sm}
-		\begin{tabular}{c|c|cccc|c}
+        \centering
+        \caption{Absolute value pairing efficiencies of the SM tri-Higgs samples. We minimize the quantity defined in Equation~\ref{eq:pairing_method_abs}. The absolute value method considers the possible combination of 6 jets.}
+        \label{tab:abs_pairing_triHiggs_3h_sm}
+        \begin{tabular}{c|c|cccc|c}
         \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
         $N_\text{Jet}$        & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
         $=6$                  & 0.169 & 0.651 & 0.000 & 0.095 & 0.254 & 0.683 \\
         $=7$                  & 0.311 & 0.401 & 0.014 & 0.158 & 0.427 & 0.463 \\
         $\ge 8$               & 0.520 & 0.226 & 0.009 & 0.213 & 0.552 & 0.303 \\ \hline
-        Total                 & 1.000 & 0.352 & 0.009 & 0.176 & 0.463 & 0.417 
-		\end{tabular}
-	\end{table}
+        Total                 & 1.000 & 0.352 & 0.009 & 0.176 & 0.463 & 0.417
+        \end{tabular}
+    \end{table}
 % section sm_tri_higgs_samples (end)
 \section{Use Pythia for Higgs decay}% (fold)
 \label{sec:use_pythia_for_higgs_decay}
-	We use \verb|MadSpin| to implement the Higgs decay in the previous exercise, while \verb|Pythia| could also do it. Thus, we generate the samples with \verb|Pythia| decay and compute the cutflow table.
+    We use \verb|MadSpin| to implement the Higgs decay in the previous exercise, while \verb|Pythia| could also do it. Thus, we generate the samples with \verb|Pythia| decay and compute the cutflow table.
 
     Table~\ref{tab:preselection_cutflow_number_pythia_decay} is the cutflow number of the Pythia decayed resonant tri-Higgs process. The matching efficiency is similar to the \verb|MadSpin| case (Table~\ref{tab:preselection_cutflow_number}).
-	\begin{table}[htpb]
+    \begin{table}[htpb]
         \centering
         \caption{The number of passing events, efficiencies, and passing rates for signal processes at different selection cuts.}
         \label{tab:preselection_cutflow_number_pythia_decay}
@@ -754,57 +754,57 @@
 
     The matching rate in the $6b$ region is much higher than in the $4b$ and $5b$ regions. However, the event fraction of $6b$ categories is 12\%. Therefore, the total matching efficiency is 31\%. The matching rate in the $8j$ region is higher than in the $6j$ and $7j$ regions. If there is a jet not decaying from the $b$-parton, then the matching would fail in the $6j$ case. Thus, this result is satisfied our expectation.
     \begin{table}[htpb]
-		\centering
+        \centering
         \caption{The matching rates on different $N_{b\text{-Jet}}$ categories. The numerator is the number of events each $b$-parton can be matched to a jet. The denominator is the number of events passing the Preselection.}
-		\label{tab:resonant_match_rate_nbj}
-		\begin{tabular}{c|c|c}
+        \label{tab:resonant_match_rate_nbj}
+        \begin{tabular}{c|c|c}
         $N_{b\text{-Jet}}$    & Fraction  & Match Efficiency     \\ \hline
         $=4$                  & 0.509 & 0.187 \\
         $=5$                  & 0.368 & 0.354 \\
         $\ge 6$               & 0.123 & 0.669 \\ \hline
         Total                 & 1.000 & 0.308
-		\end{tabular}
-	\end{table}
+        \end{tabular}
+    \end{table}
     \begin{table}[htpb]
-		\centering
+        \centering
         \caption{The matching rates on different $N_{\text{Jet}}$ categories. The numerator is the number of events each $b$-parton can be matched to a jet. The denominator is the number of events passing the Preselection.}
-		\label{tab:resonant_match_rate_nj}
-		\begin{tabular}{c|c|c}
+        \label{tab:resonant_match_rate_nj}
+        \begin{tabular}{c|c|c}
         $N_{\text{Jet}}$    & Fraction  & Match Efficiency     \\ \hline
         $=6$                  & 0.341 & 0.218 \\
         $=7$                  & 0.320 & 0.322 \\
         $\ge 8$               & 0.338 & 0.384 \\ \hline
         Total                 & 1.000 & 0.308
-		\end{tabular}
-	\end{table}
+        \end{tabular}
+    \end{table}
 
     Table~\ref{tab:sm_match_rate_nbj} and \ref{tab:sm_match_rate_nj} are the matching rates in different $N_{b\text{-Jet}}$ and $N_{\text{Jet}}$ categories for SM samples, respectively.
 
     Similarly, the matching rate in the $6b$ region is much higher than in the $4b$ and $5b$ regions. However, the event fraction of the $6b$ category is much lower than $4b$ and $5b$ regions. Thus, the total matching efficiency is 36\%.
     \begin{table}[htpb]
-		\centering
+        \centering
         \caption{The matching rates on different $N_{b\text{-Jet}}$ categories. The numerator is the number of events each $b$-parton can be matched to a jet. The denominator is the number of events passing the Preselection.}
-		\label{tab:sm_match_rate_nbj}
-		\begin{tabular}{c|c|c}
+        \label{tab:sm_match_rate_nbj}
+        \begin{tabular}{c|c|c}
         $N_{b\text{-Jet}}$    & Fraction  & Match Efficiency     \\ \hline
         $=4$                  & 0.475 & 0.227 \\
         $=5$                  & 0.378 & 0.395 \\
         $\ge 6$               & 0.147 & 0.704 \\ \hline
         Total                 & 1.000 & 0.361
-		\end{tabular}
-	\end{table}
+        \end{tabular}
+    \end{table}
     \begin{table}[htpb]
-		\centering
+        \centering
         \caption{The matching rates on different $N_{\text{Jet}}$ categories. The numerator is the number of events each $b$-parton can be matched to a jet. The denominator is the number of events passing the Preselection.}
-		\label{tab:sm_match_rate_nj}
-		\begin{tabular}{c|c|c}
+        \label{tab:sm_match_rate_nj}
+        \begin{tabular}{c|c|c}
         $N_{\text{Jet}}$    & Fraction  & Match Efficiency     \\ \hline
         $=6$                  & 0.282 & 0.227 \\
         $=7$                  & 0.307 & 0.352 \\
         $\ge 8$               & 0.411 & 0.460 \\ \hline
         Total                 & 1.000 & 0.361
-		\end{tabular}
-	\end{table}
+        \end{tabular}
+    \end{table}
 % section matching_rate_in_different_categories (end)
 \section{Pairing efficiency in different categories}% (fold)
 \label{sec:pairing_efficiency_in_different_categories}
@@ -812,44 +812,44 @@
 
     Table~\ref{tab:resonant_abs_pairing_3h_nbj} is the pairing efficiency in different $N_{b\text{-Jet}}$ categories for resonant samples. Only the events passing the Preselection and whose $b$-partons all can be matched would be considered. The pairing efficiency in the $6b$ region is higher than in the $4b$ and $5b$ regions. However, the event fraction of the $6b$ category only contributes 27\%. Therefore, the total pairing efficiency is 25\%. Note that these results are consistent with Table~\ref{tab:abs_pairing_triHiggs_3h_new_match}.
     \begin{table}[htpb]
-		\centering
-		\caption{Absolute value pairing efficiencies of the resonant tri-Higgs samples on different $N_{b\text{-Jet}}$ categories. We minimize the quantity defined in Equation~\ref{eq:pairing_method_abs}. The absolute value method considers the possible combination of 6 jets.}
-		\label{tab:resonant_abs_pairing_3h_nbj}
+        \centering
+        \caption{Absolute value pairing efficiencies of the resonant tri-Higgs samples on different $N_{b\text{-Jet}}$ categories. We minimize the quantity defined in Equation~\ref{eq:pairing_method_abs}. The absolute value method considers the possible combination of 6 jets.}
+        \label{tab:resonant_abs_pairing_3h_nbj}
         \begin{tabular}{c|c|cccc|c}
         \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
         $N_{b\text{-Jet}}$    & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
         $=4$                  & 0.309 & 0.190 & 0.008 & 0.189 & 0.614 & 0.258 \\
         $=5$                  & 0.424 & 0.225 & 0.005 & 0.179 & 0.591 & 0.288 \\
         $\ge 6$               & 0.267 & 0.373 & 0.005 & 0.146 & 0.475 & 0.425 \\ \hline
-        Total                 & 1.000 & 0.254 & 0.006 & 0.173 & 0.567 & 0.316 
-		\end{tabular}
-	\end{table}
+        Total                 & 1.000 & 0.254 & 0.006 & 0.173 & 0.567 & 0.316
+        \end{tabular}
+    \end{table}
 
     Table~\ref{tab:sm_abs_pairing_3h_nbj} is the pairing efficiency in different $N_{b\text{-Jet}}$ categories for SM samples. Similarly, the pairing efficiency in the $6b$ region is higher than in the $4b$ and $5b$ regions. However, the event fraction of the $6b$ category is lower than the $4b$ and $5b$ regions. Thus, the total matching efficiency is 35\%. These results are consistent with Table~\ref{tab:abs_pairing_triHiggs_3h_sm}.
     \begin{table}[htpb]
-		\centering
-		\caption{Absolute value pairing efficiencies of the SM tri-Higgs samples on different $N_{b\text{-Jet}}$ categories. We minimize the quantity defined in Equation~\ref{eq:pairing_method_abs}. The absolute value method considers the possible combination of 6 jets.}
-		\label{tab:sm_abs_pairing_3h_nbj}
+        \centering
+        \caption{Absolute value pairing efficiencies of the SM tri-Higgs samples on different $N_{b\text{-Jet}}$ categories. We minimize the quantity defined in Equation~\ref{eq:pairing_method_abs}. The absolute value method considers the possible combination of 6 jets.}
+        \label{tab:sm_abs_pairing_3h_nbj}
         \begin{tabular}{c|c|cccc|c}
         \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
         $N_{b\text{-Jet}}$    & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
         $=4$                  & 0.301 & 0.295 & 0.011 & 0.181 & 0.514 & 0.362 \\
         $=5$                  & 0.419 & 0.310 & 0.011 & 0.193 & 0.486 & 0.381 \\
         $\ge 6$               & 0.280 & 0.477 & 0.005 & 0.145 & 0.373 & 0.529 \\ \hline
-        Total                 & 1.000 & 0.352 & 0.009 & 0.176 & 0.463 & 0.417 
-		\end{tabular}
-	\end{table}
+        Total                 & 1.000 & 0.352 & 0.009 & 0.176 & 0.463 & 0.417
+        \end{tabular}
+    \end{table}
 % section pairing_efficiency_in_different_categories (end)
 \section{Matching rate in more categories}% (fold)
 \label{sec:matching_rate_in_more_categories}
-	Similarly to Section~\ref{sec:matching_rate_in_different_categories}, we compute the matching efficiency and event fraction in more categories to obtain more details about the samples.
+    Similarly to Section~\ref{sec:matching_rate_in_different_categories}, we compute the matching efficiency and event fraction in more categories to obtain more details about the samples.
 
-    Table~\ref{tab:resonant_match_rate_nbj_9b} is the matching rates in different $N_{b\text{-Jet}}$ categories for resonant samples. Only the events passing the Preselection would be considered. The matching rate in the $6b$ region is similar to the $7b$ and $8b$ regions. However, the event fraction of the $6b$ category is much higher than the $7b$ and $8b$ regions. Therefore, the matching efficiency of the $\ge 6b$ category is dominated by the $6b$ region. 
+    Table~\ref{tab:resonant_match_rate_nbj_9b} is the matching rates in different $N_{b\text{-Jet}}$ categories for resonant samples. Only the events passing the Preselection would be considered. The matching rate in the $6b$ region is similar to the $7b$ and $8b$ regions. However, the event fraction of the $6b$ category is much higher than the $7b$ and $8b$ regions. Therefore, the matching efficiency of the $\ge 6b$ category is dominated by the $6b$ region.
     \begin{table}[htpb]
-		\centering
+        \centering
         \caption{The matching rates on different $N_{b\text{-Jet}}$ categories. The numerator is the number of events each $b$-parton can be matched to a jet. The denominator is the number of events passing the Preselection. No event belongs to the $\ge 9b$ category.}
-		\label{tab:resonant_match_rate_nbj_9b}
-		\begin{tabular}{c|c|c}
+        \label{tab:resonant_match_rate_nbj_9b}
+        \begin{tabular}{c|c|c}
         $N_{b\text{-Jet}}$    & Fraction  & Match Efficiency     \\ \hline
         $=4$                  & 0.509 & 0.187 \\
         $=5$                  & 0.368 & 0.354 \\
@@ -858,15 +858,15 @@
         $=8$                  & 0.001 & 0.650 \\
         $\ge 9$               & 0.000 & nan   \\ \hline
         Total                 & 1.000 & 0.308
-		\end{tabular}
-	\end{table}
-    
-    Table~\ref{tab:sm_match_rate_nbj_11b} is the matching rates in different $N_{b\text{-Jet}}$ categories for SM samples. Similarly, the matching rate in the $6b$ region is similar to the $7b$ and $8b$ regions. However, the event fraction of $6b$ categories is much higher than the $7b \sim 10b$ regions. Therefore, the matching efficiency of the $\ge 6b$ category is dominated by the $6b$ region.   
-	\begin{table}[htpb]
-		\centering
+        \end{tabular}
+    \end{table}
+
+    Table~\ref{tab:sm_match_rate_nbj_11b} is the matching rates in different $N_{b\text{-Jet}}$ categories for SM samples. Similarly, the matching rate in the $6b$ region is similar to the $7b$ and $8b$ regions. However, the event fraction of $6b$ categories is much higher than the $7b \sim 10b$ regions. Therefore, the matching efficiency of the $\ge 6b$ category is dominated by the $6b$ region.
+    \begin{table}[htpb]
+        \centering
         \caption{The matching rates on different $N_{b\text{-Jet}}$ categories. The numerator is the number of events each $b$-parton can be matched to a jet. The denominator is the number of events passing the Preselection. No event belongs to the $\ge 11b$ category.}
-		\label{tab:sm_match_rate_nbj_11b}
-		\begin{tabular}{c|c|c}
+        \label{tab:sm_match_rate_nbj_11b}
+        \begin{tabular}{c|c|c}
         $N_{b\text{-Jet}}$    & Fraction  & Match Efficiency     \\ \hline
         $=4$                  & 0.475 & 0.227 \\
         $=5$                  & 0.378 & 0.395 \\
@@ -877,83 +877,83 @@
         $=10$                 & 0.000 & 1.000 \\
         $\ge 11$              & 0.000 & nan   \\ \hline
         Total                 & 1.000 & 0.361
-		\end{tabular}
-	\end{table}
+        \end{tabular}
+    \end{table}
 % section matching_rate_in_more_categories (end)
 \section{High resonant samples}% (fold)
 \label{sec:high_resonant_samples}
-	We generate samples with high resonant mass. Here we choose three benchmarks: $(m_{h_3}, m_{h_2}) = (\text{1500 GeV}, \text{1000 GeV}), (\text{1500 GeV},\text{850 GeV}), (\text{1300 GeV}, \text{1000 GeV})$.
+    We generate samples with high resonant mass. Here we choose three benchmarks: $(m_{h_3}, m_{h_2}) = (\text{1500 GeV}, \text{1000 GeV}), (\text{1500 GeV},\text{850 GeV}), (\text{1300 GeV}, \text{1000 GeV})$.
 
-	Table~\ref{tab:resonant_match_rate_nbj_high_mass} is the matching rates in different $N_{b\text{-Jet}}$ categories for resonant samples. Only the events passing the Preselection would be considered. These three benchmark points have similar match rates in the $6b$ region. This value is also similar to the previous one (Table~\ref{tab:resonant_match_rate_nbj}).
+    Table~\ref{tab:resonant_match_rate_nbj_high_mass} is the matching rates in different $N_{b\text{-Jet}}$ categories for resonant samples. Only the events passing the Preselection would be considered. These three benchmark points have similar match rates in the $6b$ region. This value is also similar to the previous one (Table~\ref{tab:resonant_match_rate_nbj}).
     \begin{table}[htpb]
-		\centering
+        \centering
         \caption{The matching rates on different $N_{b\text{-Jet}}$ categories. The numerator is the number of events each $b$-parton can be matched to a jet. The denominator is the number of events passing the Preselection.}
-		\label{tab:resonant_match_rate_nbj_high_mass}
-		\subfloat[$m_{h_3} = \text{1500 GeV}, m_{h_2} = \text{1000 GeV}$]{
-			\begin{tabular}{c|c|c}
-			$N_{b\text{-Jet}}$    & Fraction  & Match Efficiency     \\ \hline
-			$=4$                  & 0.603 & 0.260 \\
-			$=5$                  & 0.316 & 0.408 \\
-			$\ge 6$               & 0.082 & 0.662 \\ \hline
-			Total                 & 1.000 & 0.340
-			\end{tabular}
-		} 
-		\subfloat[$m_{h_3} = \text{1500 GeV}, m_{h_2} = \text{850 GeV}$]{
-			\begin{tabular}{c|c|c}
-			$N_{b\text{-Jet}}$    & Fraction  & Match Efficiency     \\ \hline
-			$=4$                  & 0.588 & 0.279 \\
-			$=5$                  & 0.320 & 0.466 \\
-			$\ge 6$               & 0.092 & 0.672 \\ \hline
-			Total                 & 1.000 & 0.375
-			\end{tabular}
-		} \\
-		\subfloat[$m_{h_3} = \text{1300 GeV}, m_{h_2} = \text{1000 GeV}$]{
-			\begin{tabular}{c|c|c}
-			$N_{b\text{-Jet}}$    & Fraction  & Match Efficiency     \\ \hline
-			$=4$                  & 0.578 & 0.294 \\
-			$=5$                  & 0.324 & 0.447 \\
-			$\ge 6$               & 0.098 & 0.654 \\ \hline
-			Total                 & 1.000 & 0.379
-			\end{tabular}
-		} \\
-	\end{table}
-	
-	Table~\ref{tab:high_mass_resonant_abs_pairing_3h_nbj} is the pairing efficiency in different $N_{b\text{-Jet}}$ categories for resonant samples. Only the events passing the Preselection and whose $b$-partons all can be matched would be considered. Compared with the low resonant case (Table~\ref{tab:resonant_abs_pairing_3h_nbj}), the high resonant samples have higher pairing efficiencies.
+        \label{tab:resonant_match_rate_nbj_high_mass}
+        \subfloat[$m_{h_3} = \text{1500 GeV}, m_{h_2} = \text{1000 GeV}$]{
+            \begin{tabular}{c|c|c}
+            $N_{b\text{-Jet}}$    & Fraction  & Match Efficiency     \\ \hline
+            $=4$                  & 0.603 & 0.260 \\
+            $=5$                  & 0.316 & 0.408 \\
+            $\ge 6$               & 0.082 & 0.662 \\ \hline
+            Total                 & 1.000 & 0.340
+            \end{tabular}
+        }
+        \subfloat[$m_{h_3} = \text{1500 GeV}, m_{h_2} = \text{850 GeV}$]{
+            \begin{tabular}{c|c|c}
+            $N_{b\text{-Jet}}$    & Fraction  & Match Efficiency     \\ \hline
+            $=4$                  & 0.588 & 0.279 \\
+            $=5$                  & 0.320 & 0.466 \\
+            $\ge 6$               & 0.092 & 0.672 \\ \hline
+            Total                 & 1.000 & 0.375
+            \end{tabular}
+        } \\
+        \subfloat[$m_{h_3} = \text{1300 GeV}, m_{h_2} = \text{1000 GeV}$]{
+            \begin{tabular}{c|c|c}
+            $N_{b\text{-Jet}}$    & Fraction  & Match Efficiency     \\ \hline
+            $=4$                  & 0.578 & 0.294 \\
+            $=5$                  & 0.324 & 0.447 \\
+            $\ge 6$               & 0.098 & 0.654 \\ \hline
+            Total                 & 1.000 & 0.379
+            \end{tabular}
+        } \\
+    \end{table}
+
+    Table~\ref{tab:high_mass_resonant_abs_pairing_3h_nbj} is the pairing efficiency in different $N_{b\text{-Jet}}$ categories for resonant samples. Only the events passing the Preselection and whose $b$-partons all can be matched would be considered. Compared with the low resonant case (Table~\ref{tab:resonant_abs_pairing_3h_nbj}), the high resonant samples have higher pairing efficiencies.
     \begin{table}[htpb]
-		\centering
-		\caption{Absolute value pairing efficiencies of the resonant tri-Higgs samples on different $N_{b\text{-Jet}}$ categories. We minimize the quantity defined in Equation~\ref{eq:pairing_method_abs}. The absolute value method considers the possible combination of 6 jets.}
-		\label{tab:high_mass_resonant_abs_pairing_3h_nbj}
-		\subfloat[$m_{h_3} = \text{1500 GeV}, m_{h_2} = \text{1000 GeV}$]{
-			\begin{tabular}{c|c|cccc|c}
-			\multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
-			$N_{b\text{-Jet}}$    & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
-			$=4$                  & 0.435 & 0.467 & 0.037 & 0.185 & 0.310 & 0.554 \\
-			$=5$                  & 0.399 & 0.568 & 0.029 & 0.174 & 0.229 & 0.645 \\
-			$\ge 6$               & 0.166 & 0.671 & 0.012 & 0.124 & 0.193 & 0.720 \\ \hline
-			Total                 & 1.000 & 0.541 & 0.030 & 0.171 & 0.258 & 0.618 
-			\end{tabular}
-		} \\
-		\subfloat[$m_{h_3} = \text{1500 GeV}, m_{h_2} = \text{850 GeV}$]{
-			\begin{tabular}{c|c|cccc|c}
-			\multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
-			$N_{b\text{-Jet}}$    & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
-			$=4$                  & 0.432 & 0.474 & 0.040 & 0.199 & 0.288 & 0.566 \\
-			$=5$                  & 0.387 & 0.584 & 0.028 & 0.165 & 0.223 & 0.657 \\
-			$\ge 6$               & 0.181 & 0.678 & 0.019 & 0.115 & 0.189 & 0.729 \\ \hline
-			Total                 & 1.000 & 0.553 & 0.032 & 0.170 & 0.245 & 0.631 
-			\end{tabular}
-		} \\
-		\subfloat[$m_{h_3} = \text{1300 GeV}, m_{h_2} = \text{1000 GeV}$]{
-			\begin{tabular}{c|c|cccc|c}
-			\multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
-			$N_{b\text{-Jet}}$    & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
-			$=4$                  & 0.447 & 0.448 & 0.033 & 0.157 & 0.361 & 0.523 \\
-			$=5$                  & 0.379 & 0.525 & 0.017 & 0.124 & 0.334 & 0.578 \\
-			$\ge 6$               & 0.174 & 0.644 & 0.026 & 0.131 & 0.199 & 0.705 \\ \hline
-			Total                 & 1.000 & 0.511 & 0.026 & 0.140 & 0.323 & 0.575 
-			\end{tabular}
-		}
-	\end{table}
+        \centering
+        \caption{Absolute value pairing efficiencies of the resonant tri-Higgs samples on different $N_{b\text{-Jet}}$ categories. We minimize the quantity defined in Equation~\ref{eq:pairing_method_abs}. The absolute value method considers the possible combination of 6 jets.}
+        \label{tab:high_mass_resonant_abs_pairing_3h_nbj}
+        \subfloat[$m_{h_3} = \text{1500 GeV}, m_{h_2} = \text{1000 GeV}$]{
+            \begin{tabular}{c|c|cccc|c}
+            \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+            $N_{b\text{-Jet}}$    & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+            $=4$                  & 0.435 & 0.467 & 0.037 & 0.185 & 0.310 & 0.554 \\
+            $=5$                  & 0.399 & 0.568 & 0.029 & 0.174 & 0.229 & 0.645 \\
+            $\ge 6$               & 0.166 & 0.671 & 0.012 & 0.124 & 0.193 & 0.720 \\ \hline
+            Total                 & 1.000 & 0.541 & 0.030 & 0.171 & 0.258 & 0.618
+            \end{tabular}
+        } \\
+        \subfloat[$m_{h_3} = \text{1500 GeV}, m_{h_2} = \text{850 GeV}$]{
+            \begin{tabular}{c|c|cccc|c}
+            \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+            $N_{b\text{-Jet}}$    & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+            $=4$                  & 0.432 & 0.474 & 0.040 & 0.199 & 0.288 & 0.566 \\
+            $=5$                  & 0.387 & 0.584 & 0.028 & 0.165 & 0.223 & 0.657 \\
+            $\ge 6$               & 0.181 & 0.678 & 0.019 & 0.115 & 0.189 & 0.729 \\ \hline
+            Total                 & 1.000 & 0.553 & 0.032 & 0.170 & 0.245 & 0.631
+            \end{tabular}
+        } \\
+        \subfloat[$m_{h_3} = \text{1300 GeV}, m_{h_2} = \text{1000 GeV}$]{
+            \begin{tabular}{c|c|cccc|c}
+            \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+            $N_{b\text{-Jet}}$    & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+            $=4$                  & 0.447 & 0.448 & 0.033 & 0.157 & 0.361 & 0.523 \\
+            $=5$                  & 0.379 & 0.525 & 0.017 & 0.124 & 0.334 & 0.578 \\
+            $\ge 6$               & 0.174 & 0.644 & 0.026 & 0.131 & 0.199 & 0.705 \\ \hline
+            Total                 & 1.000 & 0.511 & 0.026 & 0.140 & 0.323 & 0.575
+            \end{tabular}
+        }
+    \end{table}
 % section high_resonant_samples (end)
 \section{Matching failed events}% (fold)
 \label{sec:matching_failed_events}
@@ -961,57 +961,57 @@
 
     Matching algorithm: For each simulated truth quark, we compute the $\Delta R$ between the quark and all jets and then match the quark to the jet within $\Delta R = 0.4$ cone. If more than one jet can be matched to a simulated truth quark in the $\Delta R = 0.4$ cone, we choose the nearest one by the $\Delta R$ distance. If multiple quarks are matched to the same jet, then the matching is failed.
 
-	Here, we only consider the $6b$ category. First, we compute the number of quarks that can be matched to jets, meaning that at least one jet is within the $\Delta R=0.4$ cone of the quark. Events with $N_{\text{q}} < 6$ are the failed matching cases. Table~\ref{tab:number_of_quark_match_to_jet} presents the quark matching results.
+    Here, we only consider the $6b$ category. First, we compute the number of quarks that can be matched to jets, meaning that at least one jet is within the $\Delta R=0.4$ cone of the quark. Events with $N_{\text{q}} < 6$ are the failed matching cases. Table~\ref{tab:number_of_quark_match_to_jet} presents the quark matching results.
 
-	For the $N_{\text{q}} = 6$ case, if multiple quarks are matched to the same jet, then the matching fails. Two types of $N_{\text{q}} = 6$ failed cases exist. One is for each quark that has only one jet within the $\Delta R=0.4$ cone. Another is there is more than one jet within the $\Delta R = 0.4$ cone of quark. Table~\ref{tab:various_types_of_6_match_quarks} summarizes the vairous cases in the $N_{\text{q}} = 6$ category.
-	\begin{table}[htpb]
-		\centering
+    For the $N_{\text{q}} = 6$ case, if multiple quarks are matched to the same jet, then the matching fails. Two types of $N_{\text{q}} = 6$ failed cases exist. One is for each quark that has only one jet within the $\Delta R=0.4$ cone. Another is there is more than one jet within the $\Delta R = 0.4$ cone of quark. Table~\ref{tab:various_types_of_6_match_quarks} summarizes the vairous cases in the $N_{\text{q}} = 6$ category.
+    \begin{table}[htpb]
+        \centering
         \caption{The quark matching table. $N_{\text{q}}$ is the number of quarks that can be matched to jets in an event.}
-		\label{tab:number_of_quark_match_to_jet}
-		\subfloat[$m_{h_3} = \text{420 GeV}, \\ m_{h_2} = \text{280 GeV}$]{
-			\begin{tabular}{c|c|c}
-			$N_{\text{q}}$ & Count & Fraction \\ \hline
-			3          & 8    & 0.002       \\
-			4          & 89   & 0.022       \\
-			5          & 871  & 0.220       \\
-			6          & 2998 & 0.756       \\ \hline
-			Total      & 3966 & 1.000      
-			\end{tabular}
-		} 
-		\subfloat[SM]{
-			\begin{tabular}{c|c|c}
-			$N_{\text{q}}$ & Count & Fraction \\ \hline
-			3          & 4    & 0.001       \\
-			4          & 156  & 0.022       \\
-			5          & 1505 & 0.210       \\
-			6          & 5510 & 0.768       \\ \hline
-			Total      & 7175 & 1.000      
-			\end{tabular}
-		}
-	\end{table}
-	\begin{table}[htpb]
-		\centering
+        \label{tab:number_of_quark_match_to_jet}
+        \subfloat[$m_{h_3} = \text{420 GeV}, \\ m_{h_2} = \text{280 GeV}$]{
+            \begin{tabular}{c|c|c}
+            $N_{\text{q}}$ & Count & Fraction \\ \hline
+            3          & 8    & 0.002       \\
+            4          & 89   & 0.022       \\
+            5          & 871  & 0.220       \\
+            6          & 2998 & 0.756       \\ \hline
+            Total      & 3966 & 1.000
+            \end{tabular}
+        }
+        \subfloat[SM]{
+            \begin{tabular}{c|c|c}
+            $N_{\text{q}}$ & Count & Fraction \\ \hline
+            3          & 4    & 0.001       \\
+            4          & 156  & 0.022       \\
+            5          & 1505 & 0.210       \\
+            6          & 5510 & 0.768       \\ \hline
+            Total      & 7175 & 1.000
+            \end{tabular}
+        }
+    \end{table}
+    \begin{table}[htpb]
+        \centering
         \caption{The various cases of quark matching results in the $N_{\text{q}} = 6$ case.}
-		\label{tab:various_types_of_6_match_quarks}
-		\subfloat[$m_{h_3} = \text{420 GeV}$, $m_{h_2} = \text{280 GeV}$]{
-			\begin{tabular}{c|c|c}
-			$N_{\text{q}} = 6$                   & Count & Fraction \\ \hline
-			Successful matching                  & 2655 & 0.886 \\
-			Only one matching jet for each quark & 285  & 0.095 \\
-			More than one jet for some quark     & 58   & 0.019 \\ \hline
-			Total                                & 2998 & 1.000
-			\end{tabular}
-		} \\
-		\subfloat[SM]{
-			\begin{tabular}{c|c|c}
-			$N_{\text{q}} = 6$                   & Count & Fraction \\ \hline
-			Successful matching                  & 5054 & 0.917 \\
-			Only one matching jet for each quark & 376  & 0.068 \\
-			More than one jet for some quark     & 80   & 0.015 \\ \hline
-			Total                                & 5510 & 1.000
-			\end{tabular}
-		}
-	\end{table}
+        \label{tab:various_types_of_6_match_quarks}
+        \subfloat[$m_{h_3} = \text{420 GeV}$, $m_{h_2} = \text{280 GeV}$]{
+            \begin{tabular}{c|c|c}
+            $N_{\text{q}} = 6$                   & Count & Fraction \\ \hline
+            Successful matching                  & 2655 & 0.886 \\
+            Only one matching jet for each quark & 285  & 0.095 \\
+            More than one jet for some quark     & 58   & 0.019 \\ \hline
+            Total                                & 2998 & 1.000
+            \end{tabular}
+        } \\
+        \subfloat[SM]{
+            \begin{tabular}{c|c|c}
+            $N_{\text{q}} = 6$                   & Count & Fraction \\ \hline
+            Successful matching                  & 5054 & 0.917 \\
+            Only one matching jet for each quark & 376  & 0.068 \\
+            More than one jet for some quark     & 80   & 0.015 \\ \hline
+            Total                                & 5510 & 1.000
+            \end{tabular}
+        }
+    \end{table}
     \subsection{\texorpdfstring{$\Delta R$}{delta R} distance}% (fold)
     \label{sub:delta_r_distance}
         Table~\ref{tab:number_of_quark_match_to_jet} shows that only 76\% event can match all quarks to at least one jet. We modify the $\Delta R$ requirement to study more details about matching failed events.
@@ -1028,9 +1028,9 @@
                 4          & 73   & 0.018       \\
                 5          & 768  & 0.194       \\
                 6          & 3118 & 0.786       \\ \hline
-                Total      & 3966 & 1.000      
+                Total      & 3966 & 1.000
                 \end{tabular}
-            } 
+            }
             \subfloat[SM]{
                 \begin{tabular}{c|c|c}
                 $N_{\text{q}}$ & Count & Fraction \\ \hline
@@ -1038,7 +1038,7 @@
                 4          & 113  & 0.016       \\
                 5          & 1321 & 0.184       \\
                 6          & 5739 & 0.800       \\ \hline
-                Total      & 7175 & 1.000      
+                Total      & 7175 & 1.000
                 \end{tabular}
             }
         \end{table}
@@ -1046,7 +1046,7 @@
 % section matching_failed_events (end)
 \section{Train SPANet with the samples in \texorpdfstring{$6b$}{6b} region}% (fold)
 \label{sec:train_spanet_with_the_samples_in_6b_region}
-    In this section, we only consider the signal events in the $6b$ region, i.e., there $\ge 6$ $b$-tagged jets. We prepare the samples in the $6b$ region for the \textsc{Spa-Net} training. 
+    In this section, we only consider the signal events in the $6b$ region, i.e., there $\ge 6$ $b$-tagged jets. We prepare the samples in the $6b$ region for the \textsc{Spa-Net} training.
 
     For the jet assignment part,
     \begin{itemize}
@@ -1069,44 +1069,44 @@
 
     Table~\ref{tab:resonant_chi2_pairing_6b_region}, \ref{tab:resonant_abs_pairing_6b_region} and \ref{tab:resonant_6b_SPANet_pairing_6b_region} are the pairing performance on the $6b$ samples. The \textsc{Spa-Net} performs the worst. One reason is the sample is not enough for training. We need to generate more training samples to improve the training performance.
     \begin{table}[htpb]
-		\centering
+        \centering
         \caption{$\chi^2$ pairing efficiencies of the resonant tri-Higgs samples on different categories. The testing set is the $6b$ samples. We minimize the quantity defined in Equation~\ref{eq:triHiggs_chisq}. The $\chi^2$ method considers the possible combinations of 6 highest $p_{\text{T}}$ $b$-jets.}
-		\label{tab:resonant_chi2_pairing_6b_region}
-		\begin{tabular}{c|c|cccc|c}
+        \label{tab:resonant_chi2_pairing_6b_region}
+        \begin{tabular}{c|c|cccc|c}
         \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
         $N_\text{Jet}$        & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
         $=6$                  & 0.211 & 0.509 & 0.000 & 0.363 & 0.127 & 0.630                \\
         $=7$                  & 0.318 & 0.429 & 0.024 & 0.371 & 0.176 & 0.569                \\
         $\ge 8$               & 0.471 & 0.311 & 0.060 & 0.376 & 0.254 & 0.476                \\ \hline
-        Total                 & 1.000 & 0.390 & 0.036 & 0.371 & 0.203 & 0.538               
-		\end{tabular}
+        Total                 & 1.000 & 0.390 & 0.036 & 0.371 & 0.203 & 0.538
+        \end{tabular}
     \end{table}
     \begin{table}[htpb]
-		\centering
-		\caption{Absolute value pairing efficiencies of the resonant tri-Higgs samples on different categories. The testing set is the $6b$ samples. We minimize the quantity defined in Equation~\ref{eq:pairing_method_abs}. The absolute value method considers the possible combination of 6 highest $p_{\text{T}}$ $b$-jets.}
-		\label{tab:resonant_abs_pairing_6b_region}
+        \centering
+        \caption{Absolute value pairing efficiencies of the resonant tri-Higgs samples on different categories. The testing set is the $6b$ samples. We minimize the quantity defined in Equation~\ref{eq:pairing_method_abs}. The absolute value method considers the possible combination of 6 highest $p_{\text{T}}$ $b$-jets.}
+        \label{tab:resonant_abs_pairing_6b_region}
         \begin{tabular}{c|c|cccc|c}
             \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
             $N_{\text{Jet}}$    & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
             $=6$                  & 0.211 & 0.455 & 0.000 & 0.375 & 0.170 & 0.580 \\
             $=7$                  & 0.318 & 0.388 & 0.024 & 0.384 & 0.204 & 0.532 \\
             $\ge 8$               & 0.471 & 0.278 & 0.057 & 0.387 & 0.278 & 0.445 \\ \hline
-            Total                 & 1.000 & 0.350 & 0.035 & 0.384 & 0.231 & 0.501 
-		\end{tabular}
-	\end{table}
+            Total                 & 1.000 & 0.350 & 0.035 & 0.384 & 0.231 & 0.501
+        \end{tabular}
+    \end{table}
     \begin{table}[htpb]
-		\centering
+        \centering
         \caption{The pairing performance of \textsc{Spa-Net} trained on $6b$ datasets. The testing set is the $6b$ samples. The \textsc{Spa-Net} method considers all jets in the final state.}
-		\label{tab:resonant_6b_SPANet_pairing_6b_region}
-		\begin{tabular}{c|c|cccc|c}
-			\multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
-			$N_\text{Jet}$        & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
-			$=6$                  & 0.211 & 0.417 & 0.000 & 0.414 & 0.168 & 0.555 \\
-			$=7$                  & 0.318 & 0.318 & 0.024 & 0.440 & 0.218 & 0.480 \\
-			$\ge 8$               & 0.471 & 0.219 & 0.058 & 0.425 & 0.298 & 0.400 \\ \hline
-			Total                 & 1.000 & 0.292 & 0.035 & 0.427 & 0.245 & 0.458 
-		\end{tabular}
-	\end{table}
+        \label{tab:resonant_6b_SPANet_pairing_6b_region}
+        \begin{tabular}{c|c|cccc|c}
+            \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+            $N_\text{Jet}$        & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+            $=6$                  & 0.211 & 0.417 & 0.000 & 0.414 & 0.168 & 0.555 \\
+            $=7$                  & 0.318 & 0.318 & 0.024 & 0.440 & 0.218 & 0.480 \\
+            $\ge 8$               & 0.471 & 0.219 & 0.058 & 0.425 & 0.298 & 0.400 \\ \hline
+            Total                 & 1.000 & 0.292 & 0.035 & 0.427 & 0.245 & 0.458
+        \end{tabular}
+    \end{table}
 
     Another test is that we prepare the training dataset using different selection criteria. We only require at least 4 $b$-jets for this dataset. Thus, the sample sizes are the following:
     \begin{itemize}
@@ -1129,18 +1129,18 @@
 
     Table~\ref{tab:resonant_4b_SPANet_pairing_6b_region} is the pairing performance of \textsc{Spa-Net} training on the $4b$ samples and testing on $6b$ events. The \textsc{Spa-Net} performs better than the previous one (Table~\ref{tab:resonant_6b_SPANet_pairing_6b_region}). Even if we only test on $6b$ samples, the event with 4 or 5 $b$-jets can improve the training performance.
     \begin{table}[htpb]
-		\centering
+        \centering
         \caption{The pairing performance of \textsc{Spa-Net} trained on the datasets with the at least 4 $b$-jets requirement. The testing set is the $6b$ samples. The \textsc{Spa-Net} method considers all jets in the final state.}
-		\label{tab:resonant_4b_SPANet_pairing_6b_region}
-		\begin{tabular}{c|c|cccc|c}
-			\multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
-			$N_\text{Jet}$        & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
-			$=6$                  & 0.211 & 0.648 & 0.000 & 0.275 & 0.077 & 0.740 \\
-			$=7$                  & 0.318 & 0.539 & 0.039 & 0.308 & 0.114 & 0.668 \\
-			$\ge 8$               & 0.471 & 0.390 & 0.082 & 0.350 & 0.177 & 0.562 \\ \hline
-			Total                 & 1.000 & 0.492 & 0.051 & 0.321 & 0.136 & 0.633
-		\end{tabular}
-	\end{table}
+        \label{tab:resonant_4b_SPANet_pairing_6b_region}
+        \begin{tabular}{c|c|cccc|c}
+            \multicolumn{1}{l|}{} &          & \multicolumn{4}{c|}{Correctly reconstructed Higgs} & \multicolumn{1}{l}{} \\ \hline
+            $N_\text{Jet}$        & Fraction & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency     \\ \hline
+            $=6$                  & 0.211 & 0.648 & 0.000 & 0.275 & 0.077 & 0.740 \\
+            $=7$                  & 0.318 & 0.539 & 0.039 & 0.308 & 0.114 & 0.668 \\
+            $\ge 8$               & 0.471 & 0.390 & 0.082 & 0.350 & 0.177 & 0.562 \\ \hline
+            Total                 & 1.000 & 0.492 & 0.051 & 0.321 & 0.136 & 0.633
+        \end{tabular}
+    \end{table}
 % section train_spanet_with_the_samples_in_6b_region (end)
 \section{DNN classifier}% (fold)
 \label{sec:dnn_classifier}
@@ -1163,7 +1163,7 @@
             \frac{\sum_{i,j} 2 p_{\text{T},i} p_{\text{T},j} \left( \cosh\left( \Delta\eta_{ij} \right) -1 \right) }{m_{hhh}^2}
             \end{equation}
             where $i,j$ are all possible dijet that can form a Higgs Boson candidate and $m_{hhh}$ is the reconstructed tri-Higgs invariant mass.
-            \item Shpericity and Aplanarity of 6 jets. Compute the momentum tensor $M_{xyz}$ 
+            \item Shpericity and Aplanarity of 6 jets. Compute the momentum tensor $M_{xyz}$
                \begin{equation}
                    M_{xyz} = \sum_{i}
                    \begin{pmatrix}
@@ -1176,7 +1176,7 @@
                \end{equation}
                where $i$ is the jet index. Its eigenvalues are ordered such that $\lambda_1  > \lambda_2 > \lambda_3$. Sphericity is defined as
                \begin{equation}
-                   S = \frac{3}{2} \left( \lambda_2 + \lambda_3 \right) 
+                   S = \frac{3}{2} \left( \lambda_2 + \lambda_3 \right)
                \end{equation}
                The aplanarity is defined as
                \begin{equation}
@@ -1192,27 +1192,27 @@
             } \\
             \subfloat[]{
                  \includegraphics[width=0.45\textwidth]{rms_dR_distribution-abs_pairing.pdf}
-            } 
+            }
             \subfloat[]{
                  \includegraphics[width=0.45\textwidth]{dA_skew_distribution-abs_pairing.pdf}
             } \\
             \subfloat[]{
                  \includegraphics[width=0.45\textwidth]{HT_distribution-abs_pairing.pdf}
-            } 
+            }
             \subfloat[]{
                  \includegraphics[width=0.45\textwidth]{mhCostheta_distribution-abs_pairing.pdf}
             } \\
             \caption{Distributions of the DNN input features.}
             \label{fig:DNN_input_feature_1}
         \end{figure}
-        \begin{figure}[htpb] 
+        \begin{figure}[htpb]
             \centering
             \subfloat[]{
                  \includegraphics[width=0.45\textwidth]{eta_mhhh_fraction_distribution-abs_pairing.pdf}
             } \\
             \subfloat[]{
                  \includegraphics[width=0.45\textwidth]{sphericity_distribution-abs_pairing.pdf}
-            } 
+            }
             \subfloat[]{
                  \includegraphics[width=0.45\textwidth]{aplanarity_distribution-abs_pairing.pdf}
             } \\
@@ -1231,7 +1231,7 @@
             } \\
             \subfloat[Signal]{
                  \includegraphics[width=0.45\textwidth]{mhCostheta_distribution_signal.pdf}
-            } 
+            }
             \subfloat[Background]{
                  \includegraphics[width=0.45\textwidth]{mhCostheta_distribution_background.pdf}
             } \\
@@ -1255,7 +1255,7 @@
             Number of hidden layers       & 3     \\
             Number of nodes in each layer & 24    \\
             Dropout rate                  & 0.1   \\
-            Patience                      & 10   
+            Patience                      & 10
             \end{tabular}
         \end{table}
     % subsection model_structure (end)
@@ -1264,22 +1264,22 @@
         We use 25k signal and 25k background events, where 70\% for training, 15\% for validation, and 15\% for testing. We use various pairing methods to construct the input features.
 
         Figure~\ref{fig:DNN_resonant_loss_accuracy} illustrates the loss and accuracy across the training process. Figure~\ref{fig:DNN_resonant_event_score_roc} shows the event score distribution and the ROC curve. The neural network is evaluated on the testing samples to generate these plots. This neural network is trained on the dataset generated from the absolute value pairing method.
-        \begin{figure}[htpb] 
+        \begin{figure}[htpb]
             \centering
             \subfloat[]{
                  \includegraphics[width=0.45\textwidth]{DNN_loss_resonant.pdf}
-            } 
+            }
             \subfloat[]{
                  \includegraphics[width=0.45\textwidth]{DNN_accuracy_resonant.pdf}
             } \\
             \caption{The training and validation results during the training process.}
             \label{fig:DNN_resonant_loss_accuracy}
         \end{figure}
-        \begin{figure}[htpb] 
+        \begin{figure}[htpb]
             \centering
             \subfloat[]{
                  \includegraphics[width=0.45\textwidth]{DNN_event_score_resonant.pdf}
-            } 
+            }
             \subfloat[]{
                  \includegraphics[width=0.45\textwidth]{DNN_roc_resonant.pdf}
             } \\
@@ -1314,7 +1314,7 @@
             \multirow{3}{*}{25k} & Absolute value   & $0.836 \pm 0.003$ & $0.899 \pm 0.005$ \\
                                  & $\chi^2$         & $0.836 \pm 0.002$ & $0.902 \pm 0.003$ \\
                                  & \textsc{Spa-Net} & $0.831 \pm 0.006$ & $0.900 \pm 0.007$ \\ \hline
-            \multirow{3}{*}{50k} & Absolute value   & $0.846 \pm 0.002$ & $0.910 \pm 0.003$ \\ 
+            \multirow{3}{*}{50k} & Absolute value   & $0.846 \pm 0.002$ & $0.910 \pm 0.003$ \\
                                  & $\chi^2$         & $0.842 \pm 0.004$ & $0.907 \pm 0.004$ \\
                                  & \textsc{Spa-Net} & $0.837 \pm 0.005$ & $0.907 \pm 0.005$
             \end{tabular}
@@ -1324,7 +1324,7 @@
     \label{sub:4b_dataset}
         We only consider the events with 6 $b$-tagged jets in previous sections. However, only a few events can pass this requirement. To enlarge the training datasets, we lose the requirement to 4 $b$-tagged jets. The amount of $4b$ datasets is 10 times larger than $6b$ datasets.
 
-        Table~\ref{tab:DNN_training_results_50k_100k_4b} summarizes the training results of $4b$ datasets. All methods exhibit similar performance. These results are consistent with previous results. 
+        Table~\ref{tab:DNN_training_results_50k_100k_4b} summarizes the training results of $4b$ datasets. All methods exhibit similar performance. These results are consistent with previous results.
         \begin{table}[htpb]
             \centering
             \caption{The dense neural network training results. The ACC and AUC are evaluated based on 10 trainings. 50k means that we use 50k signal and 50k background events.}
@@ -1337,88 +1337,88 @@
                                   & \textsc{Spa-Net} & $0.798 \pm 0.004$ & $0.870 \pm 0.008$ & $0.829 \pm 0.004$   & $0.899 \pm 0.006$   \\ \hline
             \multirow{3}{*}{100k} & Absolute value   & $0.803 \pm 0.005$ & $0.870 \pm 0.006$ & $0.841 \pm 0.003$   & $0.903 \pm 0.003$   \\
                                   & $\chi^2$         & $0.803 \pm 0.005$ & $0.871 \pm 0.005$ & $0.838 \pm 0.003$   & $0.901 \pm 0.002$   \\
-                                  & \textsc{Spa-Net} & $0.807 \pm 0.008$ & $0.878 \pm 0.007$ & $0.834 \pm 0.006$   & $0.905 \pm 0.005$  
+                                  & \textsc{Spa-Net} & $0.807 \pm 0.008$ & $0.878 \pm 0.007$ & $0.834 \pm 0.006$   & $0.905 \pm 0.005$
             \end{tabular}
         \end{table}
     % subsection 4b_dataset (end)
 % section dnn_classifier (end)
 \section{SPANet classifier}% (fold)
 \label{sec:spanet_classifier}
-    \textsc{Spa-Net} can be treated as a classifier. In this section, we train a \textsc{Spa-Net} to identify the correct pairings and perform the signal/background classification at the same time.
+    \textsc{Spa-Net} can be treated as a classifier. In this section, we train a \textsc{Spa-Net} to identify the correct pairings and perform the signal/background classification simultaneously.
 
-	\subsection{Training dataset}% (fold)
-	\label{sub:training_dataset_spanet_classifier}
+    \subsection{Training dataset}% (fold)
+    \label{sub:training_dataset_spanet_classifier}
     The selection and matching process for the jet pairing is described in section~\ref{sec:new_simulation_setting} and \ref{sec:modify_the_matching_strategy}. We only require the 4 $b$-tagged jets on training datasets. We prepare the signal and background samples of the same size for classification.
 
-		For the jet assignment part,
-		\begin{itemize}
-			\item Training sample:
-			\begin{itemize}
+        For the jet assignment part,
+        \begin{itemize}
+            \item Training sample:
+            \begin{itemize}
                 \item Total sample size: 900,000
                 \item 1h sample size: 123,141
                 \item 2h sample size: 159,219
                 \item 3h sample size: 140,132
-				\item 5\% used on validation
-			\end{itemize}
-			\item Testing sample:
-			\begin{itemize}
+                \item 5\% used on validation
+            \end{itemize}
+            \item Testing sample:
+            \begin{itemize}
                 \item Total sample size: 100,000
                 \item 1h sample size: 13,785
                 \item 2h sample size: 17,448
                 \item 3h sample size: 15,668
-			\end{itemize}
-		\end{itemize}
+            \end{itemize}
+        \end{itemize}
 
-		For event classification,
-		\begin{itemize}
-			\item Training sample:
-			\begin{itemize}
-				\item Total sample size: 900,000
-				\item Signal sample size: 450,000
-				\item Background sample size: 450,000
-				\item 5\% used on validation
-			\end{itemize}
-			\item Testing sample:
-			\begin{itemize}
-				\item Total sample size: 100,000
-				\item Signal sample size: 50,000
-				\item Background sample size: 50,000
-			\end{itemize}
-		\end{itemize}
+        For event classification,
+        \begin{itemize}
+            \item Training sample:
+            \begin{itemize}
+                \item Total sample size: 900,000
+                \item Signal sample size: 450,000
+                \item Background sample size: 450,000
+                \item 5\% used on validation
+            \end{itemize}
+            \item Testing sample:
+            \begin{itemize}
+                \item Total sample size: 100,000
+                \item Signal sample size: 50,000
+                \item Background sample size: 50,000
+            \end{itemize}
+        \end{itemize}
 
-		This training takes around 4.5 hours on our server.
-	% subsection training_dataset_spanet_classifier (end)
-	\subsection{Training results}% (fold)
-	\label{sub:training_results_spanet_classifier}
-		The training results are presented in Table \ref{tab:SPANet_triHiggs_4b_cls_pairing_results}.
+        This training takes around 4.5 hours on our server.
+    % subsection training_dataset_spanet_classifier (end)
+    \subsection{Training results}% (fold)
+    \label{sub:training_results_spanet_classifier}
+        The training results are presented in Table \ref{tab:SPANet_triHiggs_4b_cls_pairing_results}.
 
-		\begin{table}[htpb]
-			\centering
-			\caption{\textsc{Spa-Net} training results on the $4b$ tri-Higgs samples. \textsc{Spa-Net} is trained on jet pairing and event classification tasks at the same time.}
-			\label{tab:SPANet_triHiggs_4b_cls_pairing_results}
-			\begin{tabular}{c|cccc|c}
-			               & \multicolumn{4}{c|}{Correctly reconstructed Higgs} &                  \\ \hline
-			$N_\text{Jet}$ & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency \\ \hline
-			$=6$           & 0.656       & 0.000      & 0.082      & 0.262      & 0.684            \\
-			$=7$           & 0.436       & 0.017      & 0.168      & 0.379      & 0.504            \\
-			$\ge 8$        & 0.341       & 0.018      & 0.173      & 0.468      & 0.411            \\ \hline
-			Total          & 0.478       & 0.012      & 0.142      & 0.368      & 0.533            
-			\end{tabular}
-			
-		\end{table}
+        \begin{table}[htpb]
+            \centering
+            \caption{\textsc{Spa-Net} training results on the $4b$ tri-Higgs samples. \textsc{Spa-Net} is trained on jet pairing and event classification tasks at the same time.}
+            \label{tab:SPANet_triHiggs_4b_cls_pairing_results}
+            \begin{tabular}{c|cccc|c}
+                           & \multicolumn{4}{c|}{Correctly reconstructed Higgs} &                  \\ \hline
+            $N_\text{Jet}$ & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency \\ \hline
+            $=6$           & 0.656       & 0.000      & 0.082      & 0.262      & 0.684            \\
+            $=7$           & 0.436       & 0.017      & 0.168      & 0.379      & 0.504            \\
+            $\ge 8$        & 0.341       & 0.018      & 0.173      & 0.468      & 0.411            \\ \hline
+            Total          & 0.478       & 0.012      & 0.142      & 0.368      & 0.533
+            \end{tabular}
+
+        \end{table}
 
         Table \ref{tab:SPANet_triHiggs_4b_cls_classification_results} presents the classification training results. We use the accuracy (ACC) and the area under the Receiver Operating Characteristic (ROC) curve (AUC) as two metrics. The results are much better than the DNN classifiers (Table~\ref{tab:DNN_training_results_50k_100k_4b}). However, one thing should be noted: the training sample size of \textsc{Spa-Net} is 5 times greater than DNN's.
-		\begin{table}[htpb]
-			\centering
-			\caption{The \textsc{Spa-Net} classification training results with $4b$ tri-Higgs sample.}
-			\label{tab:SPANet_triHiggs_4b_cls_classification_results}
-			\begin{tabular}{c|cc|cc}
-				             & \multicolumn{2}{c|}{Test on $4b$ datasets}& \multicolumn{2}{c}{Test on $6b$ datasets} \\ \hline
+        \begin{table}[htpb]
+            \centering
+            \caption{The \textsc{Spa-Net} classification training results with $4b$ tri-Higgs sample.}
+            \label{tab:SPANet_triHiggs_4b_cls_classification_results}
+            \begin{tabular}{c|cc|cc}
+                             & \multicolumn{2}{c|}{Test on $4b$ datasets}& \multicolumn{2}{c}{Test on $6b$ datasets} \\ \hline
                              & ACC                 & AUC                 & ACC                 & AUC                 \\ \hline
-			\textsc{Spa-Net} & $0.935$             & $0.984$             & $0.939$             & $0.986$            
-            \end{tabular}    
-		\end{table}
-	% subsection training_results_spanet_classifier (end)
+            \textsc{Spa-Net} & $0.935$             & $0.984$             & $0.939$             & $0.986$
+            \end{tabular}
+        \end{table}
+    % subsection training_results_spanet_classifier (end)
 % section spanet_classifier (end)
 \section{DNN classifier 2}% (fold)
 \label{sec:dnn_classifier_2}
@@ -1442,7 +1442,7 @@
                                   & \textsc{Spa-Net} & $0.807 \pm 0.008$ & $0.878 \pm 0.007$ & $0.834 \pm 0.006$   & $0.905 \pm 0.005$   \\ \hline
             \multirow{3}{*}{500k} & Absolute value   & $0.813 \pm 0.007$ & $0.881 \pm 0.012$ & $0.844 \pm 0.007$   & $0.906 \pm 0.008$   \\
                                   & $\chi^2$         & $0.813 \pm 0.004$ & $0.882 \pm 0.005$ & $0.844 \pm 0.003$   & $0.908 \pm 0.004$   \\
-                                  & \textsc{Spa-Net} & $0.810 \pm 0.004$ & $0.881 \pm 0.006$ & $0.836 \pm 0.004$   & $0.907 \pm 0.004$   
+                                  & \textsc{Spa-Net} & $0.810 \pm 0.004$ & $0.881 \pm 0.006$ & $0.836 \pm 0.004$   & $0.907 \pm 0.004$
             \end{tabular}
         \end{table}
     % subsection training_performance_with_500k_datasets (end)
@@ -1460,7 +1460,7 @@
             Number of hidden layers       & 3     \\
             Number of nodes in each layer & 256   \\
             Dropout rate                  & 0.1   \\
-            Patience                      & 10   
+            Patience                      & 10
             \end{tabular}
         \end{table}
 
@@ -1474,12 +1474,78 @@
             Pairing method   & ACC                 & AUC                 & ACC                 & AUC                 \\ \hline
             Absolute value   & $0.8290 \pm 0.0002$ & $0.9024 \pm 0.0002$ & $0.8552 \pm 0.0015$ & $0.9221 \pm 0.0006$ \\
             $\chi^2$         & $0.8288 \pm 0.0002$ & $0.9022 \pm 0.0002$ & $0.8537 \pm 0.0009$ & $0.9212 \pm 0.0006$ \\
-            \textsc{Spa-Net} & $0.8318 \pm 0.0003$ & $0.9065 \pm 0.0001$ & $0.8543 \pm 0.0009$ & $0.9241 \pm 0.0003$  
+            \textsc{Spa-Net} & $0.8318 \pm 0.0003$ & $0.9065 \pm 0.0001$ & $0.8543 \pm 0.0009$ & $0.9241 \pm 0.0003$
             \end{tabular}
         \end{table}
     % subsection modify_hyperparameter (end)
 % section dnn_classifier_2 (end)
+\section{Upper limit}% (fold)
+\label{sec:upper_limit}
+    The neural network event scores $p_{\text{event}}$ are utilized to set the upper limit of the cross-section.
+
+    The binned $p_{\text{event}}$ distribution is considered. The likelihood function $L$ consisting of a product of Poisson distributions
+    \begin{equation}
+        L(\text{data}) = \prod_{i=1}^{B} \text{Pois}(n_i\mid n_{i,\text{exp}})
+    \end{equation}
+    where $B$ is the number of bins, $n_i$ is the number of events in bin $i$ from data, $n_{i,\text{exp}}$ is the expected number of events in bin $i$. The expected number of events is the sum of the signal and background events.
+
+    The Poisson distribution is expressed as:
+    \begin{equation}
+        \text{Pois}(n\mid \lambda) = \frac{\euler^{-\lambda} \lambda^{n}}{n!}.
+    \end{equation}
+    Taking the logarithm yields:
+    \begin{equation}
+        \begin{aligned}
+            \ln \left( \prod_{i=1}^{B} \text{Pois}(n_i\mid n_{i,\text{exp}}) \right) &=  \sum_{i=1}^{B} \ln \left( \frac{\euler^{-n_{i,\text{exp}}} n_{i,\text{exp}}^{n_i}}{n_i!} \right) \\
+            &=  \sum_{i=1}^{B} \left[ - n_{i,\text{exp}} + n_i \ln (n_{i,\text{exp}} ) - \ln (n_i!)\right]
+        \end{aligned}
+    \end{equation}
+    where the term $\ln(n_i!)$ is independent of the signal and can be treated as a constant.
+    \subsection{Event score distribution}% (fold)
+    \label{sub:event_score_distribution}
+        Figure~\ref{fig:event_score_distribution} shows the $p_{\text{event}}$ distributions. The Dense-NN and \textsc{Spa-Net} classifiers were trained as described in sections~\ref{sub:modify_hyperparameter} and \ref{sec:spanet_classifier}, respectively.
+
+    For dense neural networks, the distributions are similar across various pairing methods. These results are consistent with the similar performance shown in table~\ref{tab:DNN_training_results_500k_4b_256_nodes}. In contrast, the \textsc{Spa-Net} classifier exhibits a different distribution since its accuracy is higher than DNN's by 8\%.
+
+        Parameter setting:
+        \begin{itemize}
+            \item Number of bins: $50$
+            \item Range: $[0, 1]$
+        \end{itemize}
+
+        \begin{figure}[htpb]
+            \centering
+            \subfloat[]{
+                 \includegraphics[width=0.45\textwidth]{event_score_sig.pdf}
+            }
+            \subfloat[]{
+                 \includegraphics[width=0.45\textwidth]{event_score_bkg.pdf}
+            }
+            \caption{The $p_{\text{event}}$ distribution with various selection methods.}
+            \label{fig:event_score_distribution}
+        \end{figure}
+
+    % subsection event_score_distribution (end)
+    \subsection{CLs method}% (fold)
+    \label{sub:cls_method}
+        The $\text{CL}_{\text{s}}$ method is used to set the upper limits of the cross-section. The signal strength $\mu_{\text{s}}$ is chosen as the parameter of interest (POI). The POI is excluded at the 95\% confidence level when the $\text{CL}_{\text{s}} < 0.05$. The package \verb|pyhf|~\cite{pyhf,pyhf_joss} is utilized to calculate the upper limit. Once the upper limit of signal strength is obtained, it can be converted to the upper limit of the cross-section.
+
+        Table~\ref{tab:signal_strength_upper_limit_tem} shows the 95\% CL upper limits for $\mu_{\text{s}}$. Dense-NN classifiers with different pairing methods demonstrate similar results. The \textsc{Spa-Net} classifier performs the best among all selection methods. Note that these values are preliminary, as we need to use the correct cross-sections to normalize them. The final results will differ by an overall factor.
+        \begin{table}[htpb]
+            \centering
+            \caption{95\% CL upper limits of signal strength $\mu_{\text{s}}$.}
+            \label{tab:signal_strength_upper_limit_tem}
+            \begin{tabular}{l|c}
+                Selection, Pairing         & $\mu_{\text{s}}$ \\ \hline
+                Dense-NN, Absolute value   & $2.530$          \\
+                Dense-NN, $\chi^2$         & $2.529$          \\
+                Dense-NN, \textsc{Spa-Net} & $2.526$          \\
+                \textsc{Spa-Net}           & $2.185$         
+            \end{tabular}
+        \end{table}
+    % subsection cls_method (end)
+% section upper_limit (end)
 \bibliographystyle{ieeetr}
 \bibliography{reference}
-		
-\end{document} 
+
+\end{document}
