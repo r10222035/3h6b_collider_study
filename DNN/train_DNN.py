@@ -136,7 +136,7 @@ def main():
     print(f'Testing Loss = {results[0]:.3}, Testing Accuracy = {results[1]:.3}')
 
     X, y = X_test, y_test
-    y_pred = loaded_model.predict(X)
+    y_pred = loaded_model.predict(X, batch_size=batch_size)
     auc = roc_auc_score(y, y_pred)
     acc = get_highest_accuracy(y, y_pred)
 
