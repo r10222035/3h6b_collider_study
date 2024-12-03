@@ -108,7 +108,7 @@ def pair_jets(file_path, pairing_method, start, end):
                 jets_index = np.concatenate([np.where(btag)[0][0:4], np.where(~btag)[0][0:2]])
             elif nbj == 5:
                 jets_index = np.concatenate([np.where(btag)[0][0:5], np.where(~btag)[0][0:1]])
-            elif nbj == 6:
+            elif nbj >= 6:
                 jets_index = np.where(btag)[0][0:6]
 
             for combination in itertools.combinations(jets_index, 6):
