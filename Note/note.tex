@@ -1545,6 +1545,103 @@
         \end{table}
     % subsection cls_method (end)
 % section upper_limit (end)
+\section{Organize generated samples}% (fold)
+\label{sec:organize_generated_samples}
+
+    All generated samples must pass the pre-selection criteria mentioned in section~\ref{sec:new_simulation_setting}. The samples that meet these criteria are called the $4b$ datasets. Additionally, events containing at least $6b$ jets are used to construct the $6b$ datasets.
+
+    The $4b$ datasets consist of 1M signal events and 1M background events, with 95\% of the dataset used for training and 5\% for validation. These datasets are utilized to train the signal/background classifier. 
+
+    The $6b$ datasets consist of 50k signal events and 50k background events, and are employed to test event classifiers and determine the upper limits of the cross-section.
+    \subsection{Event classifier}% (fold)
+    \label{sub:event_classifier}
+        
+        To ensure fair comparisons, both Dense-NN and \textsc{Spa-Net} use the same $4b$ datasets for training. The selection and jet pairing process is described in sections~\ref{sec:new_simulation_setting} and~\ref{sec:modify_the_matching_strategy}. For training, only the four $b$-tagged jets are required.
+
+        For the jet assignment part (only for \textsc{Spa-Net}), the details of training and testing samples are listed as follows:
+
+        \begin{itemize}
+            \item Training sample:
+            \begin{itemize}
+                \item Total sample size: 1,800,000
+                \item 1h sample size: 246,462
+                \item 2h sample size: 318,057
+                \item 3h sample size: 280,788
+                \item 5\% used on validation
+            \end{itemize}
+            \item Testing sample:
+            \begin{itemize}
+                \item Total sample size: 200,000
+                \item 1h sample size: 27,243
+                \item 2h sample size: 35,050
+                \item 3h sample size: 31,499
+            \end{itemize}
+        \end{itemize}
+
+        For event classification, both Dense-NN and \textsc{Spa-Net}
+        \begin{itemize}
+            \item Training sample:
+            \begin{itemize}
+                \item Total sample size: 1,800,000
+                \item Signal sample size: 900,000
+                \item Background sample size: 900,000
+                \item 5\% used on validation
+            \end{itemize}
+            \item Testing sample:
+            \begin{itemize}
+                \item Total sample size: 200,000
+                \item Signal sample size: 100,000
+                \item Background sample size: 100,000
+            \end{itemize}
+        \end{itemize}
+
+        Training \textsc{Spa-Net} on our server requires approximately 9.5 hours.
+
+        Table~\ref{tab:SPANet_triHiggs_4b_1M_cls_classification_results} summarizes the classification performance of \textsc{Spa-Net} using the $4b$ tri-Higgs dataset. The results are similar to those obtained from the 500k $4b$ dataset, as shown in Table~\ref{tab:SPANet_triHiggs_4b_cls_classification_results}.
+        \begin{table}[htpb]
+            \centering
+            \caption{The \textsc{Spa-Net} classification training results with $4b$ tri-Higgs sample.}
+            \label{tab:SPANet_triHiggs_4b_1M_cls_classification_results}
+            \begin{tabular}{c|cc|cc}
+                             & \multicolumn{2}{c|}{Test on $4b$ datasets}& \multicolumn{2}{c}{Test on $6b$ datasets} \\ \hline
+                             & ACC                 & AUC                 & ACC                 & AUC                 \\ \hline
+            \textsc{Spa-Net} & $0.928$             & $0.980$             & $0.936$             & $0.984$
+            \end{tabular}
+        \end{table}
+
+        Table~\ref{tab:DNN_training_results_1M_4b} shows the Dense-NN training results for the $4b$ datasets. While the performance of Dense-NN improves with the larger dataset (compared to Table~\ref{tab:DNN_training_results_500k_4b_256_nodes}), \textsc{Spa-Net} still outperforms Dense-NN.
+        \begin{table}[htpb]
+            \centering
+            \caption{The dense neural network training results. The ACC and AUC are evaluated based on 10 trainings.}
+            \label{tab:DNN_training_results_1M_4b}
+            \begin{tabular}{l|cc|cc}
+                             & \multicolumn{2}{c|}{Test on $4b$ datasets}& \multicolumn{2}{c}{Test on $6b$ datasets} \\ \hline
+            Pairing method   & ACC                 & AUC                 & ACC                 & AUC                 \\ \hline
+            Absolute value   & $0.8418 \pm 0.0002$ & $0.9116 \pm 0.0001$ & $0.8651 \pm 0.0009$ & $0.9317 \pm 0.0005$ \\
+            $\chi^2$         & $0.8412 \pm 0.0002$ & $0.9114 \pm 0.0001$ & $0.8645 \pm 0.0006$ & $0.9311 \pm 0.0004$ \\
+            \textsc{Spa-Net} & $0.8450 \pm 0.0002$ & $0.9164 \pm 0.0002$ & $0.8648 \pm 0.0004$ & $0.9330 \pm 0.0004$
+            \end{tabular}
+        \end{table}
+    % subsection event_classifier (end)
+    \subsection{Upper limit constraints}% (fold)
+    \label{sub:upper_limit_constraints}
+        The neural network event scores $p_{\text{event}}$ are utilized to set the upper limit of the cross-section. We apply the classifiers mentioned in section~\ref{sub:event_classifier} to the $6b$ datasets to obtain the $p_{\text{event}}$ distribution. The details about how to set the upper limits are described in section~\ref{sec:upper_limit}.
+
+         Table~\ref{tab:signal_strength_upper_limit_1M_tem} shows the 95\% CL upper limits for $\mu_{\text{s}}$. Dense-NN classifiers with different pairing methods demonstrate similar results. The \textsc{Spa-Net} classifier performs the best among all selection methods. Note that we need to use the correct cross-sections to normalize them. The final results will differ by an overall factor.
+        \begin{table}[htpb]
+            \centering
+            \caption{95\% CL upper limits of signal strength $\mu_{\text{s}}$.}
+            \label{tab:signal_strength_upper_limit_1M_tem}
+            \begin{tabular}{l|c}
+                Selection, Pairing         & $\mu_{\text{s}}$ \\ \hline
+                Dense-NN, Absolute value   & $2.481$          \\
+                Dense-NN, $\chi^2$         & $2.484$          \\
+                Dense-NN, \textsc{Spa-Net} & $2.479$          \\
+                \textsc{Spa-Net}           & $2.179$         
+            \end{tabular}
+        \end{table}
+    % subsection upper_limit_constraints (end)
+% section organize_generated_samples (end)
 \bibliographystyle{ieeetr}
 \bibliography{reference}
 
