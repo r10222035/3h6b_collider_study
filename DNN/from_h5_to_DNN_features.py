@@ -62,6 +62,8 @@ def construct_inputs(h5_file, start, end):
         sphericity = []
         aplanarity = []
 
+        label = f['CLASSIFICATIONS/EVENT/signal'][start:end]
+
         for event in tqdm(range(start, end)):
 
             nj = f['INPUTS/Source/MASK'][event].sum()
@@ -139,7 +141,7 @@ def construct_inputs(h5_file, start, end):
             aplanarity.append(3 / 2 * eigvals[2])
 
         # save the features to npy file
-        results = np.array([dR[0], dR[1], dR[2], rms_dR, dA_skew, HT, mhCostheta, eta_mhhh_fraction, sphericity, aplanarity]).transpose()
+        results = np.array([dR[0], dR[1], dR[2], rms_dR, dA_skew, HT, mhCostheta, eta_mhhh_fraction, sphericity, aplanarity, label]).transpose()
         return results
     
 
@@ -163,7 +165,11 @@ def from_h5_to_DNN_feature(h5_file, output_file):
         results = pool.starmap(construct_inputs, zip(repeat(h5_file), start, end))
 
     data = np.concatenate(results)
-    np.save(output_file, data)
+    # save the features and label to npy file
+    # the last column is the label
+    features, labels = data[:, :-1], data[:, -1]
+    np.save(output_file.replace('.npy', '-data.npy'), features)
+    np.save(output_file.replace('.npy', '-label.npy'), labels)
 
 
 if __name__ == '__main__':

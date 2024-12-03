@@ -71,36 +71,25 @@ def main():
     with open(config_path, 'r') as f:
         config = json.load(f)
 
-    sig_path = config['signal_npy_path']
-    bkg_path = config['background_npy_path']
-    ns = config['signal_size']
-    nb = config['background_size']
+    train_path = config['train_npy_path']
+    test_path = config['test_npy_path']
     batch_size = config['batch_size']
 
     model_name = config['model_name']
     sample_type = config['sample_type']
 
-    # Load data
-    X_s = np.load(sig_path)[:ns]
-    X_b = np.load(bkg_path)[:nb]
+    r_train = 0.95
+    X = np.load(train_path.replace('.npy', '-data.npy'))
+    y = np.load(train_path.replace('.npy', '-label.npy'))
 
-    r_train, r_val, r_test = 0.7, 0.15, 0.15
+    X_train = X[:int(len(X)*r_train)]
+    X_val = X[int(len(X)*r_train):]
 
-    X_s_train = X_s[:int(len(X_s)*r_train)]
-    X_s_val = X_s[int(len(X_s)*r_train):int(len(X_s)*(r_train+r_val))]
-    X_s_test = X_s[int(len(X_s)*(r_train+r_val)):]
+    y_train = y[:int(len(y)*r_train)]
+    y_val = y[int(len(y)*r_train):]
 
-    X_b_train = X_b[:int(len(X_b)*r_train)]
-    X_b_val = X_b[int(len(X_b)*r_train):int(len(X_b)*(r_train+r_val))]
-    X_b_test = X_b[int(len(X_b)*(r_train+r_val)):]
-
-    X_train = np.concatenate((X_s_train, X_b_train), axis=0)
-    X_val = np.concatenate((X_s_val, X_b_val), axis=0)
-    X_test = np.concatenate((X_s_test, X_b_test), axis=0)
-
-    y_train = np.concatenate((np.ones(len(X_s_train)), np.zeros(len(X_b_train))), axis=0)
-    y_val = np.concatenate((np.ones(len(X_s_val)), np.zeros(len(X_b_val))), axis=0)
-    y_test = np.concatenate((np.ones(len(X_s_test)), np.zeros(len(X_b_test))), axis=0)
+    X_test = np.load(test_path.replace('.npy', '-data.npy'))
+    y_test = np.load(test_path.replace('.npy', '-label.npy'))
 
     train_size = get_sample_size(y_train)
     val_size = get_sample_size(y_val)
