@@ -1,0 +1,61 @@
+import model cxSM_VLF_EFT
+generate g g > h h h
+output MG5/gghhh_bsm_500_275
+launch MG5/gghhh_bsm_500_275
+
+shower=Pythia8
+detector=Delphes
+analysis=OFF
+madspin=ON
+done
+
+set param_card mh1 125
+set param_card mh2 275
+set param_card mh3 500
+set param_card theta12 0.73
+set param_card theta13 1.67079632679
+set param_card theta23 -0.73
+set param_card vs 200
+set param_card delta2 0
+set param_card Rdelta3 0
+set param_card Idelta3 -3.5
+set param_card b2 0
+set param_card Rc1 0
+set param_card Ic1 0
+set param_card Rc2 0
+set param_card Ic2 0
+set param_card Rd3 0
+set param_card Id3 0
+set param_card msq -5391.696479014068
+set param_card lam 0.14175883834665817
+set param_card Rdelta1 -45.28781656978457
+set param_card Idelta1 790.325568493083
+set param_card Rb1 -68079.91720340955
+set param_card Ib1 -20226.953369118804
+set param_card Rd1 -4.454878814785985
+set param_card Id1 2.0810286145414687
+set param_card d2 8.101548565041158
+set param_card gh1ggr -0.00005478952893059635
+set param_card gh1gagar -0.00003270447254456052
+set param_card gh1Zgar -1.5346187444299507e-6
+set param_card gh2ggr -1.418304435882002e-7
+set param_card gh2gagar -8.406491678762681e-8
+set param_card gh2Zgar -2.687203669874711e-8
+set param_card gh3ggr -5.548640727792034e-6
+set param_card gh3gagar -5.662243666468519e-7
+set param_card gh3Zgar -2.9036199266794407e-7
+
+set param_card decay 102 auto
+set param_card decay 103 auto
+
+set run_card nevents 100000
+set run_card ebeam1 6500.0
+set run_card ebeam2 6500.0
+
+set run_card ptb 19
+set run_card etab 2.6
+
+set spinmode none
+decay h > b b~
+
+done
