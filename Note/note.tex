@@ -1597,6 +1597,10 @@
 
         Training \textsc{Spa-Net} on our server requires approximately 9.5 hours.
 
+        The inputs to the \textsc{Spa-Net} classifiers are the four-momentum vectors of the jets in the final state. The inputs to the Dense-NN classifiers are high-level observables, which are constructed based on the jet pairing methods. 
+
+        Note that, for the Dense-NN with \textsc{Spa-Net} pairing, we utilized the same $4b$ datasets to train both neural networks for simplicity. Using different datasets for training each network would degrade the pairing performance, thereby increasing the difficulty of classification tasks.
+
         Table~\ref{tab:SPANet_triHiggs_4b_1M_cls_classification_results} summarizes the classification performance of \textsc{Spa-Net} using the $4b$ tri-Higgs dataset. The results are similar to those obtained from the 500k $4b$ dataset, as shown in Table~\ref{tab:SPANet_triHiggs_4b_cls_classification_results}.
         \begin{table}[htpb]
             \centering
@@ -1627,7 +1631,7 @@
     \label{sub:upper_limit_constraints}
         The neural network event scores $p_{\text{event}}$ are utilized to set the upper limit of the cross-section. We apply the classifiers mentioned in section~\ref{sub:event_classifier} to the $6b$ datasets to obtain the $p_{\text{event}}$ distribution. The details about how to set the upper limits are described in section~\ref{sec:upper_limit}.
 
-         Table~\ref{tab:signal_strength_upper_limit_1M_tem} shows the 95\% CL upper limits for $\mu_{\text{s}}$. Dense-NN classifiers with different pairing methods demonstrate similar results. The \textsc{Spa-Net} classifier performs the best among all selection methods. Note that we need to use the correct cross-sections to normalize them. The final results will differ by an overall factor.
+         Table~\ref{tab:signal_strength_upper_limit_1M_tem} shows the 95\% CL upper limits for $\mu_{\text{s}}$. Dense-NN classifiers with different pairing methods demonstrate similar results. The \textsc{Spa-Net} classifier performs the best among all selection methods, which is better than the Dense-NN classifier by about 12\%. Note that we need to use the correct cross-sections to normalize them. The final results will differ by an overall factor.
         \begin{table}[htpb]
             \centering
             \caption{95\% CL upper limits of signal strength $\mu_{\text{s}}$.}
@@ -1642,6 +1646,20 @@
         \end{table}
     % subsection upper_limit_constraints (end)
 % section organize_generated_samples (end)
+\section{Different signal benchmarks}% (fold)
+\label{sec:different_signal_benchmarks}
+    For the previous exercis, we always consider $(m_{h_3}, m_{h_2}) = (420, 280) \text{ GeV}$. This section generates samples with different resonant masses. Here, we choose three other benchmark points: $(m_{h_3}, m_{h_2}) = (425, 250), (500, 275), (500, 300) \text{ GeV}$.
+
+    All events must pass the pre-selection criteria. For each benchmark point, we prepare 25k $4b$ events and 12.5k $6 b$ events.
+
+    However, the \verb|MadGraph| always cannot generate the required number of events for a mass point $(m_{h_3}, m_{h_2}) = (425, 250) \text{ GeV}$. This might result from the $m_{h_2} = 2m_{h_1}$. Thus, we choose another mass point $(m_{h_3}, m_{h_2}) = (520, 325) \text{ GeV}$
+
+    \subsection{Event classifier with mixed datasets}% (fold)
+    \label{sub:event_classifier_with_mixed_datasets}
+        The $4b$ datasets consist of events from all benchmark points. The number of events for each mass point is 25k, and the total size of the $4b$ datasets is 1M.
+    % subsection event_classifier_with_mixed_datasets (end)
+
+% section different_signal_benchmarks (end)
 \bibliographystyle{ieeetr}
 \bibliography{reference}
 
