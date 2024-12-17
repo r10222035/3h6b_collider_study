@@ -1550,7 +1550,7 @@
 
     All generated samples must pass the pre-selection criteria mentioned in section~\ref{sec:new_simulation_setting}. The samples that meet these criteria are called the $4b$ datasets. Additionally, events containing at least $6b$ jets are used to construct the $6b$ datasets.
 
-    The $4b$ datasets consist of 1M signal events and 1M background events, with 95\% of the dataset used for training and 5\% for validation. These datasets are utilized to train the signal/background classifier. 
+    The $4b$ datasets consist of 1M signal events and 1M background events, with 90\% of the dataset used for training and 10\% for testing. These datasets are utilized to train the signal/background classifier. 
 
     The $6b$ datasets consist of 50k signal events and 50k background events, and are employed to test event classifiers and determine the upper limits of the cross-section.
     \subsection{Event classifier}% (fold)
@@ -1650,16 +1650,20 @@
 \label{sec:different_signal_benchmarks}
     For the previous exercis, we always consider $(m_{h_3}, m_{h_2}) = (420, 280) \text{ GeV}$. This section generates samples with different resonant masses. Here, we choose three other benchmark points: $(m_{h_3}, m_{h_2}) = (425, 250), (500, 275), (500, 300) \text{ GeV}$.
 
-    All events must pass the pre-selection criteria. For each benchmark point, we prepare 25k $4b$ events and 12.5k $6 b$ events.
+    All events must pass the pre-selection criteria. For each benchmark point, we prepare 250k $4b$ events and 12.5k $6 b$ events.
 
     However, the \verb|MadGraph| always cannot generate the required number of events for a mass point $(m_{h_3}, m_{h_2}) = (425, 250) \text{ GeV}$. This might result from the $m_{h_2} = 2m_{h_1}$. Thus, we choose another mass point $(m_{h_3}, m_{h_2}) = (520, 325) \text{ GeV}$
 
     \subsection{Event classifier with mixed datasets}% (fold)
     \label{sub:event_classifier_with_mixed_datasets}
-        The $4b$ datasets consist of events from all benchmark points. The number of events for each mass point is 25k, and the total size of the $4b$ datasets is 1M.
+        The $4b$ datasets consist of events from all benchmark points. The number of events for each mass point is 250k, and the total size of the $4b$ datasets is 1M.
     % subsection event_classifier_with_mixed_datasets (end)
-
 % section different_signal_benchmarks (end)
+\section{SPANet 2.2}% (fold)
+\label{sec:spanet_2_2}
+    The latest version of \textsc{Spa-Net} is 2.2. Previously, I used version 2.0 for \textsc{Spa-Net} training. After installing the updated code from GitHub, I trained \textsc{Spa-Net} using $t \overline{t}$ datasets. The results obtained with version 2.2 show a slight improvement over version 2.0, with an accuracy increase of less than 0.5\%. The performance difference between the two versions is not significant.
+% section spanet_2_2 (end)
+
 \bibliographystyle{ieeetr}
 \bibliography{reference}
 
