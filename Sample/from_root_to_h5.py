@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 # generate tri-Higgs HDF5 data for SPANet
-# jets are required PT > 25 GeV
+# jets are required PT > 20 GeV
 # with correct jet assignment
 # python from_root_to_h5.py <root file path> <output file name> <minimum b-jet>
 
