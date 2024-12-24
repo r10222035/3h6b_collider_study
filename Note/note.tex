@@ -1725,11 +1725,11 @@
             \end{tabular}
         \end{table}
 
-        Table~\ref{tab:DNN_training_results_1M_4b} shows the Dense-NN training results for the mixed mass $4b$ datasets. \textsc{Spa-Net} still outperforms Dense-NN, which is consistent with the previous results.
+        Table~\ref{tab:DNN_training_results_mix_1M_4b} shows the Dense-NN training results for the mixed mass $4b$ datasets. \textsc{Spa-Net} still outperforms Dense-NN, which is consistent with the previous results.
         \begin{table}[htpb]
             \centering
             \caption{The dense neural network training results. The ACC and AUC are evaluated based on 10 trainings.}
-            \label{tab:DNN_training_results_1M_4b}
+            \label{tab:DNN_training_results_mix_1M_4b}
             \begin{tabular}{l|cc|cc}
                              & \multicolumn{2}{c|}{Test on $4b$ datasets}& \multicolumn{2}{c}{Test on $6b$ datasets} \\ \hline
             Pairing method   & ACC                 & AUC                 & ACC                 & AUC                 \\ \hline
@@ -1739,12 +1739,42 @@
             \end{tabular}
         \end{table}
     % subsection event_classifier_with_mixed_datasets (end)
-% section different_signal_benchmarks (end)
-\section{SPANet 2.2}% (fold)
-\label{sec:spanet_2_2}
-    The latest version of \textsc{Spa-Net} is 2.2. Previously, I used version 2.0 for \textsc{Spa-Net} training. After installing the updated code from GitHub, I trained \textsc{Spa-Net} using $t \overline{t}$ datasets. The results obtained with version 2.2 show a slight improvement over version 2.0, with an accuracy increase of less than 0.5\%. The performance difference between the two versions is not significant.
-% section spanet_2_2 (end)
+    \subsection{Performance at different mass points}% (fold)
+    \label{sub:performance_at_different_mass_points}
+        To investigate the detailed results for mixed datasets, we evaluate the pairing and classification performance at each mass point.
 
+        Figure~\ref{fig:pairing_performance_each_mass_point} illustrates the pairing performance across different mass points. For the $4b$ dataset, \textsc{Spa-Net} has the highest event efficiency across all mass points. However, for the $6b$ dataset, \textsc{Spa-Net} does not always outperform the cut-based methods. One possible reason is that the size of the training samples is not enough.
+        \begin{figure}[htpb]
+            \centering
+            \subfloat[]{  
+                \includegraphics[width=0.45\textwidth]{pairing_performance-4b_datasets.pdf}  
+            }  
+            \subfloat[]{  
+                \includegraphics[width=0.45\textwidth]{pairing_performance-6b_datasets.pdf}  
+            }  
+            \caption{Pairing performance at different mass points. We evaluate the event efficiency of various pairing methods. The \textsc{Spa-Net} is trained on the mixed datasets described in Section~\ref{sub:event_classifier_with_mixed_datasets}.}  
+            \label{fig:pairing_performance_each_mass_point}  
+        \end{figure}
+
+        Figure~\ref{fig:classification_performance_each_mass_point} shows the classification performance at different mass points. The \textsc{Spa-Net} classifier outperforms the Dense-NN classifier for both $4b$ and $6b$ datasets. Dense-NN classifiers with different pairing methods show similar performance trends. These results are consistent with tables~\ref{tab:SPANet_triHiggs_4b_mix_1M_cls_classification_results} and \ref{tab:DNN_training_results_mix_1M_4b}.  
+
+        \begin{figure}[htpb]
+            \centering
+            \subfloat[]{  
+                \includegraphics[width=0.45\textwidth]{classification_performance-4b_datasets.pdf}  
+            }  
+            \subfloat[]{  
+                \includegraphics[width=0.45\textwidth]{classification_performance-6b_datasets.pdf}  
+            }  
+            \caption{Classification performance at different mass points. The AUCs of different classifiers are evaluated. Both \textsc{Spa-Net} and Dense-NNs are trained on the mixed datasets described in Section~\ref{sub:event_classifier_with_mixed_datasets}.}  
+            \label{fig:classification_performance_each_mass_point}  
+        \end{figure}
+    % subsection performance_at_different_mass_points (end)  
+% section different_signal_benchmarks (end)
+\section{New version of SPANet}% (fold)
+\label{sec:new_verion_of_spanet}
+    Previously, I used version 2.0 for \textsc{Spa-Net} training. In this section, we test version 2.2 and 2.3 (latest version) of \textsc{Spa-Net}. After installing the updated code from GitHub, I trained \textsc{Spa-Net} using $t \overline{t}$ datasets. The results obtained with version 2.2 or 2.3 show a slight improvement over version 2.0, with an accuracy increase of less than 0.5\%. The performance difference between the two versions is not significant.
+% section new_verion_of_spanet (end)
 \bibliographystyle{ieeetr}
 \bibliography{reference}
 
