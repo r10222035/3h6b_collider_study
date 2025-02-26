@@ -45,6 +45,14 @@
 \usepackage{mathrsfs}
 \usepackage{dsfont}
 
+\usepackage{listings}
+\usepackage{lstautogobble}
+\lstset{
+    basicstyle=\ttfamily,
+    columns=fullflexible,
+    autogobble=true,
+}
+
 %
 \usepackage{hyperref}
 \hypersetup{
@@ -86,8 +94,8 @@
     \[
         g g \to h_3 \to h_2 h_1 \to h_1h_1h_1
     \]
-    The Higgs boson $h_1$ would further decay to the $b \overline{b}$ pair. We consider the banchmark point 1 (BP1), where $m_{h_3} = \text{450 GeV}, m_{h_2} = \text{280 GeV}, m_{h_1} = \text{125 GeV}$. This process is generated at $\sqrt{s} = \text{13 TeV}$. Following are the MadGraph scripts for generating signal samples:
-    \begin{verbatim}
+    The Higgs boson $h_1$ would further decay to the $b \overline{b}$ pair. We consider the banchmark point 1 (BP1), where $m_{h_3} = \text{420 GeV}, m_{h_2} = \text{280 GeV}, m_{h_1} = \text{125 GeV}$. This process is generated at $\sqrt{s} = \text{13 TeV}$. Following are the MadGraph scripts for generating signal samples:
+    \begin{lstlisting}
         import model cxSM_VLF_EFT
         generate g g > h h h
         output MG5/gghhh_bsm
@@ -149,7 +157,7 @@
         decay h > b b~
 
         done
-    \end{verbatim}
+    \end{lstlisting}
 % section signal (end)
 \section{SPANet pairing}% (fold)
 \label{sec:spanet_pairing}
@@ -651,7 +659,7 @@
 
     The SM tri-Higgs process is generated at the centre-of-mass energy $\sqrt{s} = \text{13 TeV}$ with the \verb|NNPDF30_nlo_as_0119| PDF set~\cite{NNPDF:2014otw}. In \verb|Delphes|, we use the anti-$k_{\text{T}}$ clustering algorithm with $R = 0.4$ and set the $b$-tagging efficiency to the ATLAS DL1r 77\% working point. At this working point, the light-jet (charm-jet) rejection is about 130 (4.9). Following are the MadGraph scripts for generating SM tri-Higgs samples:
 
-    \begin{verbatim}
+    \begin{lstlisting}
         generate p p > h h h [QCD] QED^2<=6
         output MG5/pphhh_sm
         launch MG5/pphhh_sm
@@ -678,7 +686,7 @@
         decay h > b b~
 
         done
-    \end{verbatim}
+    \end{lstlisting}
 
     Table~\ref{tab:preselection_cutflow_number_sm} is the cutflow number of the SM tri-Higgs process. The matching efficiency is similar to the resonant tri-Higgs case (Table~\ref{tab:preselection_cutflow_number}).
     \begin{table}[htpb]
@@ -1773,8 +1781,70 @@
 % section different_signal_benchmarks (end)
 \section{New version of SPANet}% (fold)
 \label{sec:new_verion_of_spanet}
-    Previously, I used version 2.0 for \textsc{Spa-Net} training. In this section, we test version 2.2 and 2.3 (latest version) of \textsc{Spa-Net}. After installing the updated code from GitHub, I trained \textsc{Spa-Net} using $t \overline{t}$ datasets. The results obtained with version 2.2 or 2.3 show a slight improvement over version 2.0, with an accuracy increase of less than 0.5\%. The performance difference between the two versions is not significant.
+    Previously, I used version 2.0 for \textsc{Spa-Net} training. This section tests version 2.2 and 2.3 (latest version) of \textsc{Spa-Net}. After installing the updated code from GitHub, I trained \textsc{Spa-Net} using $t \overline{t}$ datasets. The results obtained with version 2.2 or 2.3 show a slight improvement over version 2.0, with an accuracy increase of less than 0.5\%. The performance difference between the two versions is not significant.
 % section new_verion_of_spanet (end)
+\section{More mass points}% (fold)
+\label{sec:more_mass_points}
+    Here, we choose other benchmark points: $(m_{h_3}, m_{h_2}) = $ (570, 250), (600, 325), (700, 325), (800, 325), (700, 400), (800, 400) GeV. All events must pass the pre-selection criteria. We prepare the same number of events for each mass point. 100k $4b$ events and 5k $6b$ events.
+% section more_mass_points (end)
+\section{Two Real Singlet Model (TRSM)}% (fold)
+\label{sec:two_real_singlet_model_trsm_}
+    The Two Real Singlet Model can be found on \href{https://gitlab.com/apapaefs/twosinglet}{GitLab}, which is based on the reference~\cite{Papaefstathiou:2020lyp}.
+
+    We consider the triple production of 125 GeV Higgs bosons via the gluon fusion:
+    \[
+        g g \to h_3 \to h_2 h_1 \to h_1h_1h_1
+    \]
+    The Higgs boson $h_1$ would further decay to the $b \overline{b}$ pair. We consider the banchmark point, where $m_{h_3} = \text{420 GeV}, m_{h_2} = \text{280 GeV}, m_{h_1} = \text{125 GeV}$.
+
+    We use \verb|MadGraph 3.3.1|~\cite{Alwall:2014hca} to generate these processes at a center-of-mass energy of $\sqrt{s} = 13$ TeV. The parton showering and hadronization are simulated using \verb|Pythia 8.306|~\cite{Sjostrand:2014zea}. The detector simulation is conducted by \verb|Delphes 3.4.2|~\cite{deFavereau:2013fsa}. Jet reconstruction is performed using \verb|FastJet 3.3.2|~\cite{Cacciari:2011ma} with the anti-$k_t$ algorithm~\cite{Cacciari:2008gp} and a jet radius of $R = 0.4$. These jets are required to have transverse momentum $p_{\text{T}} > 20$ GeV.
+
+    The following \verb|MadGraph| scripts generate the TRSM Monte Carlo samples.
+    \begin{lstlisting}
+        import model loop_sm_twoscalar
+        generate p p > iota0 > eta0 h [QCD] QCD^2<=99
+        output MG5/TRSM
+        launch MG5/TRSM
+
+        shower=Pythia8
+        detector=Delphes
+        analysis=OFF
+        madspin=ON
+        done
+
+        Cards/delphes_card.dat
+
+        set run_card nevents 10000
+        set run_card ebeam1 6500.0
+        set run_card ebeam2 6500.0
+
+        set run_card ptb 24
+        set run_card etab 2.6
+
+        set spinmode none
+        decay eta0 > h h, (h > b b~) 
+        decay h > b b~
+
+        done
+    \end{lstlisting}
+
+    Table~\ref{tab:preselection_cutflow_number_trsm_420_280} is the cutflow number at different selection cuts.
+    \begin{table}[htpb]
+        \centering
+        \caption{The number of passing events, efficiencies, and passing rates for signal processes at different selection cuts.}
+        \label{tab:preselection_cutflow_number_trsm_420_280}
+        \begin{tabular}{l|rrr}
+                                                         & Count  & Efficiency & Pass rate \\ \hline
+        Total                                            & 10000 & 1.00       & 1.00      \\
+        $\ge 6$ jets                                     &  6081 & 0.61       & 0.61      \\
+        $\ge 4$ jets with $p_{\text{T}} > \text{40 GeV}$ &  4986 & 0.82       & 0.50      \\
+        $\ge 4$ $b$-jets                                 &  3203 & 0.64       & 0.32      \\ \hline
+        Matching 3h                                      &  1018 & 0.32       & 0.10      \\
+        Matching 2h                                      &  1102 & 0.34       & 0.11      \\
+        Matching 1h                                      &   860 & 0.27       & 0.09      \\
+        \end{tabular}
+    \end{table}
+% section two_real_singlet_model_trsm_ (end)
 \bibliographystyle{ieeetr}
 \bibliography{reference}
 
