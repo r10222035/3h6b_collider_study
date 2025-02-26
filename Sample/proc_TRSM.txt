@@ -1,0 +1,26 @@
+import model loop_sm_twoscalar
+generate p p > iota0 > eta0 h [QCD] QCD^2<=99
+output MG5/TRSM_420_280
+launch MG5/TRSM_420_280
+
+shower=Pythia8
+detector=Delphes
+analysis=OFF
+madspin=ON
+done
+
+Cards/param_card_420_280.dat
+Cards/delphes_card.dat
+
+set run_card nevents 10000
+set run_card ebeam1 6500.0
+set run_card ebeam2 6500.0
+
+set run_card ptb 24
+set run_card etab 2.6
+
+set spinmode none
+decay eta0 > h h, (h > b b~)
+decay h > b b~
+
+done
