@@ -152,11 +152,12 @@ def select_event(root_path, nbj_min, start, end):
         if nbj < nbj_min:
             continue
 
-        PT = np.array(jet_PT[eta_pt_cut])
-        Eta = np.array(jet_Eta[eta_pt_cut])
-        Phi = np.array(jet_Phi[eta_pt_cut])
-        Mass = np.array(jet_Mass[eta_pt_cut])
-        BTag = np.array(jet_BTag[eta_pt_cut])
+        # 如果 jet 數目超過，則只考慮前 MAX_JETS jets
+        PT = np.array(jet_PT[eta_pt_cut])[:MAX_JETS]
+        Eta = np.array(jet_Eta[eta_pt_cut])[:MAX_JETS]
+        Phi = np.array(jet_Phi[eta_pt_cut])[:MAX_JETS]
+        Mass = np.array(jet_Mass[eta_pt_cut])[:MAX_JETS]
+        BTag = np.array(jet_BTag[eta_pt_cut])[:MAX_JETS]
 
         # 找出每個夸克配對的 jet
         for quark in range(len(quarks_Jet)):
