@@ -73,6 +73,7 @@ def main():
 
     train_path = config['train_npy_path']
     test_path = config['test_npy_path']
+    six_b_test_path = config['6b_test_npy_path']
     batch_size = config['batch_size']
 
     model_name = config['model_name']
@@ -82,6 +83,12 @@ def main():
     X = np.load(train_path.replace('.npy', '-data.npy'))
     y = np.load(train_path.replace('.npy', '-label.npy'))
 
+    # shuffle data
+    np.random.seed(402)
+    idx = np.random.permutation(len(y))
+    X = X[idx]
+    y = y[idx]
+
     X_train = X[:int(len(X)*r_train)]
     X_val = X[int(len(X)*r_train):]
 
@@ -90,6 +97,9 @@ def main():
 
     X_test = np.load(test_path.replace('.npy', '-data.npy'))
     y_test = np.load(test_path.replace('.npy', '-label.npy'))
+
+    X_test_6b = np.load(six_b_test_path.replace('.npy', '-data.npy'))
+    y_test_6b = np.load(six_b_test_path.replace('.npy', '-label.npy'))
 
     train_size = get_sample_size(y_train)
     val_size = get_sample_size(y_val)
@@ -140,6 +150,11 @@ def main():
     auc = roc_auc_score(y, y_pred)
     acc = get_highest_accuracy(y, y_pred)
 
+    X, y = X_test_6b, y_test_6b
+    y_pred = loaded_model.predict(X, batch_size=batch_size)
+    auc_6b = roc_auc_score(y, y_pred)
+    acc_6b = get_highest_accuracy(y, y_pred)
+
     # Write results
     now = datetime.datetime.now()
     file_name = 'resonant_DNN_training_results.csv'
@@ -153,6 +168,8 @@ def main():
                 'Loss': [results[0]],
                 'ACC': [acc],
                 'AUC': [auc],
+                'ACC_6b': [acc_6b],
+                'AUC_6b': [auc_6b],
                 'Sample Type': [sample_type],
                 'Model Name': [model_name],
                 'Training epochs': [len(history.history['loss']) + 1],
