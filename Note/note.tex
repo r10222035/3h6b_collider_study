@@ -2249,16 +2249,103 @@
     \label{sub:upper_limit_of_cross_section}
         The $\text{CL}_{\text{s}}$ method is used to set the upper limits of the cross-section. The signal strength $\mu_{\text{s}}$ is chosen as the parameter of interest (POI). The POI is excluded at the 95\% confidence level when the $\text{CL}_{\text{s}} < 0.05$. The package \verb|pyhf|~\cite{pyhf,pyhf_joss} is utilized to calculate the upper limit. Once the upper limit of signal strength is obtained, it can be converted to the upper limit of the cross-section.
 
-        Figure~\ref{fig:signal_strength_upper_limit_tem} shows the 95\% CL upper limits for cross-section $\sigma\left( pp \to hhh \right)$. Dense-NN classifiers with different pairing methods demonstrate similar results. The \textsc{Spa-Net} classifier performs the best among all selection methods. Note that these values are preliminary, as we need to use the correct background cross-sections to normalize them. The final results will differ by an overall factor.
+        Figure~\ref{fig:cross_section_upper_limit-TRSM-mix_5-250k-tem} shows the 95\% CL upper limits for cross-section $\sigma\left( pp \to hhh \right)$. Dense-NN classifiers with different pairing methods demonstrate similar results. The \textsc{Spa-Net} classifier performs the best among all selection methods. Note that these values are preliminary, as we need to use the correct background cross-sections to normalize them. The final results will differ by an overall factor.
 
         \begin{figure}[htpb]
             \centering
             \includegraphics[width=0.45\textwidth]{cross_section_upper_limit-TRSM-mix_5-250k.pdf}
             \caption{95\% CL upper limits of the cross-section $\sigma\left( pp \to hhh \right)$.}
-            \label{fig:signal_strength_upper_limit_tem}
+            \label{fig:cross_section_upper_limit-TRSM-mix_5-250k-tem}
         \end{figure}
     % subsection upper_limit_of_cross_section (end)
 % section trsm_5_mass_points (end)
+\section{TRSM: 5 mass points, 1M datasets}% (fold)
+\label{sec:trsm_5_mass_points_1m_datasets}
+    This section considers the same mass points as section~\ref{sec:trsm_5_mass_points} and increases the training sample size. In the training set, each signal point contains 1M events, and the background includes 1M events. Thus, the total size of the $4b$ training datasets is 6M.
+
+    For the jet assignment part (only for \textsc{Spa-Net}), the details of training and testing samples are listed as follows:
+    \begin{itemize}
+        \item Training sample:
+        \begin{itemize}
+            \item Total sample size: 6,000,000
+            \item 1h sample size: 1,200,697
+            \item 2h sample size: 1,985,367
+            \item 3h sample size: 1,579,269         
+            \item 5\% used on validation
+        \end{itemize}
+        \item Testing sample:
+        \begin{itemize}
+            \item Total sample size: 300,000
+            \item 1h sample size: 59,966
+            \item 2h sample size: 99,105
+            \item 3h sample size: 79,240
+        \end{itemize}
+    \end{itemize}
+
+    For event classification, both Dense-NN and \textsc{Spa-Net}
+    \begin{itemize}
+        \item Training sample:
+        \begin{itemize}
+            \item Total sample size: 6,000,000
+            \item Signal sample size: 5,000,000
+            \item Background sample size: 1,000,000
+            \item 5\% used on validation
+        \end{itemize}
+        \item Testing sample:
+        \begin{itemize}
+            \item Total sample size: 300,000
+            \item Signal sample size: 250,000
+            \item Background sample size: 50,000
+        \end{itemize}
+    \end{itemize}
+
+    Training \textsc{Spa-Net} on our server requires approximately 16.04 hours for 50 epochs.
+    
+    \subsection{Performance at different mass points}% (fold)
+    \label{sub:performance_at_different_mass_points}
+        We evaluate the pairing and classification performance at each mass point to investigate the detailed results for mixed datasets.
+
+        Figure~\ref{fig:pairing_performance_each_mass_point-TRSM-mix_5-1M} illustrates the pairing performance across different mass points. For the $4b$ dataset, \textsc{Spa-Net} has the highest event efficiency. For the $6b$ dataset, \textsc{Spa-Net} still performs better than the cut-based methods except at the point (420, 280) GeV.
+        \begin{figure}[htpb]
+            \centering
+            \subfloat[]{  
+                \includegraphics[width=0.45\textwidth]{pairing_performance-4b_datasets-mix_5-1M-TRSM.pdf}
+            }
+            \subfloat[]{
+                \includegraphics[width=0.45\textwidth]{pairing_performance-6b_datasets-mix_5-1M-TRSM.pdf}
+            }
+            \caption{Pairing performance at different mass points. We evaluate the event efficiency of various pairing methods. The \textsc{Spa-Net} is trained on the mixed datasets described in section~\ref{sec:trsm_5_mass_points_1m_datasets}.}  
+            \label{fig:pairing_performance_each_mass_point-TRSM-mix_5-1M}  
+        \end{figure}
+
+        Figure~\ref{fig:classification_performance_each_mass_point-TRSM-mix_5-1M} shows the classification performance at different mass points. The \textsc{Spa-Net} classifier outperforms the Dense-NN classifier for both $4b$ and $6b$ datasets. Dense-NN classifiers with different pairing methods show similar performance trends. These results are similar to the previous ones.  
+        \begin{figure}[htpb]
+            \centering
+            \subfloat[]{  
+                \includegraphics[width=0.45\textwidth]{classification_performance-TRSM-4b_datasets-mix_5-1M.pdf}  
+            }  
+            \subfloat[]{  
+                \includegraphics[width=0.45\textwidth]{classification_performance-TRSM-6b_datasets-mix_5-1M.pdf}  
+            }  
+            \caption{Classification performance at different mass points. The AUCs of different classifiers are evaluated. Both \textsc{Spa-Net} and Dense-NNs are trained on the mixed datasets described in Section~\ref{sec:trsm_5_mass_points}.}  
+            \label{fig:classification_performance_each_mass_point-TRSM-mix_5-1M}  
+        \end{figure}
+    % subsection performance_at_different_mass_points (end)
+    \subsection{Upper limit of cross-section}% (fold)
+    \label{sub:upper_limit_of_cross_section}
+        The $\text{CL}_{\text{s}}$ method is used to set the upper limits of the cross-section. The signal strength $\mu_{\text{s}}$ is chosen as the parameter of interest (POI). The POI is excluded at the 95\% confidence level when the $\text{CL}_{\text{s}} < 0.05$. The package \verb|pyhf|~\cite{pyhf,pyhf_joss} is utilized to calculate the upper limit. Once the upper limit of signal strength is obtained, it can be converted to the upper limit of the cross-section.
+
+        Figure~\ref{fig:cross_section_upper_limit-TRSM-mix_5-1M-tem} shows the 95\% CL upper limits for cross-section $\sigma\left( pp \to hhh \right)$. Dense-NN classifiers with different pairing methods demonstrate similar results. The \textsc{Spa-Net} classifier performs the best among all selection methods. Note that these values are preliminary, as we need to use the correct background cross-sections to normalize them. The final results will differ by an overall factor.
+
+        The results of the \textsc{Spa-Net} classifier are nearly identical to those shown in figure~\ref{fig:cross_section_upper_limit-TRSM-mix_5-250k-tem}, as the upper limit significantly depends on the classification results, and the classification performance is consistent across both the 250k and 1M datasets.
+        \begin{figure}[htpb]
+            \centering
+            \includegraphics[width=0.45\textwidth]{cross_section_upper_limit-TRSM-mix_5-1M.pdf}
+            \caption{95\% CL upper limits of the cross-section $\sigma\left( pp \to hhh \right)$.}
+            \label{fig:cross_section_upper_limit-TRSM-mix_5-1M-tem}
+        \end{figure}
+    % subsection upper_limit_of_cross_section (end) 
+% section trsm_5_mass_points_1m_datasets (end)
 \bibliographystyle{ieeetr}
 \bibliography{reference}
 
