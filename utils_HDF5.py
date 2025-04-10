@@ -135,6 +135,7 @@ def shuffle_h5(file_path):
         print(f'Dataset size: {nevent}')
         
         ind_list = list(range(nevent))
+        np.random.seed(1107)
         random.shuffle(ind_list)
         for key in dataset_keys:      
             f[key][...] = np.array(f[key])[ind_list]
