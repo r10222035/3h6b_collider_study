@@ -1874,7 +1874,391 @@
         Total                 & 1.000 & 0.244 & 0.068 & 0.389 & 0.298 & 0.420
         \end{tabular}
     \end{table}
+    \subsection{Event classifier with mixed datasets in TRSM}% (fold)
+    \label{sub:event_classifier_with_mixed_datasets_in_trsm}
+       The $4b$ datasets consist of events from 4 benchmark points: $(m_{h_3}, m_{h_2}) = $ (420, 280), (500, 275), (500, 300), (520, 325) GeV. The number of events for each mass point is 250k, and the total size of the $4b$ datasets is 1M.
+
+        For the jet assignment part (only for \textsc{Spa-Net}), the details of training and testing samples are listed as follows:
+
+        \begin{itemize}
+            \item Training sample:
+            \begin{itemize}
+                \item Total sample size: 1,800,000
+                \item 1h sample size: 234,321
+                \item 2h sample size: 331,837
+                \item 3h sample size: 283,022
+                \item 5\% used on validation
+            \end{itemize}
+            \item Testing sample:
+            \begin{itemize}
+                \item Total sample size: 200,000
+                \item 1h sample size: 24,744
+                \item 2h sample size: 38,116
+                \item 3h sample size: 32,368
+            \end{itemize}
+        \end{itemize}
+
+        For event classification, both Dense-NN and \textsc{Spa-Net}
+        \begin{itemize}
+            \item Training sample:
+            \begin{itemize}
+                \item Total sample size: 1,800,000
+                \item Signal sample size: 900,000
+                \item Background sample size: 900,000
+                \item 5\% used on validation
+            \end{itemize}
+            \item Testing sample:
+            \begin{itemize}
+                \item Total sample size: 200,000
+                \item Signal sample size: 100,000
+                \item Background sample size: 100,000
+            \end{itemize}
+        \end{itemize}
+
+        Training \textsc{Spa-Net} on our server requires approximately 3.8 hours for 50 epochs.
+
+        The inputs to the \textsc{Spa-Net} classifiers are the four-momentum vectors of the jets in the final state. The inputs to the Dense-NN classifiers are high-level observables, which are constructed based on the jet pairing methods. 
+
+        Note that, for the Dense-NN with \textsc{Spa-Net} pairing, we utilized the same $4b$ datasets to train both neural networks for simplicity.
+
+        Table~\ref{tab:SPANet_triHiggs_TRSM_4b_mix_4_1M_cls_pairing_results-TRSM} and \ref{tab:SPANet_triHiggs_TRSM_4b_mix_4_1M_cls_classification_results-TRSM} summarizes the training performance of \textsc{Spa-Net} using the mixed mass $4b$ tri-Higgs dataset. The training performance is worse than the one considering only one mass point.
+        \begin{table}[htpb]
+            \centering
+            \caption{\textsc{Spa-Net} training results on the mixed mass $4b$ TRSM samples. We used the $4b$ testing sample to evaluate the pairing performance. \textsc{Spa-Net} is trained on jet pairing and event classification tasks at the same time.}
+            \label{tab:SPANet_triHiggs_TRSM_4b_mix_4_1M_cls_pairing_results-TRSM}
+            \begin{tabular}{c|cccc|c}
+                           & \multicolumn{4}{c|}{Correctly reconstructed Higgs} &                  \\ \hline
+            $N_\text{Jet}$ & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency \\ \hline
+            $=6$           & 0.429 & 0.000 & 0.411 & 0.160 & 0.566            \\
+            $=7$           & 0.312 & 0.049 & 0.422 & 0.218 & 0.485            \\
+            $\ge 8$        & 0.205 & 0.084 & 0.422 & 0.290 & 0.401            \\ \hline
+            Total          & 0.283 & 0.056 & 0.420 & 0.242 & 0.460
+            \end{tabular}
+        \end{table}
+        \begin{table}[htpb]
+            \centering
+            \caption{The \textsc{Spa-Net} classification training results with mixed mass $4b$ TRSM sample.}
+            \label{tab:SPANet_triHiggs_TRSM_4b_mix_4_1M_cls_classification_results-TRSM}
+            \begin{tabular}{c|cc|cc}
+                             & \multicolumn{2}{c|}{Test on $4b$ datasets}& \multicolumn{2}{c}{Test on $6b$ datasets} \\ \hline
+                             & ACC                 & AUC                 & ACC                 & AUC                 \\ \hline
+            \textsc{Spa-Net} & $0.919$             & $0.976$             & $0.926$             & $0.980$
+            \end{tabular}
+        \end{table}
+
+        Table~\ref{tab:DNN_training_results_mix_1M_4b-TRSM} shows the Dense-NN training results for the mixed mass $4b$ datasets. \textsc{Spa-Net} still outperforms Dense-NN, which is consistent with the previous results.
+        \begin{table}[htpb]
+            \centering
+            \caption{The dense neural network training results. The ACC and AUC are evaluated based on 10 training.}
+            \label{tab:DNN_training_results_mix_1M_4b-TRSM}
+            \begin{tabular}{l|cc|cc}
+                             & \multicolumn{2}{c|}{Test on $4b$ datasets}& \multicolumn{2}{c}{Test on $6b$ datasets} \\ \hline
+            Pairing method   & ACC                 & AUC                 & ACC                 & AUC                 \\ \hline
+            Absolute value   & $0.7966 \pm 0.0007$ & $0.8759 \pm 0.0007$ & $0.8351 \pm 0.0004$ & $0.9043 \pm 0.0006$ \\
+            $\chi^2$         & $0.7949 \pm 0.0008$ & $0.8740 \pm 0.0007$ & $0.8330 \pm 0.0007$ & $0.9019 \pm 0.0007$ \\
+            \textsc{Spa-Net} & $0.8041 \pm 0.0007$ & $0.8857 \pm 0.0005$ & $0.8329 \pm 0.0006$ & $0.9052 \pm 0.0003$
+            \end{tabular}
+        \end{table}
+    % subsection event_classifier_with_mixed_datasets_in_trsm (end)
+    \subsection{Performance at different mass points}% (fold)
+    \label{sub:performance_at_different_mass_points}
+        We evaluate the pairing and classification performance at each mass point to investigate the detailed results for mixed datasets.
+
+        Figure~\ref{fig:pairing_performance_each_mass_point-TRSM} illustrates the pairing performance across different mass points. For the $4b$ dataset, \textsc{Spa-Net} has the highest event efficiency across all mass points. However, for the $6b$ dataset, \textsc{Spa-Net} does not always outperform the cut-based methods. One possible reason is that the training sample size is insufficient.
+        \begin{figure}[htpb]
+            \centering
+            \subfloat[]{  
+                \includegraphics[width=0.45\textwidth]{pairing_performance-4b_datasets-TRSM.pdf}  
+            }  
+            \subfloat[]{  
+                \includegraphics[width=0.45\textwidth]{pairing_performance-6b_datasets-TRSM.pdf}  
+            }  
+            \caption{Pairing performance at different mass points. We evaluate the event efficiency of various pairing methods. The \textsc{Spa-Net} is trained on the mixed datasets described in Section~\ref{sub:event_classifier_with_mixed_datasets_in_trsm}.}  
+            \label{fig:pairing_performance_each_mass_point-TRSM}  
+        \end{figure}
+
+        Figure~\ref{fig:classification_performance_each_mass_point-TRSM} shows the classification performance at different mass points. The \textsc{Spa-Net} classifier outperforms the Dense-NN classifier for both $4b$ and $6b$ datasets. Dense-NN classifiers with different pairing methods show similar performance trends. These results are consistent with tables~\ref{tab:SPANet_triHiggs_TRSM_4b_mix_4_1M_cls_classification_results-TRSM} and \ref{tab:DNN_training_results_mix_1M_4b-TRSM}.  
+
+        \begin{figure}[htpb]
+            \centering
+            \subfloat[]{  
+                \includegraphics[width=0.45\textwidth]{classification_performance-TRSM-4b_datasets.pdf}  
+            }  
+            \subfloat[]{  
+                \includegraphics[width=0.45\textwidth]{classification_performance-TRSM-6b_datasets.pdf}  
+            }  
+            \caption{Classification performance at different mass points. The AUCs of different classifiers are evaluated. Both \textsc{Spa-Net} and Dense-NNs are trained on the mixed datasets described in Section~\ref{sub:event_classifier_with_mixed_datasets}.}  
+            \label{fig:classification_performance_each_mass_point-TRSM}  
+        \end{figure}
+    % subsection performance_at_different_mass_points (end) 
 % section two_real_singlet_model_trsm_ (end)
+\section{Enlarge the training samples for TRSM}% (fold)
+\label{sec:enlarge_the_training_samples_for_trsm}
+    We consider the same mass point mentioned in section~\ref{sub:event_classifier_with_mixed_datasets_in_trsm} but increase the number of events for each mass point to 750k, and the total size of the $4b$ datasets is 3M.
+
+    For the jet assignment part (only for \textsc{Spa-Net}), the details of training and testing samples are listed as follows:
+
+    \begin{itemize}
+        \item Training sample:
+        \begin{itemize}
+            \item Total sample size: 3,600,000
+            \item 1h sample size: 704,163
+            \item 2h sample size: 993,213
+            \item 3h sample size: 850,587
+            \item 5\% used on validation
+        \end{itemize}
+        \item Testing sample:
+        \begin{itemize}
+            \item Total sample size: 400,000
+            \item 1h sample size: 74,708
+            \item 2h sample size: 113,360
+            \item 3h sample size: 96,180
+        \end{itemize}
+    \end{itemize}
+
+    For event classification, both Dense-NN and \textsc{Spa-Net}
+    \begin{itemize}
+        \item Training sample:
+        \begin{itemize}
+            \item Total sample size: 3,600,000
+            \item Signal sample size: 2,700,000
+            \item Background sample size: 900,000
+            \item 5\% used on validation
+        \end{itemize}
+        \item Testing sample:
+        \begin{itemize}
+            \item Total sample size: 400,000
+            \item Signal sample size: 300,000
+            \item Background sample size: 100,000
+        \end{itemize}
+    \end{itemize}
+
+    Training \textsc{Spa-Net} on our server requires approximately 10.1 hours for 50 epochs.
+
+    Table~\ref{tab:SPANet_triHiggs_TRSM_4b-mix_4-750k-cls_4b_pairing_results}, \ref{tab:SPANet_triHiggs_TRSM_4b-mix_4-750k-cls_6b_pairing_results} and \ref{tab:SPANet_triHiggs_TRSM_4b-mix_4-750k-cls_classification_results} summarizes the training performance of \textsc{Spa-Net} using the mixed mass $4b$ tri-Higgs dataset. The pairing performance is better than table \ref{tab:SPANet_triHiggs_TRSM_4b_mix_4_1M_cls_pairing_results-TRSM} by 3\%. The classification results are similar to table~\ref{tab:SPANet_triHiggs_TRSM_4b_mix_4_1M_cls_classification_results-TRSM}. It seems the classification performance is saturated.
+    \begin{table}[htpb]
+        \centering
+        \caption{\textsc{Spa-Net} training results on the mixed mass $4b$ TRSM samples. For each mass point, we used 750k events. We used the $4b$ testing sample to evaluate the pairing performance. \textsc{Spa-Net} is trained on jet pairing and event classification tasks at the same time.}
+        \label{tab:SPANet_triHiggs_TRSM_4b-mix_4-750k-cls_4b_pairing_results}
+        \begin{tabular}{c|cccc|c}
+                       & \multicolumn{4}{c|}{Correctly reconstructed Higgs} &                  \\ \hline
+        $N_\text{Jet}$ & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency \\ \hline
+        $=6$           & 0.445 & 0.000 & 0.388 & 0.167 & 0.574            \\
+        $=7$           & 0.337 & 0.054 & 0.397 & 0.211 & 0.506            \\
+        $\ge 8$        & 0.238 & 0.088 & 0.404 & 0.271 & 0.431            \\ \hline
+        Total          & 0.311 & 0.060 & 0.398 & 0.231 & 0.483
+        \end{tabular}
+    \end{table}
+    \begin{table}[htpb]
+        \centering
+        \caption{\textsc{Spa-Net} training results on the mixed mass $4b$ TRSM samples. For each mass point, we used 750k events. We used the $6b$ testing sample to evaluate the pairing performance. \textsc{Spa-Net} is trained on jet pairing and event classification tasks at the same time.}
+        \label{tab:SPANet_triHiggs_TRSM_4b-mix_4-750k-cls_6b_pairing_results}
+        \begin{tabular}{c|cccc|c}
+                       & \multicolumn{4}{c|}{Correctly reconstructed Higgs} &                  \\ \hline
+        $N_\text{Jet}$ & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency \\ \hline
+        $=6$           & 0.479 & 0.000 & 0.372 & 0.149 & 0.603             \\
+        $=7$           & 0.387 & 0.033 & 0.390 & 0.190 & 0.539             \\
+        $\ge 8$        & 0.267 & 0.066 & 0.400 & 0.267 & 0.444             \\ \hline
+        Total          & 0.343 & 0.044 & 0.392 & 0.221 & 0.503 
+        \end{tabular}
+    \end{table}
+    \begin{table}[htpb]
+        \centering
+        \caption{The \textsc{Spa-Net} classification training results with mixed mass $4b$ TRSM sample.}
+        \label{tab:SPANet_triHiggs_TRSM_4b-mix_4-750k-cls_classification_results}
+        \begin{tabular}{c|cc|cc}
+                         & \multicolumn{2}{c|}{Test on $4b$ datasets}& \multicolumn{2}{c}{Test on $6b$ datasets} \\ \hline
+                         & ACC                 & AUC                 & ACC                 & AUC                 \\ \hline
+        \textsc{Spa-Net} & $0.932$             & $0.974$             & $0.921$             & $0.977$
+        \end{tabular}
+    \end{table}
+
+    Table~\ref{tab:DNN_training_results_mix_750k_4b-TRSM} shows the Dense-NN training results for the mixed mass $4b$ datasets. \textsc{Spa-Net} still outperforms Dense-NN, which is consistent with the previous results (table~\ref{tab:SPANet_triHiggs_TRSM_4b_mix_4_1M_cls_classification_results-TRSM} and \ref{tab:DNN_training_results_mix_1M_4b-TRSM}).
+    \begin{table}[htpb]
+        \centering
+        \caption{The dense neural network training results. The ACC and AUC are evaluated based on 10 training.}
+        \label{tab:DNN_training_results_mix_750k_4b-TRSM}
+        \begin{tabular}{l|cc|cc}
+                         & \multicolumn{2}{c|}{Test on $4b$ datasets}& \multicolumn{2}{c}{Test on $6b$ datasets} \\ \hline
+        Pairing method   & ACC                 & AUC                 & ACC                 & AUC                 \\ \hline
+        Absolute value   & $0.8597 \pm 0.0001$ & $0.8763 \pm 0.0006$ & $0.8345 \pm 0.0005$ & $0.9047 \pm 0.0005$ \\
+        $\chi^2$         & $0.8585 \pm 0.0001$ & $0.8740 \pm 0.0004$ & $0.8330 \pm 0.0006$ & $0.9022 \pm 0.0006$ \\
+        \textsc{Spa-Net} & $0.8640 \pm 0.0002$ & $0.8881 \pm 0.0005$ & $0.8361 \pm 0.0004$ & $0.9082 \pm 0.0003$
+        \end{tabular}
+    \end{table}
+    \subsection{Performance at different mass points}% (fold)
+    \label{sub:performance_at_different_mass_points}
+        We evaluate the pairing and classification performance at each mass point to investigate the detailed results for mixed datasets.
+
+        Figure~\ref{fig:pairing_performance_each_mass_point-TRSM-750k} illustrates the pairing performance across different mass points. For the $4b$ dataset, \textsc{Spa-Net} has the highest event efficiency across all mass points. However, for the $6b$ dataset, \textsc{Spa-Net} does not always outperform the cut-based methods. One possible reason is that the training sample size is insufficient.
+        \begin{figure}[htpb]
+            \centering
+            \subfloat[]{  
+                \includegraphics[width=0.45\textwidth]{pairing_performance-4b_datasets-750k-TRSM.pdf}
+            }
+            \subfloat[]{
+                \includegraphics[width=0.45\textwidth]{pairing_performance-6b_datasets-750k-TRSM.pdf}
+            }
+            \caption{Pairing performance at different mass points. We evaluate the event efficiency of various pairing methods. The \textsc{Spa-Net} is trained on the mixed datasets described in Section~\ref{sec:enlarge_the_training_samples_for_trsm}.}  
+            \label{fig:pairing_performance_each_mass_point-TRSM-750k}  
+        \end{figure}
+
+        Figure~\ref{fig:classification_performance_each_mass_point-TRSM} shows the classification performance at different mass points. The \textsc{Spa-Net} classifier outperforms the Dense-NN classifier for both $4b$ and $6b$ datasets. Dense-NN classifiers with different pairing methods show similar performance trends. These results are consistent with tables~\ref{tab:SPANet_triHiggs_TRSM_4b-mix_4-750k-cls_classification_results} and \ref{tab:DNN_training_results_mix_750k_4b-TRSM}.  
+
+        \begin{figure}[htpb]
+            \centering
+            \subfloat[]{  
+                \includegraphics[width=0.45\textwidth]{classification_performance-TRSM-4b_datasets.pdf}  
+            }  
+            \subfloat[]{  
+                \includegraphics[width=0.45\textwidth]{classification_performance-TRSM-6b_datasets.pdf}  
+            }  
+            \caption{Classification performance at different mass points. The AUCs of different classifiers are evaluated. Both \textsc{Spa-Net} and Dense-NNs are trained on the mixed datasets described in Section~\ref{sub:event_classifier_with_mixed_datasets}.}  
+            \label{fig:classification_performance_each_mass_point-TRSM}  
+        \end{figure}
+    % subsection performance_at_different_mass_points (end)
+% section enlarge_the_training_samples_for_trsm (end)
+\section{TRSM: 5 mass points}% (fold)
+\label{sec:trsm_5_mass_points}
+    This section considers the 5 mass points: $(m_{h_3}, m_{h_2}) = $ (420, 280), (500, 275), (500, 300), (520, 325), (500, 350) GeV. In the training set, each signal point contains 250k events, and the background includes 1M events. Thus, the total size of the $4b$ training datasets is 2.25M.
+
+    For the jet assignment part (only for \textsc{Spa-Net}), the details of training and testing samples are listed as follows:
+
+    \begin{itemize}
+        \item Training sample:
+        \begin{itemize}
+            \item Total sample size: 2,250,000
+            \item 1h sample size: 299,919
+            \item 2h sample size: 496,944
+            \item 3h sample size: 394,491            
+            \item 5\% used on validation
+        \end{itemize}
+        \item Testing sample:
+        \begin{itemize}
+            \item Total sample size: 300,000
+            \item 1h sample size: 39,490
+            \item 2h sample size: 129,085
+            \item 3h sample size: 79,385
+        \end{itemize}
+    \end{itemize}
+
+    For event classification, both Dense-NN and \textsc{Spa-Net}
+    \begin{itemize}
+        \item Training sample:
+        \begin{itemize}
+            \item Total sample size: 2,250,000
+            \item Signal sample size: 1,250,000
+            \item Background sample size: 1,000,000
+            \item 5\% used on validation
+        \end{itemize}
+        \item Testing sample:
+        \begin{itemize}
+            \item Total sample size: 300,000
+            \item Signal sample size: 250,000
+            \item Background sample size: 50,000
+        \end{itemize}
+    \end{itemize}
+
+    Training \textsc{Spa-Net} on our server requires approximately 6.25 hours for 50 epochs.
+
+    Table~\ref{tab:SPANet_triHiggs_TRSM_4b-mix_5-250k-cls_4b_pairing_results}, \ref{tab:SPANet_triHiggs_TRSM_4b-mix_5-250k-cls_6b_pairing_results} and \ref{tab:SPANet_triHiggs_TRSM_4b-mix_5-250k-cls_classification_results} summarizes the training performance of \textsc{Spa-Net} using the mixed mass $4b$ dataset. The pairing performance is worse than table~\ref{tab:SPANet_triHiggs_TRSM_4b-mix_4-750k-cls_4b_pairing_results} and \ref{tab:SPANet_triHiggs_TRSM_4b-mix_4-750k-cls_6b_pairing_results}. The classification results are similar to table~\ref{tab:SPANet_triHiggs_TRSM_4b-mix_4-750k-cls_classification_results}. It seems the classification performance is saturated.
+
+    \begin{table}[htpb]
+        \centering
+        \caption{\textsc{Spa-Net} training results on the mixed mass $4b$ TRSM samples. For each mass point, we used 250k events. We used the $4b$ testing sample to evaluate the pairing performance. \textsc{Spa-Net} is trained on jet pairing and event classification tasks at the same time.}
+        \label{tab:SPANet_triHiggs_TRSM_4b-mix_5-250k-cls_4b_pairing_results}
+        \begin{tabular}{c|cccc|c}
+                       & \multicolumn{4}{c|}{Correctly reconstructed Higgs} &                  \\ \hline
+        $N_\text{Jet}$ & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency \\ \hline
+        $=6$           & 0.343 & 0.000 & 0.451 & 0.206 & 0.494            \\
+        $=7$           & 0.282 & 0.058 & 0.415 & 0.245 & 0.459            \\
+        $\ge 8$        & 0.175 & 0.082 & 0.421 & 0.322 & 0.370            \\ \hline
+        Total          & 0.244 & 0.057 & 0.426 & 0.273 & 0.424
+        \end{tabular}
+    \end{table}
+
+    \begin{table}[htpb]
+        \centering
+        \caption{\textsc{Spa-Net} training results on the mixed mass $4b$ TRSM samples. For each mass point, we used 250k events. We used the $6b$ testing sample to evaluate the pairing performance. \textsc{Spa-Net} is trained on jet pairing and event classification tasks at the same time.}
+        \label{tab:SPANet_triHiggs_TRSM_4b-mix_5-250k-cls_6b_pairing_results}
+        \begin{tabular}{c|cccc|c}
+                       & \multicolumn{4}{c|}{Correctly reconstructed Higgs} &                  \\ \hline
+        $N_\text{Jet}$ & 3h          & 2h         & 1h         & 0h         & Higgs Efficiency \\ \hline
+        $=6$           & 0.399 & 0.000 & 0.416 & 0.185 & 0.538             \\
+        $=7$           & 0.305 & 0.029 & 0.423 & 0.243 & 0.465             \\
+        $\ge 8$        & 0.212 & 0.057 & 0.417 & 0.314 & 0.389             \\ \hline
+        Total          & 0.274 & 0.038 & 0.418 & 0.269 & 0.439 
+        \end{tabular}
+    \end{table}
+    \begin{table}[htpb]
+        \centering
+        \caption{The \textsc{Spa-Net} classification training results with mixed mass $4b$ TRSM sample.}
+        \label{tab:SPANet_triHiggs_TRSM_4b-mix_5-250k-cls_classification_results}
+        \begin{tabular}{c|cc|cc}
+                         & \multicolumn{2}{c|}{Test on $4b$ datasets}& \multicolumn{2}{c}{Test on $6b$ datasets} \\ \hline
+                         & ACC                 & AUC                 & ACC                 & AUC                 \\ \hline
+        \textsc{Spa-Net} & $0.946$             & $0.974$             & $0.920$             & $0.977$
+        \end{tabular}
+    \end{table}
+
+    Table~\ref{tab:DNN_training_results_mix_5-250k-4b-TRSM} shows the Dense-NN training results for the mixed mass $4b$ datasets. \textsc{Spa-Net} still outperforms Dense-NN, which is similar to the previous exercise (table~\ref{tab:SPANet_triHiggs_TRSM_4b-mix_4-750k-cls_classification_results} and \ref{tab:DNN_training_results_mix_750k_4b-TRSM}).
+    \begin{table}[htpb]
+        \centering
+        \caption{The dense neural network training results. The ACC and AUC are evaluated based on 10 training.}
+        \label{tab:DNN_training_results_mix_5-250k-4b-TRSM}
+        \begin{tabular}{l|cc|cc}
+                         & \multicolumn{2}{c|}{Test on $4b$ datasets}& \multicolumn{2}{c}{Test on $6b$ datasets} \\ \hline
+        Pairing method   & ACC                 & AUC                 & ACC                 & AUC                 \\ \hline
+        Absolute value   & $0.8936 \pm 0.0002$ & $0.8807 \pm 0.0002$ & $0.8329 \pm 0.0006$ & $0.9023 \pm 0.0005$ \\
+        $\chi^2$         & $0.8933 \pm 0.0002$ & $0.8786 \pm 0.0003$ & $0.8308 \pm 0.0008$ & $0.9001 \pm 0.0006$ \\
+        \textsc{Spa-Net} & $0.8948 \pm 0.0001$ & $0.8843 \pm 0.0002$ & $0.8308 \pm 0.0005$ & $0.9029 \pm 0.0003$
+        \end{tabular}
+    \end{table}
+    \subsection{Performance at different mass points}% (fold)
+    \label{sub:performance_at_different_mass_points}
+        We evaluate the pairing and classification performance at each mass point to investigate the detailed results for mixed datasets.
+
+        Figure~\ref{fig:pairing_performance_each_mass_point-TRSM-mix_5-250k} illustrates the pairing performance across different mass points. For the $4b$ dataset, \textsc{Spa-Net} has the highest event efficiency except the $\left( 420, 280 \right) $ GeV point. However, for the $6b$ dataset, \textsc{Spa-Net} does not perform better than the cut-based methods. One possible reason is that the training sample size is insufficient.
+        \begin{figure}[htpb]
+            \centering
+            \subfloat[]{  
+                \includegraphics[width=0.45\textwidth]{pairing_performance-4b_datasets-mix_5-250k-TRSM.pdf}
+            }
+            \subfloat[]{
+                \includegraphics[width=0.45\textwidth]{pairing_performance-6b_datasets-mix_5-250k-TRSM.pdf}
+            }
+            \caption{Pairing performance at different mass points. We evaluate the event efficiency of various pairing methods. The \textsc{Spa-Net} is trained on the mixed datasets described in section~\ref{sec:trsm_5_mass_points}.}  
+            \label{fig:pairing_performance_each_mass_point-TRSM-mix_5-250k}  
+        \end{figure}
+
+        Figure~\ref{fig:classification_performance_each_mass_point-TRSM-mix_5-250k} shows the classification performance at different mass points. The \textsc{Spa-Net} classifier outperforms the Dense-NN classifier for both $4b$ and $6b$ datasets. Dense-NN classifiers with different pairing methods show similar performance trends. These results are consistent with tables~\ref{tab:SPANet_triHiggs_TRSM_4b-mix_5-250k-cls_classification_results} and \ref{tab:DNN_training_results_mix_5-250k-4b-TRSM}.  
+
+        \begin{figure}[htpb]
+            \centering
+            \subfloat[]{  
+                \includegraphics[width=0.45\textwidth]{classification_performance-TRSM-4b_datasets-mix_5-250k.pdf}  
+            }  
+            \subfloat[]{  
+                \includegraphics[width=0.45\textwidth]{classification_performance-TRSM-6b_datasets-mix_5-250k.pdf}  
+            }  
+            \caption{Classification performance at different mass points. The AUCs of different classifiers are evaluated. Both \textsc{Spa-Net} and Dense-NNs are trained on the mixed datasets described in Section~\ref{sec:trsm_5_mass_points}.}  
+            \label{fig:classification_performance_each_mass_point-TRSM-mix_5-250k}  
+        \end{figure}
+    % subsection performance_at_different_mass_points (end)
+    \subsection{Upper limit of cross-section}% (fold)
+    \label{sub:upper_limit_of_cross_section}
+        The $\text{CL}_{\text{s}}$ method is used to set the upper limits of the cross-section. The signal strength $\mu_{\text{s}}$ is chosen as the parameter of interest (POI). The POI is excluded at the 95\% confidence level when the $\text{CL}_{\text{s}} < 0.05$. The package \verb|pyhf|~\cite{pyhf,pyhf_joss} is utilized to calculate the upper limit. Once the upper limit of signal strength is obtained, it can be converted to the upper limit of the cross-section.
+
+        Figure~\ref{fig:signal_strength_upper_limit_tem} shows the 95\% CL upper limits for cross-section $\sigma\left( pp \to hhh \right)$. Dense-NN classifiers with different pairing methods demonstrate similar results. The \textsc{Spa-Net} classifier performs the best among all selection methods. Note that these values are preliminary, as we need to use the correct background cross-sections to normalize them. The final results will differ by an overall factor.
+
+        \begin{figure}[htpb]
+            \centering
+            \includegraphics[width=0.45\textwidth]{cross_section_upper_limit-TRSM-mix_5-250k.pdf}
+            \caption{95\% CL upper limits of the cross-section $\sigma\left( pp \to hhh \right)$.}
+            \label{fig:signal_strength_upper_limit_tem}
+        \end{figure}
+    % subsection upper_limit_of_cross_section (end)
+% section trsm_5_mass_points (end)
 \bibliographystyle{ieeetr}
 \bibliography{reference}
 
