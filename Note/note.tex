@@ -2361,6 +2361,45 @@
             \label{fig:cross_section_upper_limit-TRSM-mix_5-1M}
         \end{figure}
     % subsection update_the_upper_limit (end)
+    \subsection{Modified the Dense-NN training setting}% (fold)
+    \label{sub:modified_the_dense_nn_training_setting}
+        To make a fari comparison with ATLAS results, we change the number of hidden nodes to 24 for each layer. We reduced the training sample size to 900k, such the number of background event is closed to 5b data. The class weights are also added.  
+
+        Table~\ref{tab:DNN_training_results_mix_5-150k-4b-TRSM} shows the Dense-NN training results for the mixed mass $4b$ datasets. The training results are worse than 1M datasets.
+        \begin{table}[htpb]
+            \centering
+            \caption{The dense neural network training results. The ACC and AUC are evaluated based on 10 training.}
+            \label{tab:DNN_training_results_mix_5-150k-4b-TRSM}
+            \begin{tabular}{l|cc|cc}
+                             & \multicolumn{2}{c|}{Test on $4b$ datasets}& \multicolumn{2}{c}{Test on $6b$ datasets} \\ \hline
+            Pairing method   & ACC                 & AUC                 & ACC                 & AUC                 \\ \hline
+            Absolute value   & $0.8927 \pm 0.0002$ & $0.8724 \pm 0.0006$ & $0.8255 \pm 0.0008$ & $0.8929 \pm 0.0009$ \\
+            $\chi^2$         & $0.8924 \pm 0.0005$ & $0.8707 \pm 0.0017$ & $0.8241 \pm 0.0013$ & $0.8898 \pm 0.0014$ \\
+            \textsc{Spa-Net} & $0.8956 \pm 0.0002$ & $0.8821 \pm 0.0008$ & $0.8275 \pm 0.0007$ & $0.8990 \pm 0.0008$
+            \end{tabular}
+        \end{table}
+
+        Figure~\ref{fig:classification_performance_each_mass_point-TRSM-mix_5-150k} shows the classification performance at different mass points. Dense-NN classifiers with different pairing methods show similar performance trends. These results are worse than figure~\ref{fig:classification_performance_each_mass_point-TRSM-mix_5-1M} by 1\%.  
+        \begin{figure}[htpb]
+            \centering
+            \subfloat[]{  
+                \includegraphics[width=0.45\textwidth]{classification_performance-TRSM-4b_datasets-mix_5-150k-24_nodes.pdf}  
+            }  
+            \subfloat[]{  
+                \includegraphics[width=0.45\textwidth]{classification_performance-TRSM-6b_datasets-mix_5-150k-24_nodes.pdf}
+            }  
+            \caption{Classification performance at different mass points. The AUCs of different classifiers are evaluated. Both \textsc{Spa-Net} and Dense-NNs are trained on the mixed datasets described in Section~\ref{sec:trsm_5_mass_points}.}  
+            \label{fig:classification_performance_each_mass_point-TRSM-mix_5-150k}  
+        \end{figure}
+
+        Figure~\ref{fig:cross_section_upper_limit-TRSM-mix_5-150k} shows the 95\% CL upper limits for cross-section $\sigma\left( pp \to hhh \right)$. The upper limits of Dense-NN are similar to figure~\ref{fig:cross_section_upper_limit-TRSM-mix_5-1M}.
+        \begin{figure}[htpb]
+            \centering
+            \includegraphics[width=0.45\textwidth]{cross_section_upper_limit-TRSM-mix_5-1M-ATLAS-24_nodes.pdf}
+            \caption{95\% CL upper limits of the cross-section $\sigma\left( pp \to hhh \right)$.}
+            \label{fig:cross_section_upper_limit-TRSM-mix_5-150k}
+        \end{figure}
+    % subsection modified_the_dense_nn_training_setting (end)
 % section trsm_5_mass_points_1m_datasets (end)
 \bibliographystyle{ieeetr}
 \bibliography{reference}
