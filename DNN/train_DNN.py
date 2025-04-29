@@ -45,11 +45,11 @@ class DNN(tf.keras.Model):
         self.bn = tf.keras.layers.BatchNormalization()
 
         self.network = tf.keras.Sequential([
-            tf.keras.layers.Dense(256, activation='relu'),
+            tf.keras.layers.Dense(24, activation='relu'),
             tf.keras.layers.Dropout(0.1),
-            tf.keras.layers.Dense(256, activation='relu'),
+            tf.keras.layers.Dense(24, activation='relu'),
             tf.keras.layers.Dropout(0.1),
-            tf.keras.layers.Dense(256, activation='relu'),
+            tf.keras.layers.Dense(24, activation='relu'),
             tf.keras.layers.Dropout(0.1),
             tf.keras.layers.Dense(1, activation='sigmoid'),
         ])
@@ -89,11 +89,18 @@ def main():
     X = X[idx]
     y = y[idx]
 
-    X_train = X[:int(len(X)*r_train)]
-    X_val = X[int(len(X)*r_train):]
+    try:
+        train_sample_size = config['train_sample_size']
+    except KeyError:
+        train_sample_size = len(y)
+    X = X[:train_sample_size]
+    y = y[:train_sample_size]
 
-    y_train = y[:int(len(y)*r_train)]
-    y_val = y[int(len(y)*r_train):]
+    X_train = X[:int(train_sample_size * r_train)]
+    X_val = X[int(train_sample_size * r_train):]
+
+    y_train = y[:int(train_sample_size * r_train)]
+    y_val = y[int(train_sample_size * r_train):]
 
     X_test = np.load(test_path.replace('.npy', '-data.npy'))
     y_test = np.load(test_path.replace('.npy', '-label.npy'))
@@ -124,6 +131,7 @@ def main():
     learning_rate = 1e-3
     save_model_name = f'DNN_models/last_model_{model_name}/'
 
+    class_weight = {0: 1.0, 1: train_size[1] / train_size[0]}
 
     # Create the model  
     model = DNN()
@@ -134,7 +142,7 @@ def main():
     early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=min_delta, verbose=1, patience=patience)
     check_point    = tf.keras.callbacks.ModelCheckpoint(save_model_name, monitor='val_loss', verbose=1, save_best_only=True)
 
-    history = model.fit(train_dataset, validation_data=valid_dataset, epochs=train_epochs,
+    history = model.fit(train_dataset, validation_data=valid_dataset, epochs=train_epochs, class_weight=class_weight,
                         callbacks=[early_stopping,
                                 check_point,
                                 ]
