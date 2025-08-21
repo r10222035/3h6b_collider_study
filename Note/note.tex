@@ -2363,7 +2363,7 @@
     % subsection update_the_upper_limit (end)
     \subsection{Modified the Dense-NN training setting}% (fold)
     \label{sub:modified_the_dense_nn_training_setting}
-        To make a fari comparison with ATLAS results, we change the number of hidden nodes to 24 for each layer. We reduced the training sample size to 900k, such the number of background event is closed to 5b data. The class weights are also added.  
+        To make a fair comparison with ATLAS results, we change the number of hidden nodes to 24 for each layer. We reduced the training sample size to 900k, such the number of background event is closed to 5b data. The class weights are also added.  
 
         Table~\ref{tab:DNN_training_results_mix_5-150k-4b-TRSM} shows the Dense-NN training results for the mixed mass $4b$ datasets. The training results are worse than 1M datasets.
         \begin{table}[htpb]
@@ -2399,8 +2399,31 @@
             \caption{95\% CL upper limits of the cross-section $\sigma\left( pp \to hhh \right)$.}
             \label{fig:cross_section_upper_limit-TRSM-mix_5-150k}
         \end{figure}
+
     % subsection modified_the_dense_nn_training_setting (end)
 % section trsm_5_mass_points_1m_datasets (end)
+\section{The cross-section of BSM model}% (fold)
+\label{sec:the_cross_section_of_bsm_model}
+    We consider the DM-CPV model. For the BP1, the cross-section of $h_3$ production is reported as 55~fb in Ref.~\cite{Chen:2022vac}. This value can be reproduced through the following steps:
+    \begin{enumerate}
+        \item Compute the $k$-factor between the \verb|MadGraph| calculation and the LHC Higgs Cross Section Working Group (WG) results for the ggF channel.  
+
+        Since \verb|MadGraph| provides LO results while the Higgs WG reports NNLO results, a correction factor is needed. By comparing the scan results from \href{https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBSMAt14TeV}{this page} with \verb|MadGraph| outputs, we obtain a $k$-factor of approximately $2.5$.  
+
+        \item Generate the $gg \to h_3$ process in \verb|MadGraph|. The resulting LO cross section is $21.4$~fb. After applying the $k$-factor, we obtain  
+        \[
+            \sigma(gg \to h_3) = 21.4 \times 2.5 = 53.5~\text{fb}.
+        \]
+    \end{enumerate}
+    For the process $h_3 \to 3h$ in BP1 with $\delta_2 = -1.13$, the cross-section is computed by following formula
+    \[
+        \sigma\left(gg \to h_3 \to 3h\right) = \sigma(gg \to h_3) \times \mathrm{BR}(h_3 \to h_2 h_1) \times \mathrm{BR}(h_2 \to h_1 h_1),
+    \]
+    which evaluates to $38.2$~fb. Here, the branching ratios are obtained by theoretical calculations (\verb|Mathematica|).
+
+    There exists a discrepancy between the branching ratios obtained from \verb|MadGraph| and those from theoretical calculations. This arises because \verb|MadGraph| does not correctly expand the parameter $\epsilon$ in the model, and the computation involving the color structure may be problematic (Warning message: Interaction with color structure [8] is not included).
+
+% section the_cross_section_of_bsm_model (end)
 \bibliographystyle{ieeetr}
 \bibliography{reference}
 
