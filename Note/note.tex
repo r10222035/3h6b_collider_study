@@ -1794,9 +1794,9 @@
     The Two Real Singlet Model can be found on \href{https://gitlab.com/apapaefs/twosinglet}{GitLab}, which is based on the reference~\cite{Papaefstathiou:2020lyp}.
 
     We consider the triple production of 125 GeV Higgs bosons via the gluon fusion:
-    \[
+    \begin{equation}\label{eq:TRSM_h3_resonant_decay_chain}
         g g \to h_3 \to h_2 h_1 \to h_1h_1h_1
-    \]
+    \end{equation}
     The Higgs boson $h_1$ would further decay to the $b \overline{b}$ pair. We consider the banchmark point, where $m_{h_3} = \text{420 GeV}, m_{h_2} = \text{280 GeV}, m_{h_1} = \text{125 GeV}$.
 
     We use \verb|MadGraph 3.3.1|~\cite{Alwall:2014hca} to generate these processes at a center-of-mass energy of $\sqrt{s} = 13$ TeV. The parton showering and hadronization are simulated using \verb|Pythia 8.306|~\cite{Sjostrand:2014zea}. The detector simulation is conducted by \verb|Delphes 3.4.2|~\cite{deFavereau:2013fsa}. Jet reconstruction is performed using \verb|FastJet 3.3.2|~\cite{Cacciari:2011ma} with the anti-$k_t$ algorithm~\cite{Cacciari:2008gp} and a jet radius of $R = 0.4$. These jets are required to have transverse momentum $p_{\text{T}} > 20$ GeV.
@@ -2404,24 +2404,115 @@
 % section trsm_5_mass_points_1m_datasets (end)
 \section{The cross-section of BSM model}% (fold)
 \label{sec:the_cross_section_of_bsm_model}
-    We consider the DM-CPV model. For the BP1, the cross-section of $h_3$ production is reported as 55~fb in Ref.~\cite{Chen:2022vac}. This value can be reproduced through the following steps:
-    \begin{enumerate}
-        \item Compute the $k$-factor between the \verb|MadGraph| calculation and the LHC Higgs Cross Section Working Group (WG) results for the ggF channel.  
+    \subsection{DM-CPV}% (fold)
+    \label{sub:dm_cpv}
+        We consider the DM-CPV model. For the BP1, the cross-section of $h_3$ production is reported as 55~fb in Ref.~\cite{Chen:2022vac}. This value can be reproduced through the following steps:
+        \begin{enumerate}
+            \item Compute the $k$-factor between the \verb|MadGraph| calculation and the LHC Higgs Cross Section Working Group (WG) results for the ggF channel.  
 
-        Since \verb|MadGraph| provides LO results while the Higgs WG reports NNLO results, a correction factor is needed. By comparing the scan results from \href{https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBSMAt14TeV}{this page} with \verb|MadGraph| outputs, we obtain a $k$-factor of approximately $2.5$.  
+            Since \verb|MadGraph| provides LO results while the Higgs WG reports NNLO results, a correction factor is needed. By comparing the scan results from \href{https://twiki.cern.ch/twiki/bin/view/LHCPhysics/CERNYellowReportPageBSMAt14TeV}{this page} with \verb|MadGraph| outputs, we obtain a $k$-factor of approximately $2.5$.  
 
-        \item Generate the $gg \to h_3$ process in \verb|MadGraph|. The resulting LO cross section is $21.4$~fb. After applying the $k$-factor, we obtain  
+            \item Generate the $gg \to h_3$ process in \verb|MadGraph|. The resulting LO cross section is $21.4$~fb. After applying the $k$-factor, we obtain  
+            \[
+                \sigma(gg \to h_3) = 21.4 \times 2.5 = 53.5~\text{fb}.
+            \]
+        \end{enumerate}
+        For the process $h_3 \to 3h$ in BP1 with $\delta_2 = -1.13$, the cross-section is computed by following formula
         \[
-            \sigma(gg \to h_3) = 21.4 \times 2.5 = 53.5~\text{fb}.
+            \sigma\left(gg \to h_3 \to 3h\right) = \sigma(gg \to h_3) \times \mathrm{BR}(h_3 \to h_2 h_1) \times \mathrm{BR}(h_2 \to h_1 h_1),
         \]
-    \end{enumerate}
-    For the process $h_3 \to 3h$ in BP1 with $\delta_2 = -1.13$, the cross-section is computed by following formula
-    \[
-        \sigma\left(gg \to h_3 \to 3h\right) = \sigma(gg \to h_3) \times \mathrm{BR}(h_3 \to h_2 h_1) \times \mathrm{BR}(h_2 \to h_1 h_1),
-    \]
-    which evaluates to $38.2$~fb. Here, the branching ratios are obtained by theoretical calculations (\verb|Mathematica|).
+        which evaluates to $38.2$~fb. Here, the branching ratios are obtained by theoretical calculations (\verb|Mathematica|).
 
-    There exists a discrepancy between the branching ratios obtained from \verb|MadGraph| and those from theoretical calculations. This arises because \verb|MadGraph| does not correctly expand the parameter $\epsilon$ in the model, and the computation involving the color structure may be problematic (Warning message: Interaction with color structure [8] is not included).
+        There exists a discrepancy between the branching ratios obtained from \verb|MadGraph| and those from theoretical calculations. This arises because \verb|MadGraph| does not correctly expand the parameter $\epsilon$ in the model, and the computation involving the color structure may be problematic (Warning message: Interaction with color structure [8] is not included).
+    % subsection dm_cpv (end)
+    \subsection{TRSM}% (fold)
+    \label{sub:trsm}
+        We consider the TRSM model. To validate our cross-section calculations, we compare the gluon-fusion production results with Ref.~\cite{Papaefstathiou:2020lyp}, which studies the benchmark point BP3 at $\sqrt{s} = 14$~TeV using \verb|MG v2.7.3| for Monte Carlo simulation.
+
+        We first simulate triple Higgs events from the $h_3$ resonant decay chain defined in Eq.~(\ref{eq:TRSM_h3_resonant_decay_chain}) using \verb|MadGraph| at $\sqrt{s} = 14$~TeV, with default settings.  
+
+        Table~\ref{tab:trsm_xs_comparison_v1} summarizes the comparison. Our results are consistent with Ref.~\cite{Papaefstathiou:2020lyp} within about 5\% when using \verb|MG v2.7.3|. However, results from \verb|MG v3.3.1| are systematically larger by $\sim 30\%$, indicating the importance of version in cross-section computations.
+        \begin{table}[htpb]
+            \centering
+            \caption{Comparison of cross-sections $\sigma(gg \to 3h)$ in TRSM BP3 at $\sqrt{s} = 14$~TeV. The ``Ratio'' columns denote the relative difference with respect to Ref.~\cite{Papaefstathiou:2020lyp}.}
+            \label{tab:trsm_xs_comparison_v1}
+            \begin{tabular}{c|c|cc|cc}
+                $(m_3, m_2)$ [GeV] & Ref.~\cite{Papaefstathiou:2020lyp} & \multicolumn{2}{c|}{MG v2.7.3} & \multicolumn{2}{c}{MG v3.3.1} \\ \cline{2-6} 
+                                   & $\sigma$ [fb] & $\sigma$ [fb] & Ratio & $\sigma$ [fb] & Ratio \\ \hline
+                (504, 255) & 32.40 & 30.93 & 0.955 & 41.78 & 1.289 \\
+                (455, 263) & 50.36 & 49.99 & 0.993 & 66.37 & 1.318 \\
+                (502, 287) & 39.61 & 38.49 & 0.972 & 51.51 & 1.300 \\
+                (454, 290) & 49.00 & 49.53 & 1.011 & 65.23 & 1.331 \\
+                (503, 320) & 35.88 & 35.57 & 0.991 & 47.21 & 1.316 \\
+                (504, 264) & 37.67 & 36.10 & 0.958 & 48.65 & 1.291 \\
+                (455, 280) & 51.00 & 51.14 & 1.003 & 67.57 & 1.325 \\
+                (475, 300) & 43.92 & 43.95 & 1.001 & 58.13 & 1.324 \\
+                (500, 310) & 37.90 & 37.47 & 0.989 & 49.82 & 1.314 \\
+                (500, 280) & 40.26 & 39.04 & 0.970 & 52.32 & 1.300  
+            \end{tabular}
+        \end{table}
+
+        We also perform simulations with \texttt{MG v2.7.3}, including all gluon-fusion-initiated diagrams, not just the $h_3$ resonant contribution. The results, given in Table~\ref{tab:trsm_xs_comparison_v2}, show that the ``all diagrams included'' case is very close to the resonant-only case, with differences below 2\%. This confirms that the resonant topology dominates the cross-section. To quantify this, we report
+        \[
+            k \equiv \frac{\sigma(\text{resonant})}{\sigma(\text{all diagrams})}.
+        \]
+        \begin{table}[htpb]
+            \centering
+            \caption{Comparison of cross sections $\sigma(gg \to 3h)$ in TRSM BP3 at $\sqrt{s} = 14$~TeV. The cross-sections are obtained from \texttt{MG v2.7.3}. The ``Ratio'' columns denote the relative difference with respect to Ref.~\cite{Papaefstathiou:2020lyp}.}
+            \label{tab:trsm_xs_comparison_v2}
+            \begin{tabular}{c|c|cc|cc|c}
+                $(m_3, m_2)$ [GeV] & Ref.~\cite{Papaefstathiou:2020lyp} & \multicolumn{2}{c|}{$h_3$ resonant} & \multicolumn{2}{c|}{All diagrams} & $k$ \\ \cline{2-7} 
+                                   & $\sigma$ [fb] & $\sigma$ [fb] & Ratio & $\sigma$ [fb] & Ratio &  \\ \hline
+                (504, 255) & 32.40 & 30.93 & 0.955 & 30.53 & 0.942 & 1.013 \\
+                (455, 263) & 50.36 & 49.99 & 0.993 & 49.73 & 0.988 & 1.005 \\
+                (502, 287) & 39.61 & 38.49 & 0.972 & 38.11 & 0.962 & 1.010 \\
+                (454, 290) & 49.00 & 49.53 & 1.011 & 49.54 & 1.011 & 1.000 \\
+                (503, 320) & 35.88 & 35.57 & 0.991 & 35.44 & 0.988 & 1.004 \\
+                (504, 264) & 37.67 & 36.10 & 0.958 & 35.68 & 0.947 & 1.012 \\
+                (455, 280) & 51.00 & 51.14 & 1.003 & 51.08 & 1.002 & 1.001 \\
+                (475, 300) & 43.92 & 43.95 & 1.001 & 43.93 & 1.000 & 1.001 \\
+                (500, 310) & 37.90 & 37.47 & 0.989 & 37.26 & 0.983 & 1.006 \\
+                (500, 280) & 40.26 & 39.04 & 0.970 & 38.67 & 0.960 & 1.010
+            \end{tabular}
+        \end{table}
+        
+
+        The second validation, we compare the gluon-fusion production results with those reported in the Note, which considers the benchmark point BP3 at $\sqrt{s} = 13$~TeV using \verb|MG v2.9.5| with the \texttt{NNPDF30NLO} PDF set. In our simulation, we use the corresponding PDF with \texttt{lhaid = 280000}, and consider the resonant $h_3$ decay chain.  
+
+        Table~\ref{tab:trsm_xs_comparison_13tev} shows the comparison. Our results are consistently smaller than those of the Note. We also find that \verb|MG v2.9.5| and \verb|MG v3.3.1| yield identical cross-section values.  
+        \begin{table}[htpb]
+            \centering
+            \caption{Comparison of cross sections $\sigma(gg \to 3h)$ in TRSM BP3 at $\sqrt{s} = 13$~TeV. The ``Ratio'' columns denote the relative difference with respect to the Note.}
+            \label{tab:trsm_xs_comparison_13tev}
+            \begin{tabular}{c|c|cc|cc}
+                $(m_3, m_2)$ [GeV] & Note & \multicolumn{2}{c|}{MG v2.9.5} & \multicolumn{2}{c}{MG v3.3.1} \\ \cline{2-6} 
+                                   & $\sigma$ [fb] & $\sigma$ [fb] & Ratio & $\sigma$ [fb] & Ratio \\ \hline
+                (500, 275) & 52.94 & 37.34 & 0.705 & 37.34 & 0.705 \\
+                (500, 300) & 51.68 & 36.66 & 0.709 & 36.66 & 0.709 \\
+                (520, 325) & 43.78 & 30.44 & 0.695 & 30.44 & 0.695 \\
+                (500, 350) & 37.91 & 27.53 & 0.726 & 27.53 & 0.726 \\
+                (420, 280) & 58.90 & 47.26 & 0.802 & 47.26 & 0.802
+            \end{tabular}
+        \end{table}
+
+        Finally, we simulate the full set of gluon-fusion diagrams with \texttt{MG v2.9.5}. The results, presented in Table~\ref{tab:trsm_xs_comparison_all_13tev}, confirm that the cross-section is still dominated by the resonant contribution. The ratio $k = \sigma(\text{resonant}) / \sigma(\text{all diagrams})$ remains close to unity.
+        \begin{table}[htpb]
+            \centering
+            \caption{Comparison of cross sections $\sigma(gg \to 3h)$ in TRSM BP3 at $\sqrt{s} = 13$~TeV obtained with \texttt{MG v2.9.5}. The ``Ratio'' columns denote the relative difference with respect to the Note. The last column shows $k = \sigma(\text{resonant}) / \sigma(\text{all diagrams})$.}
+            \label{tab:trsm_xs_comparison_all_13tev}
+            \begin{tabular}{c|c|cc|cc|c}
+                $(m_3, m_2)$ [GeV] & Note & \multicolumn{2}{c|}{$h_3$ resonant} & \multicolumn{2}{c|}{All diagrams} & $k$ \\ \cline{2-7} 
+                                   & $\sigma$ [fb] & $\sigma$ [fb] & Ratio & $\sigma$ [fb] & Ratio &  \\ \hline
+                (500, 275) & 52.94 & 37.34 & 0.705 & 36.94 & 0.698 & 1.011 \\
+                (500, 300) & 51.68 & 36.66 & 0.709 & 36.60 & 0.708 & 1.002 \\
+                (520, 325) & 43.78 & 30.44 & 0.695 & 30.53 & 0.697 & 0.997 \\
+                (500, 350) & 37.91 & 27.53 & 0.726 & 28.25 & 0.745 & 0.975 \\
+                (420, 280) & 58.90 & 47.26 & 0.802 & 48.11 & 0.817 & 0.982
+            \end{tabular}
+        \end{table}
+
+        It is worth noting that our earlier calculations only considered the $h_3$ resonant decay chain without including box and pentagon diagrams, and the branching ratio of $h_2 \to hh$ is not correctly included. Both issues have now been addressed.
+    % subsection trsm (end)
 
 % section the_cross_section_of_bsm_model (end)
 \bibliographystyle{ieeetr}
