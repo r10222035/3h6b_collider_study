@@ -61,6 +61,7 @@ def construct_inputs(h5_file, start, end):
         eta_mhhh_fraction = []
         sphericity = []
         aplanarity = []
+        b_Tag = [[], [], [], [], [], []]
 
         label = f['CLASSIFICATIONS/EVENT/signal'][start:end]
 
@@ -140,8 +141,16 @@ def construct_inputs(h5_file, start, end):
             sphericity.append(3 / 2 * (eigvals[1] + eigvals[2]))
             aplanarity.append(3 / 2 * eigvals[2])
 
+            b_Tag[0].append(btag[h1b1])
+            b_Tag[1].append(btag[h1b2])
+            b_Tag[2].append(btag[h2b1])
+            b_Tag[3].append(btag[h2b2])
+            b_Tag[4].append(btag[h3b1])
+            b_Tag[5].append(btag[h3b2])
+
         # save the features to npy file
-        results = np.array([dR[0], dR[1], dR[2], rms_dR, dA_skew, HT, mhCostheta, eta_mhhh_fraction, sphericity, aplanarity, label]).transpose()
+        results = np.array([dR[0], dR[1], dR[2], rms_dR, dA_skew, HT, mhCostheta, eta_mhhh_fraction, sphericity, aplanarity, b_Tag[0], b_Tag[1], b_Tag[2], b_Tag[3], b_Tag[4], b_Tag[5], label]).transpose()
+        
         return results
     
 
